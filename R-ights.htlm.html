@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rights and Responsibilities – CAN or SHOULD?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#f5f4fa; --paper:#ffffff; --ink:#221d33; --muted:#5d5875;
+  --can:#3f8a2f; --can-soft:#e5f2df;
+  --should:#5b3fa8; --should-soft:#ece6f8;
+  --warn:#b8561c; --warn-soft:#fbe9dd;
+  --line:#dcd8e8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16141d; --paper:#211e2b; --ink:#f0eef6; --muted:#aaa5bd;
+    --can:#7cc76a; --can-soft:#1f3219; --should:#a993ea; --should-soft:#2a2340;
+    --warn:#f0a070; --warn-soft:#3a2518; --line:#3a3548;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16141d; --paper:#211e2b; --ink:#f0eef6; --muted:#aaa5bd;
+  --can:#7cc76a; --can-soft:#1f3219; --should:#a993ea; --should-soft:#2a2340;
+  --warn:#f0a070; --warn-soft:#3a2518; --line:#3a3548;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Atkinson Hyperlegible",Verdana,"Segoe UI",Arial,sans-serif;font-size:19px;line-height:1.45}
+.wrap{max-width:760px;margin:0 auto;padding:18px 16px 48px}
+button{font:inherit;cursor:pointer;color:inherit}
+button:focus-visible{outline:3px solid var(--should);outline-offset:3px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.brand{font-weight:700;font-size:1.05rem}
+.brand b{color:var(--can)} .brand i{color:var(--should);font-style:normal}
+.level{display:flex;border:2px solid var(--line);border-radius:14px;overflow:hidden;background:var(--paper)}
+.level button{border:0;background:none;padding:8px 14px;font-weight:700;font-size:.95rem}
+.level button.on{background:var(--ink);color:var(--paper)}
+/* hero */
+.hero{display:grid;grid-template-columns:1fr 1fr;border-radius:22px;overflow:hidden;margin-bottom:22px}
+.hero div{padding:22px 20px}
+.hero .c{background:var(--can);color:#fff}
+.hero .s{background:var(--should);color:#fff}
+.hero strong{display:block;font-size:2.4rem;line-height:1}
+.hero span{font-size:1rem;opacity:.95}
+h1{font-size:1.5rem;margin:0 0 4px}
+.lead{color:var(--muted);margin:0 0 18px;font-size:1rem}
+.menu{display:grid;gap:12px}
+.game{display:flex;align-items:center;gap:16px;text-align:left;background:var(--paper);border:2px solid var(--line);
+  border-radius:16px;padding:14px 16px}
+.game:hover{border-color:var(--should)}
+.game .ic{font-size:2rem;width:48px;text-align:center;flex:none}
+.game h2{font-size:1.1rem;margin:0}
+.game p{margin:2px 0 0;color:var(--muted);font-size:.92rem}
+.game .best{margin-left:auto;font-size:.9rem;color:var(--muted);white-space:nowrap}
+/* play */
+.bar{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.back{border:2px solid var(--line);background:var(--paper);border-radius:12px;padding:6px 12px;font-size:.95rem}
+.prog{flex:1;height:12px;background:var(--line);border-radius:6px;overflow:hidden}
+.prog i{display:block;height:100%;background:var(--can);width:0;transition:width .3s}
+.count{font-size:.95rem;color:var(--muted);white-space:nowrap}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:20px;padding:22px 20px;margin-bottom:14px}
+.q{font-size:1.45rem;font-weight:700;margin:0 0 6px}
+.q .gap{display:inline-block;min-width:4.2em;border-bottom:3px solid var(--muted);text-align:center}
+.q .gap.can{color:var(--can);border-color:var(--can)} .q .gap.should{color:var(--should);border-color:var(--should)}
+.emoji{font-size:2.6rem;line-height:1;margin-bottom:8px}
+.say{border:0;background:var(--bg);border-radius:10px;padding:4px 10px;font-size:.95rem;margin-top:6px}
+.opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px}
+.opt{border:3px solid var(--line);background:var(--paper);border-radius:16px;padding:16px 10px;font-size:1.25rem;font-weight:700}
+.opt.can{border-color:var(--can);color:var(--can)} .opt.should{border-color:var(--should);color:var(--should)}
+.opt.can:hover{background:var(--can-soft)} .opt.should:hover{background:var(--should-soft)}
+.opt.right,.opt.right:hover{background:var(--can)!important;color:#fff!important;border-color:var(--can)!important}
+.opt.wrong,.opt.wrong:hover{background:var(--warn)!important;color:#fff!important;border-color:var(--warn)!important}
+.opt:disabled{cursor:default}
+.fb{border-radius:16px;padding:14px 16px;margin-top:14px;display:none}
+.fb.show{display:block}
+.fb.ok{background:var(--can-soft)} .fb.no{background:var(--warn-soft)}
+.fb strong{display:block;font-size:1.1rem}
+.next{margin-top:12px;border:0;background:var(--ink);color:var(--paper);border-radius:12px;padding:10px 20px;font-weight:700}
+.text{background:var(--bg);border-left:6px solid var(--should);border-radius:10px;padding:12px 14px;margin:6px 0 4px;font-size:1.05rem}
+.persona{display:flex;gap:10px;align-items:center;margin-bottom:10px}
+.persona span{font-size:2.2rem}
+/* build */
+.slot{min-height:64px;border:2px dashed var(--line);border-radius:14px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.tiles{display:flex;flex-wrap:wrap;gap:8px}
+.tile{border:2px solid var(--should);background:var(--should-soft);border-radius:10px;padding:8px 12px;font-weight:700}
+.slot .tile{border-color:var(--can);background:var(--can-soft)}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.ghost{border:2px solid var(--line);background:var(--paper);border-radius:12px;padding:8px 16px;font-weight:700}
+/* end */
+.stars{font-size:3rem;letter-spacing:6px}
+.review{margin:10px 0 0;padding-left:1.1em}
+.review li{margin-bottom:8px}
+.hide{display:none!important}
+.big{font-size:1.6rem;font-weight:700;margin:6px 0}
+.model{background:var(--can-soft);border-radius:12px;padding:12px 14px;margin-top:12px;font-weight:700}
+.frame{color:var(--muted);font-size:1rem;margin-top:8px}
+@media (max-width:480px){.hero strong{font-size:1.9rem}.q{font-size:1.25rem}}
+@media (prefers-reduced-motion:reduce){.prog i{transition:none}}
+
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2060%2030%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3CclipPath%20id%3D%22t%22%3E%3Cpath%20d%3D%22M30%2C15h30v15zv15h-30zh-30v-15zv-15h30z%22/%3E%3C/clipPath%3E%3Cpath%20d%3D%22M0%2C0v30h60v-30z%22%20fill%3D%22%23012169%22/%3E%3Cpath%20d%3D%22M0%2C0L60%2C30M60%2C0L0%2C30%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Cpath%20d%3D%22M0%2C0L60%2C30M60%2C0L0%2C30%22%20clip-path%3D%22url%28%23t%29%22%20stroke%3D%22%23C8102E%22%20stroke-width%3D%224%22/%3E%3Cpath%20d%3D%22M30%2C0v30M0%2C15h60%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2210%22/%3E%3Cpath%20d%3D%22M30%2C0v30M0%2C15h60%22%20stroke%3D%22%23C8102E%22%20stroke-width%3D%226%22/%3E%3C/svg%3E") center/cover no-repeat;opacity:.16;pointer-events:none}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) body::before{opacity:.09}}
+:root[data-theme="dark"] body::before{opacity:.09}
+.flag{display:inline-block;width:36px;height:18px;vertical-align:-3px;margin-right:8px;border-radius:3px;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2060%2030%22%20preserveAspectRatio%3D%22xMidYMid%20slice%22%3E%3CclipPath%20id%3D%22t%22%3E%3Cpath%20d%3D%22M30%2C15h30v15zv15h-30zh-30v-15zv-15h30z%22/%3E%3C/clipPath%3E%3Cpath%20d%3D%22M0%2C0v30h60v-30z%22%20fill%3D%22%23012169%22/%3E%3Cpath%20d%3D%22M0%2C0L60%2C30M60%2C0L0%2C30%22%20stroke%3D%22%23fff%22%20stroke-width%3D%226%22/%3E%3Cpath%20d%3D%22M0%2C0L60%2C30M60%2C0L0%2C30%22%20clip-path%3D%22url%28%23t%29%22%20stroke%3D%22%23C8102E%22%20stroke-width%3D%224%22/%3E%3Cpath%20d%3D%22M30%2C0v30M0%2C15h60%22%20stroke%3D%22%23fff%22%20stroke-width%3D%2210%22/%3E%3Cpath%20d%3D%22M30%2C0v30M0%2C15h60%22%20stroke%3D%22%23C8102E%22%20stroke-width%3D%226%22/%3E%3C/svg%3E") center/cover;box-shadow:0 0 0 1px var(--line)}
+body{position:relative;z-index:0}
+.lead,h1{text-shadow:0 0 6px var(--bg),0 0 12px var(--bg)}
+.acorn{height:30px;vertical-align:middle;background:#fff;border-radius:8px;padding:3px 6px;margin-right:8px;box-shadow:0 0 0 1px var(--line)}
+.brand{display:flex;align-items:center;flex-wrap:wrap;gap:4px}
+.pts{display:inline-flex;align-items:center;gap:6px;background:var(--paper);border:2px solid #d9a400;border-radius:999px;padding:4px 12px;font-weight:700}
+.pop{position:fixed;left:50%;top:18%;transform:translateX(-50%);background:#d9a400;color:#221d33;font-weight:700;font-size:1.4rem;padding:8px 18px;border-radius:999px;pointer-events:none;animation:pop 1.3s ease forwards;z-index:9}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,10px) scale(.8)}20%{opacity:1;transform:translate(-50%,0) scale(1.08)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-30px)}}
+.badges{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 16px}
+.badge{background:var(--paper);border:2px solid var(--line);border-radius:14px;padding:6px 12px;font-size:.95rem;opacity:.45}
+.badge.got{opacity:1;border-color:#d9a400}
+.teacher{margin-top:22px;border:2px dashed var(--line);background:var(--paper);border-radius:14px;padding:10px 16px;font-weight:700;width:100%}
+.qrs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.qrbox{background:#fff;color:#221d33;border:3px solid var(--line);border-radius:18px;padding:16px;text-align:center}
+.qrbox h3{margin:0 0 10px;font-size:1.4rem}
+.qrbox .qr{display:flex;justify-content:center;margin:0 auto 8px}
+.qrbox small{word-break:break-all;color:#5d5875}
+input.url{width:100%;font:inherit;font-size:1rem;padding:10px;border:2px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+.gap.count{color:var(--muted)!important}
+@media print{body::before,.top,.bar,.row,.teacher,.noprint{display:none!important}.qrbox{break-inside:avoid;border-color:#999}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="brand"><span class="flag" aria-hidden="true"></span><img class="acorn" alt="Acorn Training" src="data:image/png;base64,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"><span><b>CAN</b> or <i>SHOULD</i>?</span></div>
+    <div class="pts" title="Your points">⭐ <span id="ptsN">0</span></div>
+    <div class="level" role="group" aria-label="Audio speed">
+      <button id="sp0" onclick="setRate(0)">🐢 Very slow</button>
+      <button id="sp1" onclick="setRate(1)">Slow</button>
+      <button id="sp2" onclick="setRate(2)">Normal</button>
+    </div>
+    <div class="level" id="levelSw" role="group" aria-label="Level">
+      <button id="lv1" class="on" onclick="setLevel(1)">Entry 1</button>
+      <button id="lv2" onclick="setLevel(2)">Entry 2</button>
+    </div>
+  </div>
+
+  <section id="home">
+    <div class="hero">
+      <div class="c"><strong>CAN</strong><span>A right. You are allowed to do it.</span></div>
+      <div class="s"><strong>SHOULD</strong><span>A responsibility. People expect you to do it.</span></div>
+    </div>
+    <h1>Rights and Responsibilities in the UK</h1>
+    <p class="lead">Choose a game. Tap 🔊 to listen.</p>
+    <div class="badges" id="badges"></div>
+    <div class="menu" id="menu"></div>
+    <button class="teacher" onclick="teacher()">👩‍🏫 Teacher: QR codes and settings</button>
+  </section>
+
+  <section id="play" class="hide">
+    <div class="bar">
+      <button class="back" onclick="home()">◀ Games</button>
+      <div class="prog"><i id="progFill"></i></div>
+      <div class="count" id="count"></div>
+    </div>
+    <div id="stage"></div>
+  </section>
+</div>
+
+<script>
+/* ---------- DATA ---------- */
+const ITEMS = [
+ // CAN – rights
+ {e:"🙏",t:"choose your religion",k:"CAN",why:"A right. Nobody can choose your religion for you.",t3:"choose {his} religion",r:"it is {his} right"},
+ {e:"💬",t:"say what you think",k:"CAN",why:"A right: freedom of speech. But be polite!",t3:"say what {he} thinks",r:"everyone has freedom of speech"},
+ {e:"🗳️",t:"vote at 18 or older",k:"CAN",why:"A right for eligible people: 18 or older, with the right passport.",t3:"vote",r:"{he} is over 18 and eligible"},
+ {e:"🏫",s:"Children ___ go to school.",t:"go to school",k:"CAN",why:"A right. All children in the UK have a right to education.",sp:false},
+ {e:"⚖️",t:"have a fair trial",k:"CAN",why:"A right. The judge must listen to both people.",t3:"have a fair trial",r:"the judge must be fair"},
+ {e:"⛑️",t:"be safe at work",k:"CAN",why:"A right. Your boss must give you safety rules and equipment.",t3:"be safe at work",r:"the boss must keep workers safe"},
+ {e:"💷",s:"Men and women ___ get the same pay for the same job.",t:"get the same pay",k:"CAN",why:"A right. Paying a woman less for the same job is against the law.",sp:false},
+ {e:"🤝",t:"be treated fairly",k:"CAN",why:"A right. Discrimination is against the law in the UK.",t3:"be treated fairly",r:"discrimination is against the law"},
+ {e:"✝️",t:"wear a cross or a hijab at work",k:"CAN",why:"A right. You can show your religion.",t3:"wear a cross or a hijab at work",r:"people can choose their religion"},
+ {e:"🕌",t:"pray at home or at a mosque, church or temple",k:"CAN",why:"A right. Freedom of religion.",t3:"pray at a mosque, church or temple",r:"it is {his} right"},
+ {e:"✉️",t:"vote by post",k:"CAN",why:"A right. Mrs Green cannot walk far, so she votes by post.",t3:"vote by post",r:"{he} cannot walk far",l:2},
+ // SHOULD – responsibilities
+ {e:"🧍",t:"wait in the queue",k:"SHOULD",why:"A responsibility. It is fair to everyone.",t3:"wait in the queue",r:"it is fair to everyone"},
+ {e:"🗑️",t:"put rubbish in the bin",k:"SHOULD",why:"A responsibility. Keep the street clean.",t3:"put rubbish in the bin",r:"the street should be clean"},
+ {e:"🌙",t:"be quiet at night",k:"SHOULD",why:"A responsibility. Your neighbours are sleeping.",t3:"be quiet at night",r:"the neighbours are sleeping"},
+ {e:"🎫",t:"pay for your bus ticket",k:"SHOULD",why:"A responsibility. Everyone pays.",t3:"pay for {his} bus ticket",r:"everyone pays"},
+ {e:"📋",t:"follow the rules at work",k:"SHOULD",why:"A responsibility. Rules keep everyone safe.",t3:"follow the rules at work",r:"rules keep everyone safe"},
+ {e:"🫱",t:"help other people",k:"SHOULD",why:"A responsibility. We look after our community.",t3:"help other people",r:"we look after our community"},
+ {e:"👶",t:"take care of your children",k:"SHOULD",why:"A responsibility. Parents look after their children.",t3:"take care of {his} children",r:"parents look after their children"},
+ {e:"⏰",t:"be on time for work",k:"SHOULD",why:"A responsibility. Your team needs you.",t3:"be on time for work",r:"the team needs {him}"},
+ {e:"🙂",t:"respect other people",k:"SHOULD",why:"A responsibility. Everyone is equal.",t3:"respect other people",r:"everyone is equal"},
+ // tricky pairs – Entry 2
+ {e:"🕍",t:"respect other people's religion",k:"SHOULD",why:"Careful! Choosing YOUR religion is a right. Respecting OTHER people's religion is a responsibility.",t3:"respect other people's religion",r:"everyone can choose their religion",l:2},
+ {e:"🗣️",t:"be polite when you say what you think",k:"SHOULD",why:"Careful! Saying what you think is a right. Being polite is a responsibility.",t3:"be polite",r:"everyone should be respected",l:2},
+ {e:"🥾",t:"follow the safety rules at work",k:"SHOULD",why:"Careful! Being safe at work is a right. Following the safety rules is a responsibility.",t3:"follow the safety rules",r:"everyone should be safe",l:2},
+ {e:"🎒",s:"Parents ___ send their children to school.",t:"send their children to school",k:"SHOULD",why:"Careful! Going to school is the child's right. Sending children to school is the parents' responsibility.",sp:false,l:2},
+ {e:"🏛️",t:"follow the rules at the polling station",k:"SHOULD",why:"Careful! Voting is a right. Following the rules when you vote is a responsibility.",t3:"follow the rules at the polling station",r:"voting must be fair",l:2}
+];
+
+const FAIR = [
+ {e:"⛪",t:"Blessing goes to church on Sunday.",k:"FAIR",why:"People can choose their religion."},
+ {e:"🧕",t:"A man says, “You can’t wear a hijab here.”",k:"NOT FAIR",why:"People can choose their religion.",kind:"religion"},
+ {e:"💡",t:"Pavel tells his manager his idea.",k:"FAIR",why:"Everyone can say what they think."},
+ {e:"🗳️",t:"Ahmed is 25. He votes.",k:"FAIR",why:"He is eligible: 18 or older, with a British passport."},
+ {e:"🙅",t:"Sara is 15. She cannot vote.",k:"FAIR",why:"Careful! This is the law, not discrimination. Everyone votes at 18."},
+ {e:"⚖️",t:"The judge listens to both people.",k:"FAIR",why:"A trial must be fair."},
+ {e:"🙉",t:"The judge does not listen to Pavel.",k:"NOT FAIR",why:"A trial must be fair. The judge must listen to both people."},
+ {e:"💷",t:"A boss pays a woman less money for the same job.",k:"NOT FAIR",why:"Men and women should get the same pay.",kind:"sex"},
+ {e:"👴",t:"A shop says, “No job for you. You are too old.”",k:"NOT FAIR",why:"Age is not a reason to say no.",kind:"age"},
+ {e:"🥾",t:"The boss gives workers safety shoes.",k:"FAIR",why:"Workers should be safe."},
+ {e:"⚠️",t:"There are no safety rules at work.",k:"NOT FAIR",why:"Workers have a right to be safe."},
+ {e:"🏠",t:"A landlord says, “No flat for you because of your skin colour.”",k:"NOT FAIR",why:"Everyone is equal. Skin colour is not a reason.",kind:"race"},
+ {e:"😠",t:"Dan and Lee laugh at Pavel because he is from Poland.",k:"NOT FAIR",why:"Everyone is equal. Where you are from is not a reason.",kind:"race"},
+ {e:"✉️",t:"Mrs Green cannot walk far, so she votes by post.",k:"FAIR",why:"Eligible people can vote by post."},
+ {e:"✝️",t:"Blessing’s manager says she can wear her cross at work.",k:"FAIR",why:"People can choose their religion."},
+ {e:"📖",t:"Sara says what she thinks in class.",k:"FAIR",why:"Everyone can say what they think."}
+];
+const KIND_WHY = {race:"Skin colour and where you are from = race.",age:"“Too old” = age.",sex:"Paying a woman less = sex (men and women).",religion:"A hijab or a cross = religion."};
+
+const CASES = {
+ 1:[
+  {name:"Blessing",e:"✝️",text:"Blessing lives in Hanley. She works in a café. She starts work at 8 o’clock. Blessing is a Christian. She goes to church every Sunday. She does not work on Sunday. She wears a cross at work. Her manager says, “This is fine.” Blessing can choose her religion. This is her right.",
+   st:[["Blessing can choose her religion.","RIGHT"],["Blessing can wear a cross at work.","RIGHT"],["Blessing should start work at 8 o’clock.","RESPONSIBILITY"],["Blessing can go to church on Sunday.","RIGHT"],["Blessing should be polite to customers.","RESPONSIBILITY"]]},
+  {name:"Ahmed",e:"🗳️",text:"Ahmed lives in Stoke-on-Trent. He is 25 years old. He has a British passport. Ahmed is eligible. He can vote. Today is election day. Ahmed walks to a school. He votes there. He gets a paper. He puts an X on the paper. He puts the paper in the ballot box. Nobody sees his paper. His sister Sara is 15. She is not eligible. She cannot vote.",
+   st:[["Ahmed can vote.","RIGHT"],["Nobody sees Ahmed’s paper.","RIGHT"],["Ahmed should put the paper in the ballot box.","RESPONSIBILITY"],["Sara can vote when she is 18.","RIGHT"],["Ahmed should follow the rules.","RESPONSIBILITY"]]},
+  {name:"Pavel",e:"🏭",text:"Pavel is from Poland. He works in a warehouse. He works with Dan and Lee. Pavel speaks Polish and English. One day, Dan and Lee laugh at Pavel. They do not talk to him. Pavel is sad. This is not fair. This is discrimination. Pavel talks to his manager. The manager listens. The manager talks to Dan and Lee. Now they all work together. Pavel can say what he thinks. This is his right.",
+   st:[["Pavel can say what he thinks.","RIGHT"],["Pavel can be treated fairly.","RIGHT"],["Dan and Lee should respect Pavel.","RESPONSIBILITY"],["Pavel should work well with Dan and Lee.","RESPONSIBILITY"],["Pavel is safe at work.","RIGHT"]]}
+ ],
+ 2:[
+  {name:"Blessing",e:"✝️",text:"Blessing lives in Hanley and she works in a café. She is a Christian, so she goes to church every Sunday. Her manager knows this, so Blessing does not work on Sundays. She works on Saturdays instead. Blessing wears a small cross at work. One day, a customer says, “Take off that cross!” Blessing is upset, but she stays polite. Her manager says, “Blessing can wear her cross. In the UK, people can choose their religion.” The customer says sorry and leaves.",
+   st:[["Blessing wears a cross at work.","RIGHT"],["Blessing stays polite.","RESPONSIBILITY"],["Blessing goes to church.","RIGHT"],["The customer should respect other people.","RESPONSIBILITY"],["Blessing works on Saturdays instead.","RESPONSIBILITY"],["Blessing does not have to take off her cross.","RIGHT"],["The customer says sorry.","RESPONSIBILITY"]]},
+  {name:"Ahmed",e:"🗳️",text:"Ahmed lives in Stoke-on-Trent. He is 25 years old and he has a British passport, so he is eligible to vote. On election day, he goes to a polling station in a school near his home. He gives his name and gets a ballot paper. He goes into a small booth, so nobody can see his paper. He puts an X next to one name and puts the paper in the ballot box. His sister Sara is 15, so she cannot vote yet. She is disappointed, but she can vote when she is 18. Their neighbour, Mrs Green, is 82. She cannot walk far, so she votes by post.",
+   st:[["Ahmed votes on election day.","RIGHT"],["Nobody can see Ahmed’s paper.","RIGHT"],["Ahmed follows the rules at the polling station.","RESPONSIBILITY"],["Mrs Green votes by post.","RIGHT"],["Ahmed gives his name at the polling station.","RESPONSIBILITY"],["Sara is disappointed but she is polite.","RESPONSIBILITY"],["Sara can vote when she is 18.","RIGHT"]]},
+  {name:"Pavel",e:"🏭",text:"Pavel is from Poland and he works in a warehouse in Fenton. He works hard and he is always on time. Two workers, Dan and Lee, laugh at Pavel because of his accent. They do not talk to him at lunch, so Pavel feels lonely. This is discrimination, and it is against the law in the UK. Pavel is nervous, but he talks to his manager. The manager listens and talks to Dan and Lee. Now they work together, and Pavel is happy at work again. Everyone has a right to be treated fairly.",
+   st:[["Pavel is always on time.","RESPONSIBILITY"],["Pavel is treated fairly at work.","RIGHT"],["Pavel says what he thinks to his manager.","RIGHT"],["Dan and Lee should respect Pavel.","RESPONSIBILITY"],["Pavel gets the same pay as the other workers.","RIGHT"],["Pavel is safe at work.","RIGHT"],["Pavel works hard.","RESPONSIBILITY"]]}
+ ]
+};
+
+const BUILD = {
+ 1:["Blessing can choose her religion.","Ahmed can vote.","You should wait in the queue.","Pavel can say what he thinks.","Children can go to school.","We should put rubbish in the bin.","You can be safe at work.","You should be quiet at night."],
+ 2:["Ahmed can vote because he is 25.","Sara cannot vote because she is only 15.","You can say what you think, but you should be polite.","Mrs Green cannot walk far, so she votes by post.","Everyone is equal, so discrimination is against the law.","You can vote at a polling station or by post.","Blessing wears a cross, and her manager says it is fine.","Pavel talks to his manager because Dan and Lee are rude."]
+};
+
+const PEOPLE = [
+ {n:"Blessing",e:"👩🏾",g:"f"},{n:"Ahmed",e:"👨🏽",g:"m"},{n:"Pavel",e:"👨🏼",g:"m"},{n:"Fatima",e:"🧕🏽",g:"f"},
+ {n:"Amara",e:"👩🏿",g:"f"},{n:"Ali",e:"👨🏻",g:"m"},{n:"Mrs Green",e:"👵🏻",g:"f"},{n:"Mina",e:"👩🏻",g:"f"}
+];
+
+/* ---------- POINTS ---------- */
+let STREAK=0;
+const BADGES=[[50,"🥉 Bronze"],[150,"🥈 Silver"],[300,"🥇 Gold"],[500,"🏆 Champion"]];
+function getPts(){return parseInt(store("rg-points-"+LEVEL)||"0")||0}
+function drawPts(){$("ptsN").textContent=getPts();const b=$("badges");if(b)b.innerHTML=BADGES.map(([n,l])=>`<span class="badge ${getPts()>=n?"got":""}">${l} · ${n}</span>`).join("")}
+function popup(t){const d=document.createElement("div");d.className="pop";d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1400)}
+function addPts(n,label){const before=getPts(),after=before+n;store("rg-points-"+LEVEL,String(after));ROUNDPTS+=n;drawPts();
+ const nb=BADGES.find(([x])=>before<x&&after>=x);popup(nb?`New badge: ${nb[1]}!`:`+${n}${label?" "+label:""}`)}
+function right(){STREAK++;let n=10,l="";if(STREAK>=3){n+=5;l=`🔥 ${STREAK} in a row!`}addPts(n,l)}
+function wrong(){STREAK=0}
+let ROUNDPTS=0;
+/* ---------- STATE ---------- */
+const RATES=[0.55,0.72,0.9];let RATE=1;
+function setRate(r){RATE=r;[0,1,2].forEach(i=>$("sp"+i).classList.toggle("on",i===r));store("rg-rate",String(r));speak("This is the speed.")}
+let LEVEL = 1, GAME = null, Q = [], qi = 0, score = 0, total = 0, missed = [];
+const GAMES = [
+ {id:"sort",ic:"⚖️",h:"CAN or SHOULD?",p:"Is it a right or a responsibility?"},
+ {id:"fair",ic:"🤔",h:"FAIR or NOT FAIR?",p:"Read the situation. Is it fair?"},
+ {id:"case",ic:"📖",h:"Case studies",p:"Read about Blessing, Ahmed and Pavel."},
+ {id:"build",ic:"🧩",h:"Build the sentence",p:"Put the words in order."},
+ {id:"speak",ic:"🎤",h:"Speaking cards",p:"Work with a partner. Say the sentence."}
+];
+
+function store(k,v){try{ if(v===undefined) return localStorage.getItem(k); localStorage.setItem(k,v);}catch(e){return null}}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function esc(s){return s.replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+let SPK=0,CT=null;
+function utter(t,done){try{const s=window.speechSynthesis;if(!s||!t.trim()){done&&done();return}const u=new SpeechSynthesisUtterance(t);u.lang="en-GB";u.rate=RATES[RATE];const vs=s.getVoices().filter(v=>v.lang==="en-GB"||v.lang==="en_GB");const v=(navigator.onLine?null:vs.find(v=>v.localService))||vs[0];if(v)u.voice=v;if(done)u.onend=done;s.speak(u)}catch(e){done&&done()}}
+function speak(t){const id=++SPK;clearInterval(CT);try{speechSynthesis.cancel()}catch(e){}
+ if(t.includes("___")){const [a,b]=t.split("___");
+  utter(a,()=>{if(id!==SPK)return;let n=7;const g=$("gap");const show=()=>{if(g&&id===SPK&&!g.dataset.done){g.textContent=n>0?n:"?";g.classList.toggle("count",n>0)}};show();
+   CT=setInterval(()=>{if(id!==SPK){clearInterval(CT);return}n--;show();if(n<=0){clearInterval(CT);utter(b)}},1000)})}
+ else utter(t)}
+function sayBtn(t){return `<button class="say" onclick='speak(${JSON.stringify(t).replace(/'/g,"&#39;")})'>🔊 Listen</button>`}
+function pron(t,p){const m=p.g==="m";return t.replace(/\{his\}/g,m?"his":"her").replace(/\{he\}/g,m?"he":"she").replace(/\{him\}/g,m?"him":"her")}
+const $=id=>document.getElementById(id);
+
+function setLevel(l){LEVEL=l;$("lv1").classList.toggle("on",l===1);$("lv2").classList.toggle("on",l===2);store("rg-level",String(l));home()}
+function home(){SPK++;clearInterval(CT);try{speechSynthesis.cancel()}catch(e){}drawPts();
+ $("home").classList.remove("hide");$("play").classList.add("hide");
+ $("menu").innerHTML=GAMES.map(g=>{const b=store(`rg-best-${g.id}-${LEVEL}`);
+  return `<button class="game" onclick="start('${g.id}')"><span class="ic">${g.ic}</span><span><h2>${g.h}</h2><p>${g.p}</p></span>${b&&g.id!=="speak"?`<span class="best">Best: ${b}</span>`:""}</button>`}).join("")}
+function prog(){const n=GAME==="speak"?0:Q.length;$("progFill").style.width=n?(qi/n*100)+"%":"0";$("count").textContent=n?`${Math.min(qi+1,n)} / ${n}`:""}
+
+function start(id){GAME=id;qi=0;score=0;total=0;missed=[];ROUNDPTS=0;STREAK=0;
+ $("home").classList.add("hide");$("play").classList.remove("hide");
+ if(id==="sort"){const pool=ITEMS.filter(x=>LEVEL===2||!x.l);Q=shuffle(pool).slice(0,LEVEL===1?12:16).map(sortQ)}
+ if(id==="fair"){Q=shuffle(FAIR).slice(0,LEVEL===1?10:12).map(fairQ)}
+ if(id==="case"){return caseMenu()}
+ if(id==="build"){Q=shuffle(BUILD[LEVEL]);return buildShow()}
+ if(id==="speak"){return speakShow()}
+ mcShow()}
+
+/* ---------- MULTIPLE CHOICE ENGINE ---------- */
+function sortQ(x){const s=x.s||`You ___ ${x.t}.`;
+ return {e:x.e,prompt:s,opts:["CAN","SHOULD"],ans:x.k,
+  done:s.replace("___",x.k.toLowerCase()),why:x.why,
+  label:(x.k==="CAN"?"Right":"Responsibility")}}
+function fairQ(x){return {e:x.e,prompt:x.t,opts:["FAIR","NOT FAIR"],ans:x.k,done:x.t,why:x.why.startsWith("Careful")?x.why:(x.k==="FAIR"?"It is fair because ":"It is not fair because ")+x.why.charAt(0).toLowerCase()+x.why.slice(1),kind:x.kind}}
+
+function mcShow(extraTop){
+ if(qi>=Q.length) return endShow();
+ prog();const q=Q[qi];
+ const promptHtml=q.prompt.includes("___")?esc(q.prompt).replace("___",'<span class="gap" id="gap">?</span>'):esc(q.prompt);
+ $("stage").innerHTML=`${extraTop||""}<div class="card"><div class="emoji" aria-hidden="true">${q.e||""}</div>
+  <p class="q">${promptHtml}</p>${sayBtn(q.prompt)}</div>
+  <div class="opts">${q.opts.map(o=>`<button class="opt ${cls(o)}" onclick="mcPick(this,'${o}')">${o}</button>`).join("")}</div>
+  <div class="fb" id="fb"></div>`}
+function cls(o){return (o==="CAN"||o==="RIGHT"||o==="FAIR")?"can":(o==="SHOULD"||o==="RESPONSIBILITY"||o==="NOT FAIR")?"should":""}
+function mcPick(btn,o){const q=Q[qi];total++;
+ document.querySelectorAll(".opt").forEach(b=>{b.disabled=true;if(b.textContent===q.ans)b.classList.add("right")});
+ const ok=o===q.ans;if(ok){score++;right()}else{wrong();btn.classList.add("wrong");missed.push(`${q.done} → ${q.ans}`)}
+ const gap=$("gap");if(gap){gap.dataset.done="1";gap.classList.remove("count");gap.textContent=q.ans.toLowerCase();gap.classList.add(q.ans==="CAN"?"can":"should")}
+ let extra="";
+ if(q.kindStep) extra=`<br>${KIND_WHY[q.ans]}`;
+ else if(LEVEL===2&&q.label) extra=`<br><em>It is a ${q.label.toLowerCase()}, so you ${q.ans==="CAN"?"are allowed to do it":"are expected to do it"}.</em>`;
+ const fb=$("fb");fb.className="fb show "+(ok?"ok":"no");
+ fb.innerHTML=`<strong>${ok?"✅ Well done!":"❌ Not quite. The answer is "+q.ans+"."}</strong>${q.kindStep?"":esc(q.done)+"<br>"}${esc(q.why||"")}${extra}
+  <br><button class="next" onclick="mcNext()">Next ▶</button>`;
+ speak(q.kindStep?KIND_WHY[q.ans]:q.done+" "+(q.why||""));
+ // Entry 2 discrimination follow-up
+ if(GAME==="fair"&&LEVEL===2&&q.kind&&q.ans==="NOT FAIR"&&!q.kindStep){
+  Q.splice(qi+1,0,{e:"🔎",prompt:"What kind of discrimination is it? "+q.prompt,opts:["race","age","sex","religion"],ans:q.kind,done:q.prompt,why:"",kindStep:true})}
+ $("fb").querySelector(".next").focus()}
+function mcNext(){qi++;GAME==="case"?caseStep():mcShow()}
+
+/* ---------- CASE STUDIES ---------- */
+let CASE=null;
+function caseMenu(){$("count").textContent="";$("progFill").style.width="0";
+ $("stage").innerHTML=`<div class="card"><p class="q">Choose a person.</p><p class="lead" style="margin:0">Read the text. Then choose RIGHT or RESPONSIBILITY.</p></div>
+  <div class="menu">${CASES[LEVEL].map((c,i)=>{const b=store(`rg-best-case${i}-${LEVEL}`);return `<button class="game" onclick="caseStart(${i})"><span class="ic">${c.e}</span><span><h2>${c.name}</h2></span>${b?`<span class="best">Best: ${b}</span>`:""}</button>`}).join("")}</div>`}
+function caseStart(i){CASE=i;qi=0;score=0;total=0;missed=[];ROUNDPTS=0;STREAK=0;const c=CASES[LEVEL][i];
+ Q=shuffle(c.st).map(s=>({prompt:s[0],opts:["RIGHT","RESPONSIBILITY"],ans:s[1],done:s[0],why:s[1]==="RIGHT"?"This is something they CAN do.":"This is something people SHOULD do."}));caseStep()}
+function caseStep(){const c=CASES[LEVEL][CASE];
+ mcShow(`<div class="card"><div class="persona"><span aria-hidden="true">${c.e}</span><strong>${c.name}</strong></div><div class="text">${esc(c.text)}</div>${sayBtn(c.text)}</div>`)}
+
+/* ---------- BUILD ---------- */
+let placed=[],pool=[];
+function buildShow(){if(qi>=Q.length)return endShow();prog();
+ const words=Q[qi].split(" ");placed=[];pool=shuffle(words.map((w,i)=>({w,i})));
+ if(pool.every((p,i)=>p.i===i)&&pool.length>1)pool.reverse();buildDraw()}
+function buildDraw(){const s=Q[qi];
+ $("stage").innerHTML=`<div class="card"><p class="q">Put the words in order.</p>
+  <p class="frame">Start with a capital letter. End with a full stop.</p>
+  <div class="slot" aria-label="Your sentence">${placed.map((p,k)=>`<button class="tile" onclick="unplace(${k})">${esc(p.w)}</button>`).join("")||'<span class="frame">Tap the words below.</span>'}</div>
+  <div class="tiles">${pool.map((p,k)=>`<button class="tile" onclick="place(${k})">${esc(p.w)}</button>`).join("")}</div>
+  <div class="row"><button class="next" onclick="buildCheck()" ${pool.length?"disabled":""}>Check</button><button class="ghost" onclick="buildReset()">Start again</button>${sayBtn(s).replace("🔊 Listen","🔊 Hint")}</div></div><div class="fb" id="fb"></div>`}
+function place(k){placed.push(pool.splice(k,1)[0]);buildDraw()}
+function unplace(k){pool.push(placed.splice(k,1)[0]);buildDraw()}
+function buildReset(){pool=shuffle(pool.concat(placed));placed=[];buildDraw()}
+function buildCheck(){const s=Q[qi],got=placed.map(p=>p.w).join(" "),ok=got===s;total++;if(ok){score++;right()}else{wrong();missed.push(s)}
+ const fb=$("fb");fb.className="fb show "+(ok?"ok":"no");
+ fb.innerHTML=`<strong>${ok?"✅ Well done!":"❌ Not quite."}</strong>${ok?"":"You wrote: "+esc(got)+"<br>"}Correct: <b>${esc(s)}</b><br><button class="next" onclick="qi++;buildShow()">Next ▶</button>`;
+ document.querySelectorAll(".tile,.ghost").forEach(b=>b.disabled=true);document.querySelector(".row .next").disabled=true;speak(s)}
+
+/* ---------- SPEAKING ---------- */
+function speakShow(){$("count").textContent="";$("progFill").style.width="0";
+ const p=PEOPLE[Math.floor(Math.random()*PEOPLE.length)];
+ const pool=ITEMS.filter(x=>x.sp!==false&&(LEVEL===2||!x.l));const it=pool[Math.floor(Math.random()*pool.length)];
+ const verb=it.k.toLowerCase(),act=pron(it.t3,p);
+ const model=LEVEL===1?`${p.n} ${verb} ${act}.`:`${p.n} ${verb} ${act} because ${pron(it.r,p)}.`;
+ const frame=LEVEL===1?`${p.n} can … / ${p.n} should …`:`${p.n} can / should … because …`;
+ $("stage").innerHTML=`<div class="card"><div class="persona"><span aria-hidden="true">${p.e}</span><span class="big">${esc(p.n)}</span></div>
+  <div class="emoji" aria-hidden="true">${it.e}</div><p class="q">${esc(act)}</p>
+  <p class="frame">Say: ${esc(frame)}</p>${LEVEL===2?'<p class="frame">Partner: is it a right or a responsibility? Why?</p>':""}
+  <div class="row"><button class="next" onclick="speakReveal()">Check</button><button class="ghost" id="saidBtn" onclick="said()">✅ We said it! +5</button><button class="ghost" onclick="speakShow()">New card</button></div>
+  <div class="model hide" id="model">${esc(model)}<br><span style="font-weight:400">${it.k==="CAN"?"A right.":"A responsibility."}</span></div></div>`;
+ $("model").dataset.say=model}
+function said(){const b=$("saidBtn");if(b.disabled)return;b.disabled=true;addPts(5,"");}
+function speakReveal(){const m=$("model");m.classList.remove("hide");speak(m.dataset.say)}
+
+/* ---------- END ---------- */
+let LAST="";
+function resultsText(){const n=($("rName")||{}).value||"";return `Rights and Responsibilities game\nName: ${n}\nLevel: Entry ${LEVEL}\n${LAST}`}
+function mailResults(){const m=$("rMail").value.trim(),n=$("rName").value.trim();
+ if(!n){$("mailMsg").textContent="Please write your name.";return}
+ if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){$("mailMsg").textContent="Please check the email address.";return}
+ store("rg-name",n);store("rg-mail",m);
+ location.href=`mailto:${encodeURIComponent(m)}?subject=${encodeURIComponent("My results – Rights game – "+n)}&body=${encodeURIComponent(resultsText())}`;
+ $("mailMsg").textContent="Your email app should open now. Press Send."}
+function copyResults(){const t=resultsText();try{navigator.clipboard.writeText(t).then(()=>{$("mailMsg").textContent="Copied! Paste it into an email or message."})}catch(e){$("mailMsg").textContent="Copy did not work."}}
+function endShow(){$("progFill").style.width="100%";$("count").textContent="";
+ const pct=total?score/total:0,st=pct>=.9?3:pct>=.7?2:1;
+ const gname=(GAMES.find(g=>g.id===GAME)||{}).h+(GAME==="case"?" – "+CASES[LEVEL][CASE].name:"");
+ LAST=`Game: ${gname}\nDate: ${new Date().toLocaleDateString("en-GB")}\nScore: ${score} / ${total}\nStars: ${"★".repeat(st)}${"☆".repeat(3-st)}\nPoints this game: ${ROUNDPTS}\nTotal points: ${getPts()}`+(missed.length?`\n\nCheck these again:\n- ${missed.join("\n- ")}`:"");
+ const key=GAME==="case"?`rg-best-case${CASE}-${LEVEL}`:`rg-best-${GAME}-${LEVEL}`;
+ const prev=store(key),best=prev?Math.max(parseInt(prev),score):score;store(key,best+"/"+total);
+ $("stage").innerHTML=`<div class="card" style="text-align:center"><div class="stars" aria-label="${st} stars">${"★".repeat(st)}${"☆".repeat(3-st)}</div>
+  <p class="big">${score} / ${total}</p><p>⭐ +${ROUNDPTS} points this game</p><p>${st===3?"Excellent!":st===2?"Good work!":"Keep practising!"}</p></div>
+  ${missed.length?`<div class="card"><strong>Check these again:</strong><ul class="review">${missed.map(m=>`<li>${esc(m)}</li>`).join("")}</ul></div>`:""}
+  <div class="card noprint"><strong>📧 Email my results</strong>
+   <p class="frame" style="margin-top:4px">Write your name and an email address. Your email app opens. Then press Send.</p>
+   <input class="url" id="rName" placeholder="Your name" value="${esc(store('rg-name')||'')}" style="margin-bottom:8px">
+   <input class="url" id="rMail" type="email" placeholder="Email address" value="${esc(store('rg-mail')||'')}">
+   <div class="row"><button class="next" onclick="mailResults()">📧 Email</button><button class="ghost" onclick="copyResults()">📋 Copy</button></div>
+   <p class="frame" id="mailMsg"></p></div>
+  <div class="row"><button class="next" onclick="${GAME==="case"?`caseStart(${CASE})`:`start('${GAME}')`}">Play again</button>${GAME==="case"?'<button class="ghost" onclick="caseMenu()">Another person</button>':""}<button class="ghost" onclick="home()">All games</button></div>`}
+
+/* ---------- TEACHER ---------- */
+function teacher(){$("home").classList.add("hide");$("play").classList.remove("hide");$("count").textContent="";$("progFill").style.width="0";
+ const here=/^https?:/.test(location.protocol)&&!/claude\.ai|claudeusercontent/.test(location.host)?location.origin+location.pathname:"";
+ $("stage").innerHTML=`<div class="card noprint"><p class="q">QR codes for learners</p>
+  <p class="frame">Paste the web address where the game is online. Each code opens the game at one level, with the level switch hidden.</p>
+  <input class="url" id="qrUrl" placeholder="https://..." value="${esc(here)}">
+  <div class="row"><button class="next" onclick="makeQR()">Make QR codes</button><button class="ghost" onclick="window.print()">🖨️ Print</button></div>
+  <p class="frame" id="qrMsg"></p></div>
+  <div class="qrs" id="qrs"></div>
+  <div class="card noprint" style="margin-top:16px"><p class="q">Points</p><p class="frame">Points are saved on this device. Entry 1: ${store("rg-points-1")||0} · Entry 2: ${store("rg-points-2")||0}</p>
+  <div class="row"><button class="ghost" onclick="if(confirm('Reset all points and best scores on this device?')){resetAll()}">Reset points on this device</button></div></div>`}
+function resetAll(){try{Object.keys(localStorage).filter(k=>k.startsWith("rg-points")||k.startsWith("rg-best")).forEach(k=>localStorage.removeItem(k))}catch(e){}teacher()}
+function loadQR(cb){if(window.QRCode)return cb();const sc=document.createElement("script");sc.src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js";sc.onload=cb;sc.onerror=()=>{$("qrMsg").textContent="Could not load the QR maker. Please connect to the internet and try again."};document.head.appendChild(sc)}
+function makeQR(){const u=$("qrUrl").value.trim();if(!/^https?:\/\//.test(u)){$("qrMsg").textContent="Please paste a web address that starts with https://";return}
+ const base=u.split("?")[0];$("qrMsg").textContent="";
+ loadQR(()=>{$("qrs").innerHTML=[1,2].map(l=>`<div class="qrbox"><h3>Entry ${l}</h3><div class="qr" id="qr${l}"></div><p style="margin:4px 0;font-weight:700">Rights and Responsibilities game</p><small>${esc(base)}?level=${l}</small></div>`).join("");
+  [1,2].forEach(l=>new QRCode($("qr"+l),{text:`${base}?level=${l}`,width:220,height:220,correctLevel:QRCode.CorrectLevel.M}))})}
+/* ---------- INIT ---------- */
+const sr=store("rg-rate");if(sr!==null&&sr!==undefined&&RATES[+sr])RATE=+sr;[0,1,2].forEach(i=>$("sp"+i).classList.toggle("on",i===RATE));
+const qpl=new URLSearchParams(location.search).get("level");
+if(qpl==="1"||qpl==="2"){LEVEL=+qpl;$("levelSw").classList.add("hide")}else{const saved=store("rg-level");if(saved==="2")LEVEL=2;}
+$("lv1").classList.toggle("on",LEVEL===1);$("lv2").classList.toggle("on",LEVEL===2);home();
+try{speechSynthesis.getVoices()}catch(e){}
+</script>
+</body>
+</html>
