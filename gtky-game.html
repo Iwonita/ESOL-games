@@ -1,0 +1,327 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Getting to Know You – Game</title><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet"><style>
+:root{--bg:#d6ecf5;--paper:#fff;--ink:#1f1b2e;--muted:#4a4560;--g:#2e9e3e;--gs:#e2f4dd;--lv:#5b3fa8;--ps:#eaf5fb;--w:#c0561c;--ws:#fbe2d2;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;font-size:clamp(15px,2.3vh,22px);display:flex;flex-direction:column;height:100dvh;overflow:hidden;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+body.l0{--lv:#5b3fa8}body.l1{--lv:#2e7d32}body.l2{--lv:#1f5fa8}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:4px solid var(--lv);outline-offset:2px}
+.hide{display:none!important}
+header{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:6px 12px;flex:none}
+.brand{font-weight:700;font-size:1.2em;margin-right:auto}
+.pill{background:#fff;border:2px solid var(--ink);border-radius:99px;padding:3px 12px;font-weight:700}
+.sw{display:flex;border:2px solid var(--ink);border-radius:12px;overflow:hidden;background:#fff}
+.sw button{border:0;background:none;padding:4px 10px;font-weight:700;font-size:.9em}
+.sw button.on{background:var(--ink);color:#fff}
+#lvsw button.on{background:var(--lv)}
+.vb{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:4px 10px;font-weight:700;font-size:.9em}
+main{flex:1;min-height:0;display:flex;flex-direction:column;padding:4px 12px 10px;width:100%}
+#home{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px}
+.hero{display:flex;align-items:center;gap:12px;background:var(--lv);color:#fff;border-radius:18px;padding:8px 16px;flex:none;font-size:1.1em}
+.hero b{font-size:1.25em}
+.hero .faces{display:flex;gap:4px;margin-left:auto}.hero .faces img{height:7vh;width:7vh;object-fit:cover;object-position:top;border-radius:50%;background:#fff;border:2px solid #fff}
+#menu{flex:1;min-height:0;display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:1fr;gap:10px}
+@media (max-width:700px){#menu{grid-template-columns:repeat(2,1fr)}.hero .faces{display:none}}
+.gbtn{container-type:size;border:3px solid var(--ink);background:#fff;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:6px;min-height:0;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.gbtn:hover{background:var(--ps)}
+.gic{font-size:42cqmin;line-height:1}
+.gt{font-weight:700;text-align:center;line-height:1.1;font-size:min(15cqh,10cqw)}
+.gb{font-size:.8em;color:var(--muted)}
+.bottom{display:flex;gap:10px;flex:none}
+.bottom button{flex:1;border:3px solid var(--ink);background:#fff;border-radius:16px;padding:10px;font-weight:700;font-size:clamp(16px,2.8vh,28px)}
+#play{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
+.bar{display:flex;align-items:center;gap:10px;flex:none}
+.back{border:2px solid var(--ink);background:#fff;border-radius:12px;padding:4px 12px;font-weight:700}
+#gtitle{font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:1.1em}
+.prog{flex:1;height:12px;background:rgba(255,255,255,.7);border-radius:6px;overflow:hidden;min-width:60px;border:2px solid var(--ink)}
+#bar{display:block;height:100%;background:var(--lv);transition:width .3s}
+#cnt{font-weight:700}
+#stage{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px}
+.card{background:#fff;border:3px solid var(--ink);border-radius:20px;padding:8px 14px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;flex:1.3;min-height:0}
+.card.slim{flex:0 0 auto;padding:12px 16px}
+.card img.big{flex:1;min-height:0;max-width:100%;object-fit:contain}
+.pics{flex:1;min-height:0;display:flex;gap:14px;align-items:center;justify-content:center;width:100%}
+.pics>*{flex:1;min-width:0;height:100%;max-height:100%;object-fit:contain}
+.pics svg{max-width:100%}
+.who{flex:0 0 auto!important;width:auto!important;display:flex;flex-direction:column;align-items:center;justify-content:center;font-weight:700;font-size:clamp(18px,3.4vh,34px)}
+.who img{height:16vh;width:16vh;object-fit:cover;object-position:top;border-radius:50%;border:3px solid var(--ink)}
+.who .me{font-size:12vh;line-height:1}
+.q{font-weight:700;font-size:clamp(18px,min(4.6vh,6vw),48px);text-align:center;line-height:1.25}
+.q.big{font-size:clamp(24px,min(5.6vh,7vw),58px)}
+.hint{font-weight:700;color:var(--muted);font-size:clamp(16px,3vh,30px);text-align:center}
+.say{border:0;background:var(--g);color:#fff;border-radius:99px;padding:.25em .9em;font-weight:700;font-size:clamp(18px,3.4vh,32px);vertical-align:middle;box-shadow:0 4px 0 #1d6b28}
+.say:active{transform:translateY(2px);box-shadow:0 2px 0 #1d6b28}
+.gap{display:inline-block;min-width:3.2em;border-bottom:4px solid var(--muted);text-align:center;color:var(--g)}.gap.count{color:var(--muted)}
+.opts{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;grid-auto-rows:1fr;gap:10px}
+.opts.n3{grid-template-columns:1fr}
+.opt{container-type:size;border:3px solid var(--ink);background:#fff;border-radius:18px;padding:4px 10px;font-weight:700;min-height:0;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.opt:hover:not(:disabled),.popt:hover:not(:disabled),.oit:hover:not(:disabled){background:var(--ps)}
+.opt .t{display:block;font-size:min(46cqh,13cqw);line-height:1.1}
+.opt .t.sent{font-size:min(30cqh,6.4cqw);line-height:1.15}
+.opts.n3 .opt .t{font-size:min(50cqh,9cqw)}.opts.n3 .opt .t.sent{font-size:min(44cqh,6cqw)}
+.opts.n2 .opt .t{font-size:min(50cqh,12cqw)}
+@media (max-width:700px){.opts.long{grid-template-columns:1fr;flex:1.8}.opt .t.sent{font-size:min(40cqh,7.5cqw)}.opts.n3 .opt .t.sent{font-size:min(44cqh,7.5cqw)}}
+.popts{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:10px}
+.popts.p4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:700px){.popts,.popts.p4{grid-template-columns:1fr 1fr}}
+body.fbon main{padding-bottom:calc(5.2em + env(safe-area-inset-bottom,0))}
+.popt{container-type:size;position:relative;border:3px solid var(--ink);background:#fff;border-radius:18px;padding:6px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:0;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.popt img.op{flex:1;min-height:0;max-width:100%;object-fit:contain}
+.popt .lbl{font-weight:700;display:none;text-align:center;line-height:1.1;font-size:min(13cqh,11cqw)}.popt.show .lbl,.popt .lbl.on{display:block}
+.right{background:var(--g)!important;border-color:var(--g)!important;color:#fff!important}
+.popt.right,.oit.right{background:var(--gs)!important;color:var(--ink)!important;box-shadow:0 0 0 5px var(--g)}
+.wrong{background:var(--w)!important;border-color:var(--w)!important;color:#fff!important}
+.popt.wrong,.oit.wrong{background:var(--ws)!important;color:var(--ink)!important}
+.num{position:absolute;left:6px;top:6px;width:1.8em;height:1.8em;border-radius:50%;background:var(--lv);color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:clamp(18px,3.6vh,36px)}
+.olist{flex:1;min-height:0;display:flex;flex-direction:column;gap:8px}
+.oit{container-type:size;position:relative;flex:1;min-height:0;border:3px solid var(--ink);background:#fff;border-radius:16px;padding:4px 12px 4px 4.2em;text-align:left;font-weight:700;box-shadow:0 3px 0 rgba(0,0,0,.15);display:flex;align-items:center}
+.oit .t{font-size:min(42cqh,4.6cqw);line-height:1.15}
+@media (max-width:700px){.oit{padding-left:3.4em}.oit .t{font-size:min(36cqh,7.2cqw)}.oit .num{left:6px}}
+.oit .num{top:50%;transform:translateY(-50%);left:10px}
+.oit.picked{border-color:var(--lv)}
+.fb{display:none}
+.fb.show{display:flex;position:fixed;left:0;right:0;bottom:0;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0));align-items:center;gap:14px;z-index:5;border-top:3px solid var(--ink);font-size:clamp(17px,3vh,28px)}
+.fb.ok{background:var(--gs)}.fb.no{background:var(--ws)}
+.fbt{flex:1;display:flex;flex-direction:column}
+.nx,.nav{border:3px solid var(--ink);background:var(--ink);color:#fff;border-radius:14px;padding:10px 22px;font-weight:700;font-size:clamp(17px,3vh,28px)}
+.nav{background:#fff;color:var(--ink)}.nav.main{background:var(--ink);color:#fff}
+.nav:disabled{opacity:.4}
+.row{display:flex;gap:10px;justify-content:center;flex:none;flex-wrap:wrap}
+.learn .word{font-size:clamp(36px,min(10vh,12vw),110px);font-weight:700;text-align:center;line-height:1.05}
+.learn .mean{color:var(--muted);font-size:clamp(20px,min(4.5vh,6vw),48px);text-align:center;font-weight:700;line-height:1.3}
+.slot{min-height:9vh;border:3px dashed var(--ink);border-radius:16px;padding:8px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;background:#fff;flex:none}
+.tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;align-content:center;flex:1;min-height:0}
+.tile{border:3px solid var(--lv);background:#fff;border-radius:14px;padding:.35em .7em;font-weight:700;font-size:clamp(16px,min(4.2vh,5vw),44px)}.tile.on{border-color:var(--g);background:var(--gs)}
+.end .stars{font-size:clamp(40px,9vh,90px);letter-spacing:6px}.end .big{font-size:clamp(28px,6vh,60px);font-weight:700}.miss{font-size:clamp(15px,2.6vh,24px);color:var(--muted);text-align:center}
+.pop{position:fixed;left:50%;top:14%;transform:translateX(-50%);background:#fff;border:3px solid var(--ink);color:var(--ink);font-weight:700;font-size:1.4em;padding:6px 18px;border-radius:99px;animation:pp 1.2s forwards;z-index:9;pointer-events:none}
+@keyframes pp{0%{opacity:0}20%{opacity:1}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-24px)}}
+@media (prefers-reduced-motion:reduce){.pop{animation-duration:2s}#bar{transition:none}}
+#modal{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;z-index:10;padding:12px}
+.mbox{background:#fff;border-radius:20px;max-width:600px;width:100%;max-height:92vh;overflow:auto;padding:18px;position:relative;border:3px solid var(--ink)}
+.mbox h2{margin:0 0 10px}.mbox input{width:100%;font:inherit;padding:10px;margin:6px 0;border:2px solid var(--ink);border-radius:10px}
+.mbox .row input{width:auto}
+.mx{position:absolute;right:10px;top:8px;border:0;background:none;font-size:1.6em}
+.vbtn{display:block;width:100%;text-align:left;border:2px solid var(--ink);background:#fff;border-radius:12px;padding:10px;margin:6px 0;font-weight:700}.vbtn.on{background:var(--gs);border-color:var(--g)}
+.sc{width:100%;border-collapse:collapse;margin-bottom:8px}.sc td{border-bottom:1px solid #ddd;padding:6px}
+.qrs{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}.qb{text-align:center;border:2px solid var(--ink);border-radius:12px;padding:10px}
+@media print{header,.bottom,#home,#play,.row,input,.hint,.mx,.mbox p{display:none!important}#modal{position:static;background:none}.mbox{max-height:none;border:0}}
+.emo{font-size:min(17vh,24vw);line-height:1.05;text-align:center}
+.bigt{font-size:min(16vh,20vw);font-weight:700;line-height:1;text-align:center;letter-spacing:.05em;color:var(--lv)}
+.vis{flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;width:100%;overflow:hidden}
+.opts.bigo .opt .t{font-size:min(60cqh,30cqw)}
+.opts.mono .opt .t{font-family:"Atkinson Hyperlegible",monospace;letter-spacing:.03em}
+.whoc{display:flex;flex-direction:column;align-items:center}.whoc span{font-size:min(14vh,20vw);line-height:1.05}.whoc b{font-size:clamp(18px,3.4vh,34px);color:var(--lv)}
+.gletter{background:#fffdf3;border:2px solid #c9b98a;border-radius:10px;padding:8px 16px;font-size:clamp(13px,min(2.25vh,3.4vw),22px);line-height:1.25;max-width:40em;width:100%;text-align:left;box-shadow:2px 3px 0 rgba(0,0,0,.08);display:flex;flex-direction:column;gap:.35em}
+.lad{text-align:right}.lp{border-radius:4px;padding:0 2px}.lp.hl{background:#ffe066;outline:3px solid #e0a800}
+.lcard{flex:3;padding-top:4px;padding-bottom:4px}.gletter{gap:.2em!important}
+.conn{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.conn span{background:var(--ps);border:2px solid var(--lv);border-radius:10px;padding:2px 10px;font-size:clamp(14px,2.4vh,22px)}
+.tile.letter{min-width:1.6em;font-size:clamp(22px,min(6vh,8vw),60px);padding:.15em .4em}
+@media (max-width:700px){.gbtn{flex-direction:row;gap:8px}.gbtn .gic{font-size:50cqh}.gbtn .gt{font-size:min(26cqh,10cqw);text-align:left}}
+.card .vis .say{font-size:clamp(18px,3.6vh,34px)}
+</style></head><body class="l1">
+<header><div class="brand">👋 Getting to Know You</div><span class="pill">⭐ <span id="ptsN">0</span> <span id="badge"></span></span>
+<button class="vb" onclick="voices()">🗣️ Voice</button>
+<div class="sw"><button id="sp0" onclick="setRate(0)">🐢</button><button id="sp1" onclick="setRate(1)">Slow</button><button id="sp2" onclick="setRate(2)">Normal</button></div>
+<div class="sw" id="lvsw"><button id="lv0" onclick="setLevel(0)">Emerging</button><button id="lv1" onclick="setLevel(1)">Entry 1</button><button id="lv2" onclick="setLevel(2)">Entry 2</button></div></header>
+<main><section id="home"><div class="hero"><span style="font-size:1.8em">👋</span><div><b>Hello! What is your name?</b><br>Level: <span id="lvname"></span>. Choose a game. Tap 🔊 to listen.</div><div class="faces" id="faces"></div></div>
+<div id="menu"></div><div class="bottom"><button onclick="learner()">📧 My scores</button><button onclick="teacher()">👩‍🏫 Teacher: QR codes</button></div></section>
+<section id="play" class="hide"><div class="bar"><button class="back" onclick="home()">◀ Games</button><span id="gtitle"></span><div class="prog"><i id="bar"></i></div><span id="cnt"></span></div><div id="stage"></div></section></main>
+<div class="fb" id="fb"></div>
+<div id="modal" class="hide" onclick="if(event.target===this)closeM()"><div class="mbox"><button class="mx" onclick="closeM()" aria-label="Close">✕</button><div id="mbody"></div></div></div>
+<script>const IMG={};
+/* ================= DATA ================= */
+// vocabulary: [word, picture (emoji or text card), meaning / example]
+const VOC={
+0:[['name','📛','My name is Marek.'],['address','🏠','where you live'],['age','🎂','how old you are'],['email','📧','marek@mail.com'],['postcode','📮','S3 7HT'],['food','🍲','My favourite food is soup.'],['drink','☕','My favourite drink is coffee.'],['live','🏡','I live in Sheffield.'],['married','💍','I am married.'],['children','👧👦','I have two children.'],['walking','🚶','I like walking.']],
+1:[['letter','✉️','Grace writes a letter to the class.'],['address','🏠','Flat 3, 15 Willow Street, Leeds'],['postcode','📮','LS4 2XT'],['date','📅','12/5/24'],['Dear','👋','Dear Class – how a letter starts'],['regards','🙂','Kind regards – how a letter ends'],['cleaner','🧹','Grace is a cleaner.'],['job','💼','Her job is a cleaner.'],['capital letter','🔠','A B C – a big letter'],['full stop','⏺️','. – at the end of a sentence'],['sentence','📝','I live in Leeds.'],['name','📛','My name is Grace Owusu.']],
+2:[['bakery','🥖','a shop that makes and sells bread'],['nephew','👦','your brother’s or sister’s son'],['knit','🧶','to make clothes from wool, using needles'],['relaxing','😌','calm; it helps you rest'],['single','🧍','not married'],['shift','⏰','your hours at work: 5:00am – 8:30am'],['hobbies','🎨','things you like doing in your free time'],['college','🏫','Elif studies at Greenfield Community College.'],['occupation','👩‍🍳','your job'],['email address','📧','elif.demir82@hotmail.co.uk'],['status','💍','married or single'],['country of origin','🌍','the country you come from']]};
+const SPELLW={0:['name','age','food','drink','live','email','address','postcode'],1:['letter','dear','job','name','cleaner','address','postcode','regards','capital','sentence'],2:['bakery','nephew','knit','single','shift','hobbies','college','relaxing','occupation','because']};
+const LISTEN={
+0:[['Marek',['Merek','Marik']],['soup',['soap','sop']],['coffee',['cofee','coffi']],['name',['nam','neme']],['food',['fod','foad']],['Sheffield',['Shefield','Sheffeld']],['drink',['drenk','drik']],['email',['emial','imail']]],
+1:[['Owusu',['Owuso','Owisu','Owusa']],['LS4 2XT',['LS4 2XD','LS9 2XT','LS4 2ET']],['Willow',['Wilow','Willaw','Wellow']],['Leeds',['Leads','Lids','Leedz']],['Grace',['Grase','Greice','Grece']],['cleaner',['cleener','claener','cliner']],['regards',['regads','ragards','regarbs']],['postcode',['poscode','postkode','postcoad']]],
+2:[['elif.demir82@hotmail.co.uk',['elif.demir28@hotmail.co.uk','elif.damir82@hotmail.co.uk','elif.demir82@hotmail.com']],['S3 7HT',['S3 7HD','S8 7HT','S3 7AT']],['Meadow Lane',['Medow Lane','Meadow Line','Maedow Lane']],['Demir',['Damir','Demer','Dimir']],['Greenfield',['Grenfield','Greenfeld','Greenfild']],['nephew',['nefew','nephiw','nepew']],['Kurdish',['Kurdich','Kardish','Kurdesh']],['occupation',['ocupation','occupasion','occopation']]]};
+const WHO={I:'🙋',you:'🫵',he:'👨',she:'👩',we:'👫',they:'👨‍👩‍👦'};
+const POSS={
+0:[['I am Marek. ___ name is Marek.','my','I'],['This is Marek. ___ name is Marek.','his','he'],['This is Anna. ___ name is Anna.','her','she'],['I live in Sheffield. ___ address is in Sheffield.','my','I'],['Marek likes soup. ___ favourite food is soup.','his','he'],['Anna likes tea. ___ favourite drink is tea.','her','she'],['I have two children. ___ children are 5 and 7.','my','I'],['Marek is married. ___ wife is Anna.','his','he'],['Anna is from Poland. ___ house is in Sheffield.','her','she'],['I like walking. ___ favourite hobby is walking.','my','I']],
+1:[['I am Grace. ___ name is Grace Owusu.','my','I'],['Grace lives in Leeds. ___ postcode is LS4 2XT.','her','she'],['This is Tom. ___ job is a driver.','his','he'],['You are a new student. What is ___ name?','your','you'],['Tom and Grace are friends. ___ class is on Monday.','their','they'],['I am 29. ___ birthday is in May.','my','I'],['Tom is from Leeds. ___ address is 8 Park Road.','his','he'],['Hello! What is ___ email address?','your','you'],['Grace is a cleaner. ___ job is in a hospital.','her','she'],['Tom and Grace live in Leeds. ___ flat is on Willow Street.','their','they']],
+2:[['Elif works in a bakery. ___ shift starts at 5:00am.','her','she'],['Elif lives with her two brothers. ___ flat is in Sheffield.','their','they'],['Her nephew is 7. ___ favourite food is fresh bread.','his','he'],['“I love knitting. It is ___ favourite hobby,” says Elif.','my','I'],['“What is ___ email address?” the teacher asks Elif.','your','you'],['Elif and I study at Greenfield College. ___ class starts at 9:15.','our','we'],['My brothers work in a shop. ___ shop is near the college.','their','they'],['We live in Sheffield. ___ house is on Meadow Lane.','our','we'],['Elif’s nephew lives in Turkey. ___ school is in Ankara.','his','he'],['You speak three languages. What are ___ languages?','your','you']]};
+const PCHOICE={0:['my','his','her'],1:['my','your','his','her','their'],2:['my','your','his','her','our','their']};
+const BUILD={
+0:['My name is Marek.','I live in Sheffield.','I am married.','I have two children.','I like walking.','My favourite food is soup.','My favourite drink is coffee.'],
+1:['My name is Grace Owusu.','I am 29 years old.','I am from Leeds, England.','I live on Willow Street.','I am a cleaner.','Please write to me.','What is your name?','Her postcode is LS4 2XT.'],
+2:['I come from Turkey, but I live in England.','I enjoy baking bread because it is relaxing.','I finish work early, so I can go to college.','I speak Turkish and Kurdish.','Elif starts work early, so she feels tired.','She doesn’t like loud music, but she has a radio.','She studies English, and she works in a bakery.']};
+const CONN=[['I come from Turkey, ___ I live in England.','but',['and','because','so']],['She likes cooking, ___ she watches cookery programmes.','so',['but','because']],['He is tired, ___ he goes to bed early.','so',['but','because','and']],['I enjoy my job ___ it is creative.','because',['but','so','and']],['She doesn’t like tea, ___ she drinks coffee.','but',['because','and']],['Elif starts work early, ___ she feels tired.','so',['but','because','and']],['She doesn’t like loud music, ___ she has a radio for the news.','but',['because','so','and']],['She enjoys baking bread ___ it is relaxing.','because',['but','so','and']],['She studies English, ___ she works in a bakery.','and',['because','so']],['She finishes work at 8:30, ___ she can go to college.','so',['but','because','and']]];
+const LETTERQ=[['address','What is this part of the letter?'],['postcode','What is this part of the letter?'],['date','What is this part of the letter?'],['greeting','What is this part of the letter?'],['closing','What is this part of the letter?'],['name','What is this part of the letter?']];
+const LETTERF=[['Grace is ___ years old.','29',['35','19','92'],'age'],['Grace is a ___.','cleaner',['teacher','driver','cook'],'body'],['Her postcode is ___.','LS4 2XT',['LS2 4XT','LS4 2TX','SL4 2XT'],'postcode'],['She lives on ___ Street.','Willow',['Oak','Park','Leeds'],'address'],['Grace is from ___.','Leeds',['Manchester','London','Sheffield'],'body'],['Her surname is ___.','Owusu',['Mensah','Grace','Leeds'],'body']];
+const LVNAME=['Emerging','Entry 1','Entry 2'];
+const GAMES=[['learn','👀','Learn the words'],['what','🖼️','What is it?'],['abc','🔤','Alphabet'],['spell','✏️','Spell the word'],['phone','📞','Listen to the spelling'],['poss','👪','my / your / his / her'],['build','🧩','Word order'],['extra','','']];
+const gamesFor=L=>GAMES.map(g=>g[0]!=='extra'?(g[0]==='poss'&&L===0?['poss','👪','my / his / her']:g):[ 'extra',['🅰️','✉️','🔗'][L],['Capital or small?','Grace’s letter','and / but / because / so'][L]]);
+
+/* ================= ENGINE ================= */
+const RATES=[0.45,0.6,0.8];let RATE=1,LEVEL=1,GAME=null,Q=[],qi=0,score=0,total=0,missed=[],STREAK=0,ROUND=0,LOCK=false;
+const $=id=>document.getElementById(id);
+const st=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){return null}};
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+const pick=(a,n)=>shuffle(a).slice(0,n);
+const rnd=a=>a[Math.floor(Math.random()*a.length)];
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const img=(n,cls='')=>IMG[n]?`<img class="${cls}" src="${IMG[n]}" alt="">`:'';
+const cap=s=>s.charAt(0).toUpperCase()+s.slice(1);
+const fw=s=>s.split(' ')[0], rest=s=>s.split(' ').slice(1).join(' ');
+// he/she form with the right his/her
+const third=(id,pro)=>IT[id].t.replace(/\b(her|his)\b/,pro==='She'?'her':'his');
+const mine=(id,pro)=>pro==='I'?IT[id].b:third(id,pro);
+let SPK=0,CT=null;
+function gbVoices(){try{const vs=speechSynthesis.getVoices().filter(v=>/en[-_]GB/i.test(v.lang));const sc=v=>(/natural/i.test(v.name)?0:/online|google/i.test(v.name)?1:2);return vs.sort((a,b)=>sc(a)-sc(b))}catch(e){return[]}}
+function pickVoice(){const vs=gbVoices();const want=st('gt-voice');let v=vs.find(x=>x.name===want);if(!v){v=navigator.onLine?vs[0]:(vs.find(x=>x.localService)||vs[0])}return v}
+function utter(t,done){try{const s=speechSynthesis;if(!t.trim()){done&&done();return}const u=new SpeechSynthesisUtterance(t);u.lang='en-GB';u.rate=RATES[RATE];const v=pickVoice();if(v)u.voice=v;if(done)u.onend=done;s.speak(u)}catch(e){done&&done()}}
+function speak(t){const id=++SPK;clearInterval(CT);try{speechSynthesis.cancel()}catch(e){}
+ if(t.includes('___')){const [a,b]=t.split('___');utter(a,()=>{if(id!==SPK)return;let n=7;const g=$('gap');const show=()=>{if(g&&id===SPK&&!g.dataset.done){g.textContent=n>0?n:'?';g.classList.toggle('count',n>0)}};show();
+  CT=setInterval(()=>{if(id!==SPK){clearInterval(CT);return}n--;show();if(n<=0){clearInterval(CT);utter(b)}},1000)})}else utter(t)}
+const say=(t,l='🔊 Listen')=>`<button class="say" onclick='speak(${JSON.stringify(t).replace(/'/g,"&#39;")})'>${l}</button>`;
+function setRate(r){RATE=r;[0,1,2].forEach(i=>$('sp'+i).classList.toggle('on',i===r));st('gt-rate',r);speak('My name is Marek. M. A. R. E. K.')}
+function voices(){const vs=gbVoices();const cur=(pickVoice()||{}).name;
+ modal(`<h2>🗣️ Choose a British voice</h2>${vs.length?vs.map(v=>`<button class="vbtn ${v.name===cur?'on':''}" onclick='setVoice(${JSON.stringify(v.name).replace(/'/g,"&#39;")})'>${esc(v.name.replace(/Microsoft |Google /,''))}${/natural/i.test(v.name)?' ⭐ natural':''}</button>`).join(''):'<p>No British voices found on this device.</p>'}
+ <p class="hint">Voices depend on the device. For the most natural voices on a computer, open the game in <b>Microsoft Edge</b> (⭐ natural).</p>`)}
+function setVoice(n){st('gt-voice',n);speak('Hello! My name is Grace.');voices()}
+function setLevel(l){LEVEL=l;[0,1,2].forEach(i=>$('lv'+i).classList.toggle('on',i===l));document.body.className='l'+l;st('gt-level',l);home()}
+/* points */
+const BADGES=[[50,'🥉'],[150,'🥈'],[300,'🥇'],[500,'🏆']];
+const pts=()=>parseInt(st('gt-pts-'+LEVEL)||'0')||0;
+function drawPts(){$('ptsN').textContent=pts();$('badge').textContent=BADGES.filter(([n])=>pts()>=n).map(x=>x[1]).join('')}
+function pop(t){const d=document.createElement('div');d.className='pop';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),1300)}
+function addPts(n,l){const b=pts(),a=b+n;st('gt-pts-'+LEVEL,a);ROUND+=n;drawPts();const nb=BADGES.find(([x])=>b<x&&a>=x);pop(nb?`New badge ${nb[1]}!`:`+${n}${l?' '+l:''}`)}
+function right(){STREAK++;addPts(STREAK>=3?15:10,STREAK>=3?`🔥${STREAK}`:'');score++}
+function wrong(t){STREAK=0;missed.push(t)}
+function show(id){['home','play'].forEach(s=>$(s).classList.toggle('hide',s!==id))}
+function home(){SPK++;document.body.classList.remove('fbon');clearInterval(CT);try{speechSynthesis.cancel()}catch(e){}drawPts();show('home');$('fb').className='fb';
+ $('lvname').textContent=LVNAME[LEVEL];
+ $('faces').innerHTML='';
+ $('menu').innerHTML=gamesFor(LEVEL).map(([id,ic,t])=>{const b=st(`gt-best-${id}-${LEVEL}`);return `<button class="gbtn" onclick="start('${id}')"><span class="gic">${ic}</span><span class="gt">${t}</span>${b&&id!=='learn'?`<span class="gb">⭐ ${b}</span>`:''}</button>`}).join('')}
+/* ================= QUESTION BUILDERS ================= */
+function mc(prompt,ans,opts,extra={}){const n=extra.n||4;const o=[...new Set(opts.filter(x=>x!==ans))].slice(0,n-1);return Object.assign({type:'mc',prompt,ans,opts:shuffle([ans,...o])},extra)}
+const emo=e=>`<div class="emo">${e}</div>`;
+const big=t=>`<div class="bigt">${esc(t)}</div>`;
+function learnSet(){return VOC[LEVEL].map(([w,e,m])=>({e,w,lines:[m]}))}
+function whatSet(){const L=LEVEL,n=L===0?3:4,V=VOC[L];return shuffle(V).slice(0,10).map(([w,e,m])=>{const ds=pick(V.filter(v=>v[0]!==w),n-1).map(v=>v[0]);
+ return L===2?mc('Which word is it?',w,ds,{n,vis:emo(e)+`<div class="q">${esc(m)}</div>`,say:w+'. '+m}):mc('What is it?',w,ds,{n,vis:emo(e)+(L===1?`<div class="hint">${esc(m)}</div>`:''),say:w})})}
+/* alphabet */
+const AZ='ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+const SHAPE=[['b','d','p','q'],['m','n','w','u'],['a','e','o'],['i','j','l'],['g','j','q','y'],['c','e','o'],['h','n','k'],['f','t'],['v','w','y'],['s','z','x'],['r','n'],['k','x']];
+const SOUND=[['A','E','I','H'],['G','J','Z'],['B','P','V','D'],['M','N'],['K','Q','C'],['U','W','Y','Q'],['S','X','F'],['E','I','Y'],['T','D','P'],['O','U'],['R','A']];
+const near=(x,groups,n)=>{const g=groups.find(g=>g.includes(x))||[];let c=g.filter(y=>y!==x);const pool=(groups===SOUND?AZ:AZ.map(a=>a.toLowerCase())).filter(y=>y!==x&&!c.includes(y));return shuffle(c).concat(shuffle(pool)).slice(0,n)};
+const sayL=l=>l.toUpperCase()+'.';
+function abcSet(){const L=LEVEL,Q=[];
+ const lisN=L===0?3:4;
+ const listen=k=>{for(let i=0;i<k;i++){const x=rnd(L===0?AZ:SOUND.flat());Q.push(mc('Listen. Which letter is it?',x,near(x,SOUND,lisN-1),{n:lisN,vis:emo('👂')+say(sayL(x),'🔊 Listen again'),say:sayL(x),auto:sayL(x),big:true}))}};
+ const small=k=>{for(let i=0;i<k;i++){const g=rnd(SHAPE),x=rnd(g);Q.push(mc('Find the small letter.',x,near(x,SHAPE,L===0?2:3),{n:L===0?3:4,vis:big(x.toUpperCase()),say:sayL(x),big:true}))}};
+ const capital=k=>{for(let i=0;i<k;i++){const g=rnd(SHAPE),x=rnd(g);Q.push(mc('Find the capital letter.',x.toUpperCase(),near(x,SHAPE,L===0?2:3).map(y=>y.toUpperCase()),{n:L===0?3:4,vis:big(x),say:sayL(x),big:true}))}};
+ const nextL=k=>{for(let i=0;i<k;i++){const j=1+Math.floor(Math.random()*22);const ans=AZ[j+2];Q.push(mc('What comes next?',ans,[AZ[j+3],AZ[j+1],AZ[(j+5)%26],AZ[(j+8)%26]],{vis:big(AZ.slice(j-1,j+2).join('  ')+'  ?'),say:ans,big:true}))}};
+ const before=k=>{for(let i=0;i<k;i++){const j=2+Math.floor(Math.random()*22);Q.push(mc(`What letter comes before ${AZ[j]}?`,AZ[j-1],[AZ[j+1],AZ[j-2],AZ[(j+4)%26]],{vis:big('?  '+AZ[j]),say:AZ[j-1],big:true}))}};
+ const first=k=>{const W=['bakery','nephew','knit','relaxing','single','shift','hobbies','college','occupation','email','because','address','status','country'];
+  for(let i=0;i<k;i++){const s=pick(W,4);const a=[...s].sort()[0];Q.push(mc('Which word comes first in a dictionary (A–Z)?',a,s,{vis:emo('📖'),say:a}))}};
+ if(L===0){small(4);capital(3);listen(3)}else if(L===1){listen(4);nextL(3);small(3)}else{first(4);listen(3);before(3)}
+ return shuffle(Q)}
+function spellSet(){return shuffle(SPELLW[LEVEL]).slice(0,8).map(w=>{const v=VOC[LEVEL].find(x=>x[0].toLowerCase()===w);return {type:'build',spell:true,text:w,vis:v?emo(v[1]):''}})}
+function spellOut(s){return s.split('').map(c=>c===' '?'… space …':c==='.'?'dot':c==='@'?'at':/\d/.test(c)?c:c.toUpperCase()+'.').join(' ')}
+function phoneSet(){const L=LEVEL,n=L===0?3:4;return shuffle(LISTEN[L]).map(([a,o])=>mc('Listen to the spelling. Choose the word.',a,o,{n,vis:emo('📞')+say(spellOut(a),'🔊 Listen again'),auto:spellOut(a),say:a,mono:true}))}
+function possSet(){const L=LEVEL;return shuffle(POSS[L]).map(([p,a,w])=>mc(p,a,PCHOICE[L],{n:PCHOICE[L].length,vis:`<div class="whoc"><span>${WHO[w]}</span><b>${w==='I'?'I → my':w==='you'?'you → your':w==='he'?'he → his':w==='she'?'she → her':w==='we'?'we → our':'they → their'}</b></div>`,gap:true,capfirst:p.startsWith('___')}))}
+function buildSet(){return shuffle(BUILD[LEVEL]).map(s=>({type:'build',text:s}))}
+function letterHTML(hl){const s=k=>`class="lp ${hl===k?'hl':''}"`;
+ return `<div class="gletter"><div class="lad"><span ${s('address')}>Flat 3<br>15 Willow Street<br>Leeds</span><br><span ${s('postcode')}>LS4 2XT</span><br><br><span ${s('date')}>12/5/24</span></div>
+ <div><span ${s('greeting')}>Dear Class</span></div><div ${s('body')}>Hello! How are you? My name is Grace Owusu and I am <span ${s('age')}>29</span> years old. I am from Leeds, England. I live on Willow Street. I am a cleaner. Please write to me and tell me all about yourselves.</div>
+ <div><span ${s('closing')}>Kind regards</span><br><span ${s('name')}>Grace</span></div></div>`}
+function extraSet(){const L=LEVEL;
+ if(L===0){const W=['NAME','ADDRESS','AGE','EMAIL','POSTCODE','FOOD','DRINK','LIVE','CHILDREN','SOUP'];
+  const swap={a:'e',e:'a',o:'a',m:'n',n:'m',d:'b',b:'d',p:'q',i:'l',l:'i',s:'z',c:'e',r:'n',k:'h',u:'v',f:'t',v:'w',t:'f'};
+  const bad=w=>{const i=Math.floor(Math.random()*w.length);const c=w[i];return w.slice(0,i)+(swap[c]||'o')+w.slice(i+1)};
+  return shuffle(W).map((W1,k)=>{const lo=W1.toLowerCase();let ds=[];while(ds.length<2){const b=bad(lo);if(b!==lo&&!ds.includes(b))ds.push(b)}
+   return k%2?mc('Write it in small letters. Which is right?',lo,ds,{n:3,vis:big(W1),say:lo,big:true}):mc('Write it in CAPITAL letters. Which is right?',W1,ds.map(x=>x.toUpperCase()),{n:3,vis:big(lo),say:lo,big:true})})}
+ if(L===1){const parts=['address','postcode','date','greeting','closing','name'];
+  return shuffle(LETTERQ.map(([p,q])=>mc(q,p,parts,{n:4,vis:letterHTML(p),say:p,letter:true})).concat(LETTERF.map(([q,a,o,hl])=>mc(q,a,o,{n:4,vis:letterHTML(hl),gap:true,letter:true})))).slice(0,10)}
+ return shuffle(CONN).map(([p,a,o])=>mc(p,a,o,{n:o.length+1,gap:true,vis:`<div class="conn"><span><b>and</b> adds</span><span><b>but</b> contrast</span><span><b>because</b> reason</span><span><b>so</b> result</span></div>`}))}
+
+/* ================= PLAY ================= */
+function start(id){GAME=id;qi=0;score=0;total=0;missed=[];STREAK=0;ROUND=0;show('play');$('gtitle').textContent=gamesFor(LEVEL).find(g=>g[0]===id)[2];
+ Q=({learn:learnSet,what:whatSet,abc:abcSet,spell:spellSet,phone:phoneSet,poss:possSet,build:buildSet,extra:extraSet})[id]();render()}
+function prog(){$('bar').style.width=(Q.length?qi/Q.length*100:0)+'%';$('cnt').textContent=`${Math.min(qi+1,Q.length)}/${Q.length}`}
+const stage=h=>$('stage').innerHTML=h;
+function render(){LOCK=false;document.body.classList.remove('fbon');if(qi>=Q.length)return GAME==='learn'?home():end();prog();$('fb').className='fb';
+ if(GAME==='learn')return rLearn();const q=Q[qi];({mc:rMC,build:rBuild})[q.type](q)}
+function next(){qi++;render()}
+function fb(ok,ans,sayt,extra=''){const f=$('fb');document.body.classList.add('fbon');f.className='fb show '+(ok?'ok':'no');
+ f.innerHTML=`<div class="fbt"><b>${ok?'✅ Well done!':'❌ The answer is: '+esc(ans)}</b>${extra?'<span>'+extra+'</span>':''}</div><button class="nx" onclick="next()">Next ▶</button>`;if(sayt)speak(sayt)}
+function opts(list,onpick){const long=list.some(o=>o.length>16);return `<div class="opts n${list.length} ${long?'long':''}">${list.map(o=>`<button class="opt" data-v="${esc(o)}" onclick="${onpick}(this)"><span class="t ${long?'sent':''}">${esc(o)}</span></button>`).join('')}</div>`}
+function mark(ans,btn){document.querySelectorAll('.opt').forEach(b=>{b.disabled=true;if(b.dataset.v===ans)b.classList.add('right')});if(btn&&btn.dataset.v!==ans)btn.classList.add('wrong')}
+function rLearn(){const v=Q[qi];stage(`<div class="card learn">${emo(v.e)}<div class="word">${esc(v.w)}</div><div class="mean">${v.lines.map(esc).join('<br>')}</div>${say(v.w+'. '+v.lines.join(' '))}</div>
+ <div class="row"><button class="nav" onclick="qi=Math.max(0,qi-1);render()" ${qi?'':'disabled'}>◀</button><button class="nav main" onclick="next()">${qi<Q.length-1?'Next ▶':'Finish ✓'}</button></div>`);speak(v.w+'. '+v.lines.join(' '))}
+const capA=(q,a)=>q.prompt.startsWith('___')?a.charAt(0).toUpperCase()+a.slice(1):a;
+function rMC(q){const p=esc(q.prompt).replace('___','<span class="gap" id="gap">?</span>');
+ const top=`<div class="card ${q.letter?'lcard':''}">${q.vis?`<div class="vis">${q.vis}</div>`:''}<div class="q ${q.gap?'big':''}">${p}</div>${q.gap?say(q.prompt):''}</div>`;
+ const long=q.opts.some(o=>o.length>16);
+ stage(top+`<div class="opts n${q.opts.length} ${long?'long':''} ${q.big?'bigo':''} ${q.mono?'mono':''}">${q.opts.map(o=>`<button class="opt" data-v="${esc(o)}" onclick="pMC(this)"><span class="t ${long?'sent':''}">${esc(o)}</span></button>`).join('')}</div>`);
+ if(q.auto)setTimeout(()=>speak(q.auto),300)}
+function pMC(b){if(LOCK)return;LOCK=true;SPK++;const q=Q[qi];total++;const ok=b.dataset.v===q.ans;mark(q.ans,b);const g=$('gap');const A=capA(q,q.ans);if(g){g.dataset.done=1;g.classList.remove('count');g.textContent=A}
+ const full=q.prompt.includes('___')?q.prompt.replace('___',A):(q.say||q.ans);
+ ok?right():wrong(q.prompt.includes('___')?full:`${q.prompt} → ${q.ans}`);fb(ok,q.ans,full)}
+let placed=[],pool=[];
+function rBuild(){const it=Q[qi];const w=it.spell?it.text.split(''):it.text.split(' ');placed=[];pool=shuffle(w.map((x,i)=>({x,i})));if(pool.length>1&&pool.map(p=>p.x).join('')===w.join(''))pool.reverse();dBuild()}
+function dBuild(){const it=Q[qi],sp=it.spell;stage(`<div class="card ${it.vis?'':'slim'}">${it.vis?`<div class="vis">${it.vis}</div>`:''}<div class="q">${sp?'Spell the word.':'Put the words in order.'}</div>${sp?'':'<div class="hint">Start with a capital letter. End with a full stop or question mark.</div>'}${say(it.text,'🔊 Hint')}</div>
+ <div class="slot">${placed.map((p,k)=>`<button class="tile on ${sp?'letter':''}" onclick="unp(${k})">${esc(p.x)}</button>`).join('')||`<span class="hint">Tap the ${sp?'letters':'words'} below</span>`}</div>
+ <div class="tiles">${pool.map((p,k)=>`<button class="tile ${sp?'letter':''}" onclick="plc(${k})">${esc(p.x)}</button>`).join('')}</div>
+ <div class="row"><button class="nav" onclick="rBuild()">↺ Start again</button><button class="nav main" onclick="cBuild()" ${pool.length?'disabled':''}>Check</button></div>`)}
+function plc(k){placed.push(pool.splice(k,1)[0]);dBuild()}function unp(k){pool.push(placed.splice(k,1)[0]);dBuild()}
+function cBuild(){if(LOCK)return;LOCK=true;const it=Q[qi],s=it.text,got=placed.map(p=>p.x).join(it.spell?'':' ');total++;const ok=got===s;ok?right():wrong(s);document.querySelectorAll('.tile,.nav').forEach(b=>b.disabled=true);fb(ok,s,it.spell?s+'. '+spellOut(s):s)}
+
+/* order */
+let OSHOW=[],OPICK=[];
+function rOrder(q){OSHOW=shuffle(q.seq.map((x,i)=>i));if(OSHOW.every((v,i)=>v===i))OSHOW.reverse();OPICK=[];dOrder()}
+function dOrder(){const q=Q[qi];const n=k=>{const p=OPICK.indexOf(k);return p<0?'':`<span class="num">${p+1}</span>`};
+ const head=`<div class="card slim"><div class="q">${q.pics?'Tap the pictures in order: 1, 2, 3, 4.':'Tap the sentences in order.'}</div>${q.pics?'':`<div class="hint">Look for the clue words: first, then, after that, in the end.</div>`}</div>`;
+ const body=q.pics?`<div class="popts p4">${OSHOW.map(k=>`<button class="popt" data-k="${k}" onclick="tOrd(${k})">${n(k)}${img(q.seq[k],'op')}<span class="lbl on">I ${esc(IT[q.seq[k]].b)}.</span></button>`).join('')}</div>`
+  :`<div class="olist">${OSHOW.map(k=>`<button class="oit ${OPICK.includes(k)?'picked':''}" data-k="${k}" onclick="tOrd(${k})">${n(k)}<span class="t">${esc(q.seq[k])}</span></button>`).join('')}</div>`;
+ stage(head+body+`<div class="row"><button class="nav" onclick="OPICK=[];dOrder()">↺ Start again</button><button class="nav main" onclick="cOrder()" ${OPICK.length<q.seq.length?'disabled':''}>Check</button></div>`)}
+function tOrd(k){if(LOCK)return;const p=OPICK.indexOf(k);if(p<0)OPICK.push(k);else OPICK.splice(p,1);dOrder()}
+function cOrder(){if(LOCK)return;LOCK=true;const q=Q[qi];total++;const ok=OPICK.every((k,i)=>k===i);
+ document.querySelectorAll('[data-k]').forEach(b=>{b.disabled=true;const k=+b.dataset.k;b.classList.add(OPICK.indexOf(k)===k?'right':'wrong');const s=b.querySelector('.num');if(s)s.textContent=k+1});
+ document.querySelectorAll('.row .nav').forEach(b=>b.disabled=true);
+ const txt=q.pics?q.seq.map(id=>'I '+IT[id].b+'.').join(' '):q.seq.join(' ');ok?right():wrong(q.pics?q.seq.map(id=>IT[id].b).join(' → '):q.seq[0]+' …');
+ fb(ok,'Look at the numbers now.',txt)}
+/* end */
+function end(){const pct=total?score/total:0,s=pct>=.9?3:pct>=.7?2:1;const k=`gt-best-${GAME}-${LEVEL}`;const prev=parseInt(st(k)||'0');if(score>=prev)st(k,`${score}/${total}`);
+ $('bar').style.width='100%';$('cnt').textContent='';$('fb').className='fb';
+ stage(`<div class="card end"><div class="stars">${'★'.repeat(s)}${'☆'.repeat(3-s)}</div><div class="big">${score} / ${total}</div><div>⭐ +${ROUND} points</div>
+ ${missed.length?`<div class="miss"><b>Check again:</b><br>${missed.slice(0,4).map(esc).join('<br>')}</div>`:'<div>Excellent! No mistakes.</div>'}</div>
+ <div class="row"><button class="nav" onclick="start('${GAME}')">Play again</button><button class="nav main" onclick="home()">All games</button></div>`)}
+/* ================= SCORES + TEACHERS ================= */
+function modal(h){$('mbody').innerHTML=h;$('modal').classList.remove('hide')}
+function closeM(){$('modal').classList.add('hide')}
+const teachers=()=>[1,2].map(k=>({e:st('gt-t'+k),n:st('gt-tn'+k)||('Teacher '+k)})).filter(x=>x.e);
+function learner(){const rows=gamesFor(LEVEL).filter(g=>g[0]!=='learn').map(([id,ic,t])=>`<tr><td>${ic} ${t}</td><td>${st(`gt-best-${id}-${LEVEL}`)||'–'}</td></tr>`).join('');const T=teachers();
+ modal(`<h2>📧 My scores – ${LVNAME[LEVEL]}</h2><table class="sc">${rows}<tr><td><b>Total points</b></td><td><b>⭐ ${pts()}</b></td></tr></table>
+ <input id="rn" placeholder="Your name" value="${esc(st('gt-name')||'')}">
+ ${T.length?`<div class="row">${T.map(t=>`<button class="nav main" onclick='mailTo(${JSON.stringify(t.e).replace(/'/g,"&#39;")})'>📧 Send to ${esc(t.n)}</button>`).join('')}</div>`:'<p class="hint">Ask your teacher for the QR code to send scores to them.</p>'}
+ <input id="rm" type="email" placeholder="My email address" value="${esc(st('gt-mail')||'')}">
+ <div class="row"><button class="nav" onclick="mailMe()">📧 Send to me</button><button class="nav" onclick="copyS()">📋 Copy</button></div><p id="mm" class="hint"></p>`)}
+function sText(){return `Getting to Know You game\nName: ${$('rn').value}\nLevel: ${LVNAME[LEVEL]}\nDate: ${new Date().toLocaleDateString('en-GB')}\n\n`+gamesFor(LEVEL).filter(g=>g[0]!=='learn').map(([id,ic,t])=>`${t}: ${st(`gt-best-${id}-${LEVEL}`)||'not played'}`).join('\n')+`\n\nTotal points: ${pts()}`}
+function mailTo(e){const n=$('rn').value.trim();if(!n){$('mm').textContent='Please write your name.';return}st('gt-name',n);
+ location.href=`mailto:${encodeURIComponent(e)}?subject=${encodeURIComponent('GTKY game – '+n)}&body=${encodeURIComponent(sText())}`;$('mm').textContent='Your email app opens now. Press Send.'}
+function mailMe(){const m=$('rm').value.trim();if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){$('mm').textContent='Please check the email address.';return}st('gt-mail',m);mailTo(m)}
+function copyS(){try{navigator.clipboard.writeText(sText()).then(()=>$('mm').textContent='Copied!')}catch(e){}}
+function teacher(){const here=/^https?:/.test(location.protocol)&&!/claude\.ai|claudeusercontent/.test(location.host)?location.origin+location.pathname:'https://iwonita.github.io/ESOL-games/gtky-game.html';
+ const row=k=>`<div class="row"><input id="n${k}" style="flex:1" placeholder="Name" value="${esc(st('gt-tn'+k)||(k===1?'Teacher Iwona':'Teacher Anna'))}"><input id="e${k}" style="flex:2" type="email" placeholder="email" value="${esc(st('gt-t'+k)||'')}"></div>`;
+ modal(`<h2>👩‍🏫 Teacher</h2><p class="hint" style="text-align:left">Web address of this game:</p><input id="qu" value="${esc(here)}" placeholder="https://...">
+ <p class="hint" style="text-align:left">Teachers who receive learners' scores (optional):</p>${row(1)}${row(2)}
+ <div class="row"><button class="nav main" onclick="mkQR()">Make QR codes</button><button class="nav" onclick="window.print()">🖨️ Print</button></div><p id="qm" class="hint"></p><div id="qrs" class="qrs"></div>
+ <p class="hint">Each QR code opens one level (the level switch is hidden). Points on this device – Emerging: ${st('gt-pts-0')||0} · Entry 1: ${st('gt-pts-1')||0} · Entry 2: ${st('gt-pts-2')||0}</p><button class="nav" onclick="if(confirm('Reset all scores on this device?')){Object.keys(localStorage).filter(k=>/^gt-(pts|best)/.test(k)).forEach(k=>localStorage.removeItem(k));closeM();home()}">Reset scores</button>`)}
+function mkQR(){const u=$('qu').value.trim().split('?')[0];if(!/^https?:\/\//.test(u)){$('qm').textContent='Please paste an address that starts with https://';return}
+ let tq='';for(const k of [1,2]){const e=$('e'+k).value.trim(),n=$('n'+k).value.trim();if(e){st('gt-t'+k,e);st('gt-tn'+k,n);tq+=`&t${k}=${encodeURIComponent(e)}&n${k}=${encodeURIComponent(n)}`}}
+ const go=()=>{$('qrs').innerHTML=[0,1,2].map(l=>`<div class="qb"><b>${LVNAME[l]}</b><div id="qr${l}"></div><small>Getting to Know You</small></div>`).join('');[0,1,2].forEach(l=>new QRCode($('qr'+l),{text:`${u}?level=${l}${tq}`,width:170,height:170}))};
+ if(window.QRCode)return go();const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';s.onload=go;s.onerror=()=>$('qm').textContent='Connect to the internet to make QR codes.';document.head.appendChild(s)}
+/* init */
+{const r=st('gt-rate');if(r!==null&&RATES[+r]!==undefined)RATE=+r;[0,1,2].forEach(i=>$('sp'+i).classList.toggle('on',i===RATE));
+ const P=new URLSearchParams(location.search);for(const k of[1,2]){const e=P.get('t'+k);if(e){st('gt-t'+k,e);st('gt-tn'+k,P.get('n'+k)||('Teacher '+k))}}
+ const q=P.get('level');if(['0','1','2'].includes(q)){LEVEL=+q;$('lvsw').classList.add('hide')}else{const s=st('gt-level');if(['0','1','2'].includes(s))LEVEL=+s}
+ [0,1,2].forEach(i=>$('lv'+i).classList.toggle('on',i===LEVEL));document.body.className='l'+LEVEL;home();try{speechSynthesis.getVoices()}catch(e){}}
+</script></body></html>
