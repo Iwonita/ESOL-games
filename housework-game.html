@@ -148,7 +148,9 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const st=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}};
 let S={name:'',level:0,base:[],queue:[],qi:0,item:0,res:{},log:{},attempt:{},lock:false};
 let RATE=1;
-function voice(){try{const vs=speechSynthesis.getVoices().filter(v=>/en[-_]GB/i.test(v.lang));return vs.sort((a,b)=>(/natural/i.test(b.name))-(/natural/i.test(a.name)))[0]}catch(e){}}
+function bestVoice(){try{const vs=speechSynthesis.getVoices().filter(v=>/^en[-_]GB/i.test(v.lang));const sc=v=>(/natural/i.test(v.name)?100:0)+(/online/i.test(v.name)?50:0)+(/google/i.test(v.name)?40:0)+(/premium/i.test(v.name)?35:0)+(/enhanced/i.test(v.name)?30:0)+(/sonia|libby|serena|kate|female/i.test(v.name)?5:0)-(v.localService===false?0:1);return vs.sort((a,b)=>sc(b)-sc(a))[0]}catch(e){}}
+try{speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}catch(e){}
+function voice(){return bestVoice()}
 function speak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(t).replace(/_+/g,' … ').replace(/[✘✔→]/g,'').replace(/\([^)]*\)/g,''));u.lang='en-GB';u.rate=[0.65,0.9][RATE];const v=voice();if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}}
 function setRate(r){RATE=r;[0,1].forEach(i=>$('sp'+i).classList.toggle('on',i===r))}
 const sayB=(t,l='🔊')=>`<button class="say" onclick='speak(${JSON.stringify(t).replace(/'/g,"&#39;")})'>${l}</button>`;
