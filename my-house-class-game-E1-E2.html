@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My House – Class Game</title>
+<style>
+:root{--e1:#2E7D32;--e1bg:#E3F3E4;--e2:#1565C0;--e2bg:#E2EEFB;--ink:#1d1d1d}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:"Segoe UI",Tenorite,Arial,sans-serif;color:var(--ink);background:#fff;display:flex;flex-direction:column;height:100vh;height:100dvh;overflow:hidden}
+header{display:flex;align-items:center;gap:1.2vw;padding:.8vh 1.6vw;border-bottom:3px solid #ddd;flex:0 0 auto}
+.flag{height:clamp(22px,5vh,48px);aspect-ratio:2/1;flex:0 0 auto;border:1px solid #999}
+header h1{font-size:clamp(16px,3.4vh,30px);font-weight:800;white-space:nowrap}
+.badge{font-size:clamp(14px,3.2vh,30px);font-weight:900;color:#fff;padding:.2em .9em;border-radius:40px;white-space:nowrap}
+.l1 .badge{background:var(--e1)} .l2 .badge{background:var(--e2)}
+.count{font-size:clamp(13px,2.6vh,24px);font-weight:700;color:#444;white-space:nowrap}
+.teams{display:flex;gap:8px;margin-left:auto}
+.team{display:flex;align-items:center;gap:5px;background:#f2f2f2;border-radius:12px;padding:3px 7px;font-size:clamp(13px,2.6vh,22px);font-weight:800}
+.team button{font:inherit;border:0;border-radius:8px;width:1.7em;height:1.7em;cursor:pointer;background:#222;color:#fff}
+.team button.minus{background:#bbb;width:1.2em}
+main{flex:1 1 auto;display:flex;gap:1.6vw;padding:1.4vh 1.6vw;min-height:0;transition:background .2s}
+main.l1{background:var(--e1bg)} main.l2{background:var(--e2bg)}
+.passage{flex:0 0 40%;background:#fff;border-radius:18px;padding:1.2em 1.4em;line-height:1.45;overflow:hidden;border:4px solid rgba(0,0,0,.08)}
+.passage h3{font-size:1.05em;margin-bottom:.3em}
+.card{flex:1;background:#fff;border-radius:22px;padding:2vh 2vw;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5em;text-align:center;border:5px solid rgba(0,0,0,.08);min-height:0;min-width:0;overflow:hidden}
+.l1 .card{border-color:var(--e1)} .l2 .card{border-color:var(--e2)}
+.prompt{font-size:1em;font-weight:800;line-height:1.2}
+.prompt .sub{font-weight:500}
+.gap{display:inline-block;min-width:2.6em;border-bottom:.12em solid #222;margin:0 .1em}
+.gap.filled{min-width:0;border:0;background:#fff3b0;padding:0 .2em;border-radius:.2em}
+.spaced{letter-spacing:.16em}
+.hint{font-size:.6em;color:#555;font-style:italic}
+.pic{height:4.2em;max-height:30vh}
+.card.withpic{flex-direction:row;gap:2vw}
+.picwrap{flex:0 0 40%;height:100%;display:flex;align-items:center;justify-content:center;min-width:0}
+.picwrap{position:relative;align-self:stretch}
+.picwrap img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.content{flex:1;min-width:0;max-height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5em}
+.card.withpic.only .picwrap{flex-basis:55%}
+.opts{display:grid;gap:.35em;width:100%;max-width:1200px}
+.opts.n2{grid-template-columns:1fr 1fr} .opts.n3{grid-template-columns:1fr 1fr 1fr} .opts.n1{grid-template-columns:1fr;max-width:900px}
+.opt{font:inherit;font-size:.78em;font-weight:800;padding:.35em .3em;border-radius:.4em;border:4px solid #333;background:#fff;cursor:pointer;color:var(--ink)}
+.opt.right{background:#1b8a2f;border-color:#1b8a2f;color:#fff}
+.opt.wrong{background:#c62828;border-color:#c62828;color:#fff}
+.opt.fade{opacity:.3}
+.tiles{display:flex;flex-wrap:wrap;gap:.3em;justify-content:center}
+.tile{font-size:.72em;font-weight:800;padding:.15em .5em;border:3px dashed #555;border-radius:.35em;background:#fff}
+.answer{font-size:.8em;font-weight:900;padding:.25em .6em;border-radius:.35em;background:#fff8d6;border:4px solid #e0b400;display:none}
+.why{font-size:.5em;color:#333;display:none}
+.model{display:none;width:100%}
+.model table{width:100%;border-collapse:collapse;font-size:.75em;table-layout:fixed}
+.model.vert table{font-size:.7em}
+.model.vert th{text-align:right;width:38%}
+.model th{background:#d9d9d9;padding:.2em;border:3px solid #333;font-size:.6em}
+.model td{background:#fff;padding:.3em .2em;border:3px solid #333;font-weight:800}
+.model td.often{background:#fff3b0}
+.shown .answer,.shown .why,.shown .model{display:block}
+.shown .tiles{display:none}
+footer{display:flex;gap:1vw;align-items:center;justify-content:center;padding:1vh;border-top:3px solid #ddd;flex:0 0 auto}
+footer button{font:inherit;font-size:clamp(15px,3.2vh,28px);font-weight:800;padding:.35em .9em;border-radius:14px;border:0;cursor:pointer;background:#333;color:#fff}
+footer .reveal{background:#e0b400;color:#000;min-width:7em}
+footer .reveal:disabled{background:#ddd;color:#888}
+footer .light{background:#eee;color:#000}
+footer .light:disabled{opacity:.35}
+#menu{position:fixed;inset:0;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2vh;z-index:5;padding:2vh 3vw}
+#menu h2{font-size:clamp(22px,6vh,60px);font-weight:900;display:flex;align-items:center;gap:.4em;text-align:center}
+#menu .sub{font-size:clamp(15px,3vh,28px);color:#444;text-align:center}
+.legend{display:flex;gap:12px;font-size:clamp(14px,3vh,28px);font-weight:800}
+.legend span{padding:.2em .8em;border-radius:30px;color:#fff}
+.blocks{display:grid;grid-template-columns:1fr 1fr;gap:1.6vh 1.4vw;width:min(1100px,96vw)}
+.blockBtn{font:inherit;font-size:clamp(16px,3.6vh,36px);font-weight:900;padding:1.4vh 1.2vw;border-radius:18px;border:4px solid #333;background:#fff;cursor:pointer;text-align:left}
+.blockBtn small{display:block;font-size:.55em;font-weight:700;color:#555;margin-top:2px}
+.hidden{display:none!important}
+@media (max-width:700px){
+  header{flex-wrap:wrap;row-gap:4px}
+  .count{font-size:13px}
+  .teams{gap:4px}
+  footer{gap:6px}
+  footer button{font-size:clamp(14px,4.4vw,22px);padding:.35em .6em}
+  footer .reveal{min-width:0}
+}
+@media (max-aspect-ratio:1/1){
+  .card.withpic{flex-direction:column}
+  .picwrap{flex:0 0 38%;height:auto;width:100%;align-self:stretch}
+  .card.withpic.only .picwrap{flex-basis:50%}
+  .content{width:100%}
+  main{flex-direction:column}
+  .passage{flex:0 0 42%}
+  header h1{display:none}
+  .blocks{grid-template-columns:1fr}
+  .opts.n3{grid-template-columns:1fr}
+}
+
+main.l0{background:#FFF2CC}
+.emo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(30vh,20vw);line-height:1}
+.typebox{font:inherit;font-size:.8em;font-weight:700;width:100%;padding:.25em .4em;border:4px solid #333;border-radius:.35em;background:#fff}
+.l1 .typebox:focus{outline:5px solid var(--e1)} .l2 .typebox:focus{outline:5px solid var(--e2)}
+.checks{display:flex;flex-wrap:wrap;gap:.3em .8em;justify-content:center;font-size:.55em;font-weight:800}
+.ck{padding:.1em .5em;border-radius:.4em;background:#eee}
+.ck.ok{background:#1b8a2f;color:#fff}
+.passage{font-size:20px}
+.blockBtn.stretch{border-color:#e0b400;background:#FFF2CC}
+.blocks{grid-template-columns:1fr 1fr 1fr}
+.passage{flex-basis:50%}
+#menu .flag{height:clamp(40px,11vh,110px)}
+header .flag{height:clamp(26px,6vh,56px)}
+@media (max-aspect-ratio:1/1){.blocks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute"><defs><symbol id="uj" viewBox="0 0 60 30"><clipPath id="c"><path d="M0,0 v30 h60 v-30 z"/></clipPath><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><g clip-path="url(#c)"><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></g></symbol></defs></svg>
+<div id="menu">
+  <h2><svg class="flag" viewBox="0 0 60 30"><use href="#uj"/></svg>My House – Class Game</h2>
+  <div class="legend"><span style="background:var(--e1)">ENTRY 1</span><span style="background:var(--e2)">ENTRY 2</span></div>
+  <div class="sub">Write your answer on your white paper. Hold it up!</div>
+  <div class="blocks" id="blocks"></div>
+</div>
+<header id="hdr">
+  <svg class="flag" viewBox="0 0 60 30"><use href="#uj"/></svg>
+  <h1>My House</h1>
+  <div class="badge" id="badge"></div>
+  <div class="count" id="count"></div>
+  <div class="teams">
+    <div class="team">A <span id="sA">0</span><button onclick="score('A',1)">+</button><button class="minus" onclick="score('A',-1)">–</button></div>
+    <div class="team">B <span id="sB">0</span><button onclick="score('B',1)">+</button><button class="minus" onclick="score('B',-1)">–</button></div>
+  </div>
+</header>
+<main id="main">
+  <div class="passage hidden" id="passage"></div>
+  <div class="card" id="card"></div>
+</main>
+<footer>
+  <button class="light" onclick="openMenu()">☰</button>
+  <button onclick="go(-1)">◀</button>
+  <button class="reveal" id="revealBtn" onclick="reveal()">Answer</button>
+  <button onclick="go(1)">▶</button>
+  <button class="light" id="sayBtn" onclick="say()" disabled title="Say the correct answer">🔊</button>
+</footer>
+<script>
+function bestVoice(){try{const vs=speechSynthesis.getVoices().filter(v=>/^en[-_]GB/i.test(v.lang));const sc=v=>(/natural/i.test(v.name)?100:0)+(/online/i.test(v.name)?50:0)+(/google/i.test(v.name)?40:0)+(/premium/i.test(v.name)?35:0)+(/enhanced/i.test(v.name)?30:0)+(/sonia|libby|serena|kate|female/i.test(v.name)?5:0)-(v.localService===false?0:1);return vs.sort((a,b)=>sc(b)-sc(a))[0]}catch(e){}}
+try{speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}catch(e){}
+
+const GAP='<span class="gap"></span>';
+const sp=t=>`<span class="spaced">${t}</span>`;
+const TEXTS={
+ amina:{title:"Amina’s flat",body:"My name is Amina. I live in a small flat in Hanley. My flat is on the second floor.<br><br>There is a living room, a kitchen, a bathroom and one bedroom. There is a big sofa in the living room. There are two windows. The flat is bright and warm.<br><br>There is no garden, but there is a park near my street. My children like to play there. I like my flat very much."},
+ advert1:{title:"FLAT TO RENT",body:"<b>12 Park Road, Stoke</b><br>• 1 bedroom<br>• kitchen and bathroom<br>• small balcony<br>• no garden<br>• £550 a month<br>• near the bus station<br><b>Call Sam: 07700 900456</b>"},
+ daniel:{title:"Daniel’s new home",body:"Last year Daniel moved from a house to a flat. His old house was in a small village. There were three bedrooms and there was a big garden with lots of flowers. It was quiet, but it was very far from the shops and the bus stop. Daniel had to drive everywhere, and the house was very cold in winter.<br><br>Now Daniel lives in a flat in the town centre. It is on the third floor, so he takes the lift. There are two bedrooms and there is a small balcony. There isn’t a garden, so he misses his flowers, but he has got three big plants on the balcony.<br><br>The flat is warm and bright because it has big windows. Daniel likes his new home because everything is near: the shops, the library and his job."},
+ advert2:{title:"TO LET",body:"<b>2-bedroom flat • Victoria Road, Hanley</b><br>• Furnished: sofa, beds, fridge and cooker<br>• Large living room and modern kitchen<br>• Bathroom with shower (no bath)<br>• Small balcony<br>• £675 per month – water included<br>• No pets. No smoking.<br>• Available from 1st November<br><b>Contact Hanley Homes: 01782 123456</b>"},
+ maria:{title:"Maria’s email",body:"Hi Anna,<br><br>I live in a flat in Stoke. There is a kitchen, a living room and one bedroom. There is a big sofa in the living room. I have got a small balcony. Please visit me soon!<br><br>Best wishes,<br>Maria"},
+ lena:{title:"Lena’s email",body:"Hi Sam,<br><br>How are you? I moved to a new flat last month.<br><br>In my old house there were three bedrooms and there was a big garden, but it was very far from the shops.<br><br>Now there are two bedrooms and there is a small balcony. My favourite room is the kitchen because it is bright and warm.<br><br>Please come and visit me soon.<br><br>Best wishes,<br>Lena"}
+};
+const ROOMS=['kitchen','bedroom','living room','bathroom'];
+const ROOMS5=['kitchen','bedroom','living room','bathroom','hall'];
+/* item: lv level · p prompt · emo picture · hint · o options · ok correct · a answer box · why rule
+   order tiles (shuffled each time) · text passage · type = typing box with checks · s = sentence the voice says */
+const BLOCKS=[
+ {id:'1',name:'Block 1 · Vocabulary',sub:'rooms, furniture, types of home, describing words',items:[
+  {lv:1,emo:'🛏️',p:sp('b _ d'),a:'bed',s:'bed'},
+  {lv:1,emo:'🪑',p:sp('_ rmch _ _ r'),a:'armchair',s:'armchair'},
+  {lv:1,emo:'🍳',p:sp('c _ _ k _ r'),a:'cooker',s:'cooker'},
+  {lv:1,emo:'🧊',p:sp('fr _ dg _'),a:'fridge',s:'fridge'},
+  {lv:1,emo:'💡',p:sp('l _ mp'),a:'lamp',s:'lamp'},
+  {lv:1,emo:'🪞',p:sp('m _ rr _ r'),a:'mirror',s:'mirror'},
+  {lv:1,emo:'🛁',p:sp('b _ th'),a:'bath',s:'bath'},
+  {lv:1,emo:'🚽',p:sp('t _ _ l _ t'),a:'toilet',s:'toilet'},
+  {lv:1,emo:'🪟',p:sp('w _ nd _ w'),a:'window',s:'window'},
+  {lv:1,emo:'🚪',p:sp('d _ _ r'),a:'door',s:'door'},
+  {lv:1,emo:'🛋️',p:'sofa – which room?',o:ROOMS,ok:'living room',s:'sofa. The living room.'},
+  {lv:1,emo:'🫖',p:'kettle – which room?',o:ROOMS,ok:'kitchen',s:'kettle. The kitchen.'},
+  {lv:1,p:'wardrobe – which room?',o:ROOMS,ok:'bedroom',s:'wardrobe. The bedroom.'},
+  {lv:1,p:'towel – which room?',o:ROOMS,ok:'bathroom',s:'towel. The bathroom.'},
+  {lv:1,p:'I sleep here.',o:['the kitchen','the bedroom','the hall'],ok:'the bedroom',s:'I sleep in the bedroom.'},
+  {lv:1,p:'I have a shower here.',o:['the bathroom','the garden','the living room'],ok:'the bathroom',s:'I have a shower in the bathroom.'},
+  {lv:1,p:'I cook food here.',o:['the bedroom','the kitchen','the hall'],ok:'the kitchen',s:'I cook food in the kitchen.'},
+  {lv:1,p:'The flowers grow here.',o:['the garden','the bathroom','the kitchen'],ok:'the garden',s:'The flowers grow in the garden.'},
+  {lv:1,p:'I leave my coat and shoes here.',o:['the hall','the bedroom','the garden'],ok:'the hall',s:'I leave my coat and shoes in the hall.'},
+  {lv:2,emo:'🏢',p:'a home in a big building – people live above and below you',o:['flat','terraced house','detached house'],ok:'flat',s:'a flat'},
+  {lv:2,emo:'🏠',p:'a house that stands alone – it is not joined to any house',o:['semi-detached house','detached house','terraced house'],ok:'detached house',s:'a detached house'},
+  {lv:2,emo:'🏘️',p:'a house joined to ONE other house',o:['terraced house','semi-detached house','flat'],ok:'semi-detached house',s:'a semi-detached house'},
+  {lv:2,p:'a house in a row – joined to houses on both sides',o:['detached house','flat','terraced house'],ok:'terraced house',s:'a terraced house'},
+  {lv:2,p:'The '+GAP+' carries people up to a higher floor.',o:['stairs','lift','gate'],ok:'lift',s:'The lift carries people up to a higher floor.'},
+  {lv:2,p:'We go up the '+GAP+' to get to the first floor.',o:['stairs','lift','window'],ok:'stairs',s:'We go up the stairs to get to the first floor.'},
+  {lv:2,p:'We close the '+GAP+' to stop dogs coming into the garden.',o:['window','gate','lift'],ok:'gate',s:'We close the gate to stop dogs coming into the garden.'},
+  {lv:2,p:'We eat our meals in the '+GAP+' .',o:['dining room','bathroom','hall'],ok:'dining room',s:'We eat our meals in the dining room.'},
+  {lv:2,p:'coat hooks – which room?',o:ROOMS5,ok:'hall',s:'coat hooks. The hall.'},
+  {lv:2,p:'bookcase – which room?',o:ROOMS5,ok:'living room',s:'bookcase. The living room.'},
+  {lv:2,p:'The opposite of <b>bright</b>?',o:['cold','dark','old'],ok:'dark',s:'bright, dark'},
+  {lv:2,p:'The opposite of <b>quiet</b>?',o:['noisy','small','cheap'],ok:'noisy',s:'quiet, noisy'},
+  {lv:2,p:'The opposite of <b>cheap</b>?',o:['modern','expensive','big'],ok:'expensive',s:'cheap, expensive'},
+  {lv:2,p:'The heating is broken, so the bedroom is '+GAP+' .',o:['warm','cold','bright'],ok:'cold',s:'The heating is broken, so the bedroom is cold.'},
+  {lv:2,p:'The rent is only £400 a month. It is '+GAP+' .',o:['cheap','expensive','noisy'],ok:'cheap',s:'The rent is only four hundred pounds a month. It is cheap.'}
+ ]},
+ {id:'2',name:'Block 2 · Grammar',sub:'E1 there is / there are · E2 there was / there were',items:[
+  {lv:1,emo:'🛋️',p:GAP+' a big sofa in the living room.',o:['There is','There are'],ok:'There is',why:'There is + ONE thing',s:'There is a big sofa in the living room.'},
+  {lv:1,emo:'🛏️',p:GAP+' two beds in the bedroom.',o:['There is','There are'],ok:'There are',why:'There are + 2, 3, some',s:'There are two beds in the bedroom.'},
+  {lv:1,emo:'🌷',p:GAP+' some flowers in the garden.',o:['There is','There are'],ok:'There are',s:'There are some flowers in the garden.'},
+  {lv:1,emo:'🍳',p:GAP+' an old cooker in the kitchen.',o:['There is','There are'],ok:'There is',s:'There is an old cooker in the kitchen.'},
+  {lv:1,emo:'🪑',p:GAP+' four chairs in the kitchen.',o:['There is','There are'],ok:'There are',s:'There are four chairs in the kitchen.'},
+  {lv:1,emo:'💡',p:GAP+' a lamp in the hall.',o:['There is','There are'],ok:'There is',s:'There is a lamp in the hall.'},
+  {lv:1,p:GAP+' armchair',o:['a','an'],ok:'an',why:'an + a, e, i, o, u',s:'an armchair'},
+  {lv:1,p:GAP+' new fridge',o:['a','an'],ok:'a',s:'a new fridge'},
+  {lv:1,p:GAP+' old sofa',o:['a','an'],ok:'an',why:'old starts with o',s:'an old sofa'},
+  {lv:1,p:GAP+' orange rug',o:['a','an'],ok:'an',s:'an orange rug'},
+  {lv:1,p:GAP+' big window',o:['a','an'],ok:'a',s:'a big window'},
+  {lv:1,p:'one chair → three '+GAP,a:'chairs',why:'more than one → + s',s:'one chair, three chairs'},
+  {lv:1,p:'one window → four '+GAP,a:'windows',s:'one window, four windows'},
+  {lv:1,p:'one bookcase → two '+GAP,a:'bookcases',s:'one bookcase, two bookcases'},
+  {lv:2,p:'There '+GAP+' a big sofa in the living room.',o:['was','were'],ok:'was',why:'was + ONE thing · were + more',s:'There was a big sofa in the living room.'},
+  {lv:2,p:'There '+GAP+' two lamps in the house.',o:['was','were'],ok:'were',s:'There were two lamps in the house.'},
+  {lv:2,p:'There '+GAP+' some plants in the kitchen.',o:['was','were'],ok:'were',s:'There were some plants in the kitchen.'},
+  {lv:2,p:'There '+GAP+' a mirror in the bathroom.',o:['was','were'],ok:'was',s:'There was a mirror in the bathroom.'},
+  {lv:2,p:'Daniel’s old flat:<br>There '+GAP+' a lift.',o:['wasn’t','weren’t any'],ok:'wasn’t',s:'There wasn’t a lift.'},
+  {lv:2,p:'There '+GAP+' shops near the flat.',o:['wasn’t','weren’t any'],ok:'weren’t any',why:'weren’t any + more than one',s:'There weren’t any shops near the flat.'},
+  {lv:2,p:'There '+GAP+' cupboards in the kitchen.',o:['wasn’t','weren’t any'],ok:'weren’t any',s:'There weren’t any cupboards in the kitchen.'},
+  {lv:2,p:'There '+GAP+' a bath – only a shower.',o:['wasn’t','weren’t any'],ok:'wasn’t',s:'There wasn’t a bath. Only a shower.'},
+  {lv:2,p:'Was there a TV in the living room? <span class="sub">(✔)</span>',o:['Yes, there was.','Yes, there were.'],ok:'Yes, there was.',s:'Yes, there was.'},
+  {lv:2,p:'Were there any chairs in the kitchen? <span class="sub">(✔)</span>',o:['Yes, there was.','Yes, there were.'],ok:'Yes, there were.',s:'Yes, there were.'},
+  {lv:2,p:'Was there a sofa in the bedroom? <span class="sub">(✘)</span>',o:['No, there wasn’t.','No, there weren’t.'],ok:'No, there wasn’t.',s:'No, there wasn’t.'}
+ ]},
+ {id:'3',name:'Block 3 · Grammar',sub:'E1 describing words, and / but · E2 but / because / so',items:[
+  {lv:1,p:'Put the words in order.',order:['armchair','an','old'],a:'an old armchair',why:'The describing word goes BEFORE the thing.',s:'an old armchair'},
+  {lv:1,p:'Put the words in order.',order:['is','There','a','small','kitchen.'],a:'There is a small kitchen.',s:'There is a small kitchen.'},
+  {lv:1,p:'Put the words in order.',order:['are','There','new','two','chairs.'],a:'There are two new chairs.',s:'There are two new chairs.'},
+  {lv:1,p:'Put the words in order.',order:['is','flat','My','warm.'],a:'My flat is warm.',s:'My flat is warm.'},
+  {lv:1,p:'Which is correct?',o:['a sofa big','a big sofa'],ok:'a big sofa',s:'a big sofa'},
+  {lv:1,p:'There is a kitchen '+GAP+' a living room.',o:['and','but'],ok:'and',why:'and = more information',s:'There is a kitchen and a living room.'},
+  {lv:1,p:'I have got a sofa '+GAP+' I haven’t got a TV.',o:['and','but'],ok:'but',why:'but = a different idea',s:'I have got a sofa, but I haven’t got a TV.'},
+  {lv:1,p:'My bedroom is big '+GAP+' bright.',o:['and','but'],ok:'and',s:'My bedroom is big and bright.'},
+  {lv:1,p:'My house is old '+GAP+' I like it.',o:['and','but'],ok:'but',s:'My house is old, but I like it.'},
+  {lv:2,p:'It was quiet, …',o:['so we moved.','but it was far from the shops.','because I like cooking.'],ok:'but it was far from the shops.',s:'It was quiet, but it was far from the shops.'},
+  {lv:2,p:'There isn’t a garden, …',o:['so I miss my flowers.','because everything is near.','but it is bright.'],ok:'so I miss my flowers.',s:'There isn’t a garden, so I miss my flowers.'},
+  {lv:2,p:'The rent was very expensive, …',o:['because I like cooking.','so we moved.','but it is bright.'],ok:'so we moved.',s:'The rent was very expensive, so we moved.'},
+  {lv:2,p:'The flat is on the fourth floor, '+GAP+' I take the lift.',o:['but','because','so'],ok:'so',why:'so = the result',s:'The flat is on the fourth floor, so I take the lift.'},
+  {lv:2,p:'I like my house '+GAP+' it has a big garden.',o:['but','because','so'],ok:'because',why:'because = the reason (Why?)',s:'I like my house because it has a big garden.'},
+  {lv:2,p:'The living room is big, '+GAP+' the kitchen is very small.',o:['but','because','so'],ok:'but',s:'The living room is big, but the kitchen is very small.'},
+  {lv:2,p:'We moved '+GAP+' we needed more bedrooms.',o:['but','because','so'],ok:'because',s:'We moved because we needed more bedrooms.'},
+  {lv:2,p:'The house was cheap, '+GAP+' it was very old.',o:['but','because','so'],ok:'but',s:'The house was cheap, but it was very old.'},
+  {lv:2,p:'Join with <b>so</b>:<br><span class="sub">The flat is near the bus stop. It is easy to get to work.</span>',a:'The flat is near the bus stop, so it is easy to get to work.',s:'The flat is near the bus stop, so it is easy to get to work.'},
+  {lv:2,p:'Join with <b>because</b>:<br><span class="sub">We moved to Hanley. My husband got a job there.</span>',a:'We moved to Hanley because my husband got a job there.',s:'We moved to Hanley because my husband got a job there.'}
+ ]},
+ {id:'4',name:'Block 4 · Reading',sub:'E1 Amina’s flat + advert · E2 Daniel’s new home + advert',items:[
+  {lv:1,text:'amina',p:'Amina lives in a big house.',o:['True','False'],ok:'False',why:'She lives in a small flat.',s:'False. Amina lives in a small flat.'},
+  {lv:1,text:'amina',p:'The flat is in Hanley.',o:['True','False'],ok:'True',s:'True. The flat is in Hanley.'},
+  {lv:1,text:'amina',p:'There are two bedrooms.',o:['True','False'],ok:'False',why:'There is one bedroom.',s:'False. There is one bedroom.'},
+  {lv:1,text:'amina',p:'There is a garden.',o:['True','False'],ok:'False',why:'There is no garden.',s:'False. There is no garden.'},
+  {lv:1,text:'amina',p:'Where is Amina’s flat?',o:['in Hanley','in Stoke','near the bus station'],ok:'in Hanley',s:'In Hanley. On the second floor.'},
+  {lv:1,text:'amina',p:'What is in the living room?',o:['a big TV','a big sofa','two beds'],ok:'a big sofa',s:'A big sofa.'},
+  {lv:1,text:'amina',p:'What is near her street?',o:['a shop','a park','a school'],ok:'a park',s:'A park.'},
+  {lv:1,text:'advert1',p:'How many bedrooms are there?',o:['1','2','3'],ok:'1',s:'One bedroom.'},
+  {lv:1,text:'advert1',p:'How much is the flat?',o:['£550 a month','£650 a month','£900 a month'],ok:'£550 a month',s:'Five hundred and fifty pounds a month.'},
+  {lv:1,text:'advert1',p:'Who do you call?',a:'Sam',s:'Sam.'},
+  {lv:2,text:'daniel',p:'Daniel’s old house was in the town centre.',o:['True','False','Doesn’t say'],ok:'False',why:'It was in a small village.',s:'False. His old house was in a small village.'},
+  {lv:2,text:'daniel',p:'There was a big garden.',o:['True','False','Doesn’t say'],ok:'True',s:'True. There was a big garden.'},
+  {lv:2,text:'daniel',p:'Daniel has got a car now.',o:['True','False','Doesn’t say'],ok:'Doesn’t say',why:'The text doesn’t tell us.',s:'Doesn’t say.'},
+  {lv:2,text:'daniel',p:'Daniel hasn’t got any plants now.',o:['True','False','Doesn’t say'],ok:'False',why:'He has got three big plants on the balcony.',s:'False. He has got three big plants on the balcony.'},
+  {lv:2,text:'daniel',p:'How does Daniel get up to his flat?',a:'He takes the lift.',s:'He takes the lift.'},
+  {lv:2,text:'daniel',p:'Why is the flat warm and bright?',a:'Because it has big windows.',s:'Because it has big windows.'},
+  {lv:2,text:'daniel',p:'Why does Daniel like his new home?',a:'Because everything is near: the shops, the library and his job.',s:'Because everything is near. The shops, the library and his job.'},
+  {lv:2,text:'advert2',p:'Is there a bath?',o:['Yes, there is.','No, there isn’t.'],ok:'No, there isn’t.',why:'Bathroom with shower (no bath)',s:'No, there isn’t. There is a shower.'},
+  {lv:2,text:'advert2',p:'Can you have a cat in the flat?',o:['Yes','No'],ok:'No',why:'No pets.',s:'No. No pets.'},
+  {lv:2,text:'advert2',p:'When can you move in?',a:'from 1st November',s:'From the first of November.'}
+ ]},
+ {id:'5',name:'Block 5 · Writing',sub:'email parts, capital letters, type a sentence',items:[
+  {lv:1,text:'maria',p:'How does Maria start the email?',o:['Dear Anna,','Hi Anna,','Hello!'],ok:'Hi Anna,',s:'Hi Anna,'},
+  {lv:1,text:'maria',p:'How does Maria finish the email?',o:['See you,','Best wishes,','Love,'],ok:'Best wishes,',s:'Best wishes, Maria'},
+  {lv:1,p:'Correct it!<br><span class="sub">my house is in hanley</span>',a:'My house is in Hanley.',why:'Capital letters: start of the sentence and places.',s:'My house is in Hanley.'},
+  {lv:1,p:'Correct it!<br><span class="sub">there are two bedrooms there is a small garden</span>',a:'There are two bedrooms. There is a small garden.',why:'2 sentences = 2 capital letters + 2 full stops',s:'There are two bedrooms. There is a small garden.'},
+  {lv:1,p:'Correct it!<br><span class="sub">my name is amina i live in a flat in hanley</span>',a:'My name is Amina. I live in a flat in Hanley.',why:'names, I, places → capital letters',s:'My name is Amina. I live in a flat in Hanley.'},
+  {lv:1,type:true,p:'Type a sentence about YOUR home.',start:'There is ',hint:'There is … in the …',checks:[['Capital letter',/^[A-Z]/],['There is',/there is/i],['in the …',/\bin the \w+/i],['Full stop',/\.\s*$/]],a:'There is a big sofa in the living room.',s:'There is a big sofa in the living room.'},
+  {lv:1,type:true,p:'Finish the sentence.',start:'I live in a ',hint:'house / flat · in + place',checks:[['Capital letter',/^[A-Z]/],['house / flat',/\b(house|flat)\b/i],['Place with a capital',/\bin [A-Z]\w+/],['Full stop',/\.\s*$/]],a:'I live in a flat in Stoke.',s:'I live in a flat in Stoke.'},
+  {lv:2,text:'lena',p:'Find a sentence with <b>because</b>.',a:'My favourite room is the kitchen because it is bright and warm.',s:'My favourite room is the kitchen because it is bright and warm.'},
+  {lv:2,text:'lena',p:'Find a sentence with <b>there was</b>.',a:'In my old house there were three bedrooms and there was a big garden, but it was very far from the shops.',s:'In my old house there were three bedrooms and there was a big garden, but it was very far from the shops.'},
+  {lv:2,p:'Correct it!<br><span class="sub">how are you i hope you are well</span>',a:'How are you? I hope you are well.',why:'A question needs a question mark.',s:'How are you? I hope you are well.'},
+  {lv:2,p:'Correct it!<br><span class="sub">it is in the city centre so it is close to the shops</span>',a:'It is in the city centre, so it is close to the shops.',why:'comma before so',s:'It is in the city centre, so it is close to the shops.'},
+  {lv:2,p:'Correct it!<br><span class="sub">the flat has two bedrooms a kitchen a living room and a bathroom</span>',a:'The flat has two bedrooms, a kitchen, a living room and a bathroom.',why:'commas in a list',s:'The flat has two bedrooms, a kitchen, a living room and a bathroom.'},
+  {lv:2,type:true,p:'Type a sentence about BEFORE.',start:'Before, there was ',hint:'there was / there were … but …',checks:[['Capital letter',/^[A-Z]/],['was / were',/\b(was|were)\b/i],['but',/\bbut\b/i],['Full stop',/\.\s*$/]],a:'Before, there was a big garden, but it was far from the shops.',s:'Before, there was a big garden, but it was far from the shops.'},
+  {lv:2,type:true,p:'Type a sentence about your favourite room.',start:'My favourite room is the ',hint:'… because it is … and …',checks:[['Capital letter',/^[A-Z]/],['because',/\bbecause\b/i],['2 describing words',/\b(bright|warm|big|small|quiet|modern|cosy|comfortable|clean|new|light|nice|beautiful|sunny)\b.*\b(bright|warm|big|small|quiet|modern|cosy|comfortable|clean|new|light|nice|beautiful|sunny)\b/i],['Full stop',/\.\s*$/]],a:'My favourite room is the kitchen because it is bright and warm.',s:'My favourite room is the kitchen because it is bright and warm.'}
+ ]},
+ {id:'6',name:'⭐ Stretch',sub:'harder questions for fast finishers',items:[
+  {lv:1,text:'amina',p:'Find 3 describing words in the text.',a:'small · big · bright · warm',s:'small, big, bright, warm'},
+  {lv:1,p:'Put the words in order.',order:['has','house','My','a','garden','big.'],a:'My house has a big garden.',s:'My house has a big garden.'},
+  {lv:1,p:'There isn’t a garden '+GAP+' there is a park near my house.',o:['and','but'],ok:'but',s:'There isn’t a garden, but there is a park near my house.'},
+  {lv:1,type:true,p:'Type 2 sentences about YOUR home.',start:'',hint:'There is … There are …',checks:[['Capital letter',/^[A-Z]/],['There is',/there is/i],['There are',/there are/i],['2 full stops',/\..*\./]],a:'There is a small kitchen. There are two bedrooms.',s:'There is a small kitchen. There are two bedrooms.'},
+  {lv:2,text:'daniel',p:'Give TWO problems with the old house.',a:'It was far from the shops and the bus stop. It was very cold in winter.',s:'It was very far from the shops and the bus stop, and it was very cold in winter.'},
+  {lv:2,text:'daniel',p:'Find a word that means: a small outside place at a flat.',a:'balcony',s:'balcony'},
+  {lv:2,p:'chairs: before ✔ now ✘',a:'There were some chairs in the kitchen, but now there aren’t any chairs.',why:'were → aren’t any',s:'There were some chairs in the kitchen, but now there aren’t any chairs.'},
+  {lv:2,p:'Join with <b>but</b>:<br><span class="sub">My old house had a garden. My new flat has a balcony.</span>',a:'My old house had a garden, but my new flat has a balcony.',s:'My old house had a garden, but my new flat has a balcony.'},
+  {lv:2,type:true,p:'Type ONE sentence with <b>so</b> about YOUR home.',start:'',hint:'There isn’t a …, so I …',checks:[['Capital letter',/^[A-Z]/],['comma + so',/,\s*so\b/i],['Full stop',/\.\s*$/]],a:'There isn’t a lift, so I take the stairs.',s:'There isn’t a lift, so I take the stairs.'}
+ ]}
+];
+let B=0,i=0,shown=false; const sc={A:0,B:0};
+const $=id=>document.getElementById(id);
+function shuffle(orig){let a;do{a=orig.slice();for(let k=a.length-1;k>0;k--){const j=Math.floor(Math.random()*(k+1));[a[k],a[j]]=[a[j],a[k]]}}while(a.length>1&&a.join(' ')===orig.join(' '));return a}
+function score(t,d){sc[t]=Math.max(0,sc[t]+d);$('s'+t).textContent=sc[t]}
+function buildMenu(){ $('blocks').innerHTML=BLOCKS.map((b,k)=>`<button class="blockBtn${b.id==='6'?' stretch':''}" onclick="start(${k})">${b.name}<small>${b.sub} · ${b.items.length} questions</small></button>`).join('') }
+function openMenu(){ $('menu').classList.remove('hidden'); try{speechSynthesis.cancel()}catch(e){} }
+function start(k){ B=k;i=0;$('menu').classList.add('hidden');render() }
+function fit(el,start){
+  let fs=start; el.style.fontSize=fs+'px';
+  const inner=()=>[...el.querySelectorAll('.opt,.tile,.content')].some(x=>x.scrollWidth>x.clientWidth+1||(x.classList.contains('content')&&x.scrollHeight>x.clientHeight+1));
+  while((el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1||inner())&&fs>9){fs*=0.94;el.style.fontSize=fs+'px'}
+}
+function fitAll(){
+  const vh=innerHeight,vw=innerWidth,wide=vw>vh,pas=$('passage');
+  if(!pas.classList.contains('hidden')) fit(pas,Math.min(vh*0.05,vw*(wide?0.026:0.05)));
+  fit($('card'),Math.min(vh*0.085,vw*(wide?0.055:0.09)));
+}
+function render(){
+  const blk=BLOCKS[B],it=blk.items[i]; shown=false;
+  $('main').className='l'+it.lv; $('hdr').className='l'+it.lv;
+  $('badge').textContent='ENTRY '+it.lv;
+  $('count').textContent=blk.name.split('·')[0].trim()+' · '+(i+1)+' / '+blk.items.length;
+  const pas=$('passage');
+  if(it.text){pas.classList.remove('hidden');pas.innerHTML=`<h3>${TEXTS[it.text].title}</h3>${TEXTS[it.text].body}`}else pas.classList.add('hidden');
+  let h=`<div class="prompt">${it.p}</div>`;
+  if(it.hint) h+=`<div class="hint">${it.hint}</div>`;
+  if(it.order) h+=`<div class="tiles">${shuffle(it.order).map(w=>`<span class="tile">${w}</span>`).join('')}</div>`;
+  if(it.o){const long=Math.max(...it.o.map(x=>x.length));const n=long>18?1:(it.o.length>3?2:it.o.length);h+=`<div class="opts n${n}">${it.o.map((o,k)=>`<button class="opt" onclick="pick(${k})">${o}</button>`).join('')}</div>`}
+  if(it.type) h+=`<input class="typebox" id="tb" autocomplete="off" spellcheck="false" value="${it.start||''}" oninput="checkType()"><div class="checks" id="ck">${it.checks.map(c=>`<span class="ck">☐ ${c[0]}</span>`).join('')}</div>`;
+  if(it.a) h+=`<div class="answer">${it.type?'Example: ':''}${it.a}</div>`;
+  if(it.why) h+=`<div class="why">${it.why}</div>`;
+  const c=$('card');
+  if(it.emo){c.className='card withpic';c.innerHTML=`<div class="picwrap"><div class="emo">${it.emo}</div></div><div class="content">${h}</div>`}
+  else{c.className='card';c.innerHTML=h}
+  $('revealBtn').disabled=false; $('sayBtn').disabled=true;
+  fitAll();
+  if(it.type){const tb=$('tb');tb.focus();tb.setSelectionRange(tb.value.length,tb.value.length);checkType()}
+}
+function checkType(){
+  const it=BLOCKS[B].items[i],v=$('tb').value.trim();
+  $('ck').innerHTML=it.checks.map(c=>{const ok=c[1].test(v);return `<span class="ck${ok?' ok':''}">${ok?'✔':'☐'} ${c[0]}</span>`}).join('');
+}
+function pick(k){ if(!shown) reveal(k) }
+function reveal(k){
+  if(shown) return;
+  const it=BLOCKS[B].items[i]; shown=true;
+  $('card').classList.add('shown'); $('revealBtn').disabled=true; $('sayBtn').disabled=false;
+  if(it.o){
+    const right=it.o.indexOf(it.ok);
+    document.querySelectorAll('.opt').forEach((b,n)=>b.classList.add(n===right?'right':(n===k?'wrong':'fade')));
+    document.querySelectorAll('.gap').forEach(g=>{g.textContent=it.ok;g.classList.add('filled')});
+  }else if(it.a&&!it.type){document.querySelectorAll('.gap').forEach(g=>{g.textContent=it.a;g.classList.add('filled')})}
+  fitAll(); say();
+}
+function go(d){
+  const n=BLOCKS[B].items.length; try{speechSynthesis.cancel()}catch(e){}
+  if(i+d>=n){endScreen();return}
+  i=Math.max(0,i+d); render();
+}
+function endScreen(){
+  $('passage').classList.add('hidden'); $('revealBtn').disabled=true; $('sayBtn').disabled=true;
+  $('main').className='l0'; $('card').className='card';
+  $('card').innerHTML=`<div class="prompt">Well done! 🎉</div><div class="hint" style="font-style:normal;font-weight:800">Team A: ${sc.A} &nbsp;·&nbsp; Team B: ${sc.B}</div><div class="hint">Now go to your worksheet.</div><button class="opt" style="max-width:12em" onclick="openMenu()">☰ Blocks</button>`;
+  fitAll();
+}
+function say(){
+  if(!shown) return;
+  try{const it=BLOCKS[B].items[i]; speechSynthesis.cancel();
+  const u=new SpeechSynthesisUtterance(it.s.replace(/’/g,"'")); u.lang='en-GB'; u.rate=.85;
+  const v=bestVoice(); if(v) u.voice=v; speechSynthesis.speak(u)}catch(e){}
+}
+document.addEventListener('keydown',e=>{
+  if(!$('menu').classList.contains('hidden')) return;
+  if(document.activeElement&&document.activeElement.id==='tb'){ if(e.key==='Enter'){e.preventDefault();reveal()} return }
+  if(e.key==='ArrowRight') go(1); else if(e.key==='ArrowLeft') go(-1);
+  else if(e.key===' '||e.key==='Enter'){e.preventDefault(); shown?go(1):reveal()}
+  else if(e.key==='Escape') openMenu();
+});
+let wasWide=innerWidth>=innerHeight;
+addEventListener('resize',()=>{ if(!$('menu').classList.contains('hidden')) return; const w=innerWidth>=innerHeight; if(w!==wasWide){wasWide=w;const sh=shown;render();if(sh)reveal()} else fitAll() });
+buildMenu();
+const qb=new URLSearchParams(location.search).get('block');
+if(qb){const k=BLOCKS.findIndex(b=>b.id===qb); if(k>=0) start(k)}
+
+</script>
+</body>
+</html>
