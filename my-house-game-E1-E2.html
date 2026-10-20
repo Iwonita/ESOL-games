@@ -230,6 +230,16 @@ table.res td,table.res th{padding:.12em .4em!important}
 .opt.key span:first-child{padding:0!important;text-align:center}
 .review{overflow:hidden}
 @media (max-width:760px){.pmenu .pgrid{grid-template-columns:1fr 1fr!important;grid-auto-rows:1fr!important;flex:1!important}.pmenu .btile .pi{font-size:min(9vh,60px)!important}.pmenu .btile{font-size:clamp(14px,2.4vh,22px)!important;padding:4px!important}}
+
+.ibox{flex:0 0 auto!important;background:var(--lvs)!important;border-color:var(--lv)!important;gap:.6vh!important;padding:2vh 2vw!important}
+textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:pre-wrap;word-wrap:break-word;display:block}
+.wsplit{grid-template-columns:3.2fr 1fr!important}
+.bigb{font-size:clamp(16px,min(3.4vh,1.9vw),30px)!important}
+.rate2 button{font-size:clamp(16px,min(3.6vh,2vw),32px)!important}
+.opt span{overflow-wrap:normal;word-break:normal;hyphens:none}
+@media (max-width:760px){.wsplit{grid-template-columns:1fr!important}}
+.opt span:first-child{padding-left:14px!important;padding-right:14px!important}.opt .ospk{top:8px!important;right:8px!important;transform:none!important}.opt.key span:first-child{padding:0!important}
+
 </style></head><body class="l1">
 <header><span class="flag" aria-hidden="true"></span><span class="brand">My House</span><div id="hud"></div>
 <div class="sw"><button id="sp0" onclick="setRate(0)">🐢</button><button id="sp1" onclick="setRate(1)">Normal</button></div></header>
@@ -323,7 +333,7 @@ const L2=[
  items:[['What type of house is it?','a terraced house',['a detached house','a flat']],['Is there any furniture?','No, it is unfurnished.',['Yes, it is furnished.']],['Is there a shower?','Yes – a bath and a shower.',['No, only a bath.']],['Are the bills included in the rent?','No, they aren’t.',['Yes, they are.']],['Can you have a dog?','Yes – pets welcome.',['No – no pets.']],['When can you move in?','from 15th December',['from 1st November','now']]].map(([q,a,o])=>({q,a,opts:[a,...o]}))},
 {id:'correct',name:'Correct sentence',icon:'✅',type:'mcq',instr:'Only ONE sentence is correct. Find it.',long:true,
  lesson:{title:'Punctuation',rules:['Capital letters: start, I, names, places.','Comma before <b>but</b> and <b>so</b>.','A question ends with <b>?</b>'],examples:['How are you? I moved to Stoke last month.']},
- items:[['How are you? I hope you are well.',['how are you. I hope you are well.','How are you I hope you are well?']],['I moved to Burslem last month.',['I moved to burslem last month.','i moved to Burslem last month']],['The flat is small, but it is bright.',['The flat is small but, it is bright.','the flat is small, but it is bright.']],['There is a kitchen, a bathroom and two bedrooms.',['There is a kitchen a bathroom and two bedrooms.','There is a kitchen, a bathroom, and, two bedrooms.']],['It is near the station, so I take the train.',['It is near the station so, I take the train.','It is near the station, So I take the train.']],['Best wishes,<br>Grace',['best wishes<br>Grace','Best Wishes<br>grace']]].map(([a,o])=>({q:'Which is correct?',a,opts:[a,...o]}))},
+ items:[['How are you? I hope you are well.',['how are you. I hope you are well.','How are you I hope you are well?']],['I moved to Burslem last month.',['I moved to burslem last month.','i moved to Burslem last month']],['The flat is small, but it is bright.',['The flat is small but, it is bright.','the flat is small, but it is bright.']],['There is a kitchen, a bathroom and two bedrooms.',['There is a kitchen a bathroom and two bedrooms.','There is a kitchen, a bathroom, and, two bedrooms.']],['It is near the station, so I take the train.',['It is near the station so, I take the train.','It is near the station, So I take the train.']],['Best wishes, Grace',['best wishes Grace','Best Wishes, grace']]].map(([a,o])=>({q:'Which is correct?',a,opts:[a,...o]}))},
 {id:'write',name:'Write: moving house',icon:'✏️',type:'write',instr:'Type your sentence. Look at the example. How did you do?',noLearn:1,
  items:[{q:'Where did you live before?',hint:'Before, I lived in a … in …',ex:'Before, I lived in a small flat in Manchester.',checks:[['Capital letter',/^[A-Z]/],['lived',/\blived\b/i],['Full stop',/[.!]\s*$/]]},{q:'What was there in your old home?',hint:'There was … and there were …',ex:'There was a big kitchen and there were two bedrooms.',checks:[['Capital letter',/^[A-Z]/],['was / were',/\b(was|were)\b/i],['Full stop',/[.!]\s*$/]]},{q:'What is good and bad about your home now?',hint:'My home is …, but …',ex:'My home is bright, but it is far from the shops.',checks:[['Capital letter',/^[A-Z]/],['comma + but',/,\s*but\b/i],['Full stop',/[.!]\s*$/]]},{q:'What is your favourite room? Why?',hint:'My favourite room is … because …',ex:'My favourite room is the living room because it is warm and quiet.',checks:[['Capital letter',/^[A-Z]/],['because',/\bbecause\b/i],['Full stop',/[.!]\s*$/]]},{q:'Finish your email.',hint:'Please visit me soon! Best wishes, …',ex:'Please visit me soon! Best wishes, Grace',checks:[['Please visit',/please (come and )?visit/i],['Best wishes,',/best wishes,/i]]}]},
 {id:'st1',name:'Stretch: have to / must',icon:'⭐',type:'mcq',instr:'Choose the right words.',noLearn:1,
@@ -408,7 +418,7 @@ function learn(p){hud();const L=p.lesson,R=(LEARN[S.level]||{})[p.id];if(!L&&!R)
  setActions(`<button class="btn lv" id="go">I’m ready ▶</button>`);$('go').onclick=intro2;$('go').focus()}
 function intro(){const p=cur();if(!(S.attempt[p.id]>0)&&p.lesson&&!p.noLearn){S.attempt[p.id]=0;learn(p);return}intro2()}
 function intro2(){const p=cur();S.item=0;S.res[p.id]=undefined;delete S.res[p.id];S.log[p.id]=[];S.attempt[p.id]=(S.attempt[p.id]||0)+1;S.order=shuffle(p.items.map((_,i)=>i));hud();
- frame(`<div class="card"><div class="big" style="letter-spacing:0;font-size:clamp(60px,18vh,190px)">${p.icon}</div><div class="q intro">Part ${S.base.indexOf(S.queue[S.qi])+1} of ${S.base.length}: ${esc(p.name)}</div><div class="instr bigi">${esc(p.instr)}</div><div class="instr bigi">${p.items.length} questions · 1 point each${S.attempt[p.id]>1?' · Try '+S.attempt[p.id]:''}</div></div>`);
+ frame(`<div class="card"><div class="big" style="letter-spacing:0;font-size:clamp(60px,18vh,190px)">${p.icon}</div><div class="q intro">Part ${S.base.indexOf(S.queue[S.qi])+1} of ${S.base.length}: ${esc(p.name)}</div></div><div class="card ibox"><div class="instr bigi">${esc(String(p.instr).split(/(?<=[.!?])\s+/)[0])}</div><div class="instr bigi">${p.items.length} questions · 1 point each${S.attempt[p.id]>1?' · Try '+S.attempt[p.id]:''}</div></div>`);
  setActions(`<button class="btn lv" id="go">Start ▶</button>`);$('go').onclick=show;$('go').focus()}
 function show(){S.lock=false;const p=cur(),it=p.items[S.order[S.item]];hud();
  const t=p.type==='mixed'?it.kind:p.type;NOSPK=(t==='letters'||t==='gaps');({gaps:rGaps,mcq:rMCQ,letters:rLetters,caps:rCaps,order:rOrder,reading:rReading,scene:rScene,write:rWrite})[t](p,it)}
@@ -606,15 +616,16 @@ function rGaps(p,it){const n=p.n||1;const gaps=pickGaps(it.w,n);const right=gaps
  setActions('')}
 function rWrite(p,it){
  frame(`<div class="wsplit"><div class="card wcard2"><div class="q mid">${qwords(it.q)} ${sayB(it.q)}</div><div class="slab">Example sentence starter</div><div class="starter">${esc(it.hint)}</div>
- <input class="tbox" id="tb" autocomplete="off" spellcheck="false" placeholder="Type your sentence here…"><div class="tchk" id="tck"></div><div class="paper">✏️ Write your sentence on paper too.</div><div id="exw"></div></div>
+ <textarea class="tbox" id="tb" rows="1" autocomplete="off" spellcheck="false" placeholder="Type your sentence here…"></textarea><div class="tchk" id="tck"></div><div class="paper">✏️ Write your sentence on paper too.</div><div id="exw"></div></div>
  <div class="rcol"><button class="btn lv bigb" id="shw">📄 Show the example</button><div class="rate2 hide" id="rt"><button data-r="R" class="rR">Not yet</button><button data-r="A" class="rA">Nearly</button><button data-r="G" class="rG">I can write it!</button></div></div></div>`);
  const ck=()=>{const v=$('tb').value.trim();$('tck').innerHTML=(it.checks||[]).map(c=>{const ok=v&&c[1].test(v);return `<span class="ck2${ok?' ok':''}">${ok?'✔':'☐'} ${esc(c[0])}</span>`}).join('')};
- $('tb').oninput=ck;ck();
+ const grow=growTB;$('tb').oninput=()=>{ck();grow();fitBig()};$('tb').onkeydown=e=>{if(e.key==='Enter')e.preventDefault()};ck();requestAnimationFrame(grow);
  $('shw').onclick=()=>{$('exw').innerHTML=`<div class="exbox">${esc(it.ex)} ${sayB(it.ex)}</div>`;speak(it.ex);$('rt').classList.remove('hide');$('shw').classList.add('hide');fitBig()};
  document.querySelectorAll('#rt button').forEach(b=>b.onclick=()=>{if(S.lock)return;S.lock=true;const r=b.dataset.r;const p2=cur();const typed=$('tb').value.trim();
   S.log[p2.id].push({q:it.q,given:(typed?typed+' – ':'')+{R:'Not yet',A:'Nearly',G:'I can write it'}[r],right:it.ex,ok:r==='G'});S.res[p2.id]=(S.res[p2.id]||0)+(r==='G'?1:r==='A'?0.5:0);
   document.querySelectorAll('#rt button').forEach(x=>{x.disabled=true;x.style.opacity=x===b?1:.35});after(r!=='R',it.ex)});
  setActions('')}
+function growTB(){const t=document.getElementById('tb');if(!t)return;t.style.height='auto';t.style.height=(t.scrollHeight+(t.offsetHeight-t.clientHeight)+2)+'px'}
 /* fill the screen: pictures, words and question text as big as the space allows */
 function fitBig(){
  document.querySelectorAll('.card .emo').forEach(e=>{const c=e.closest('.card');e.style.fontSize='10px';
@@ -626,7 +637,7 @@ function fitBig(){
   document.querySelectorAll('.card .emo').forEach(e=>{let g=parseFloat(e.style.fontSize);while(g>40&&c.scrollHeight>c.clientHeight+1){g*=0.93;e.style.fontSize=g+'px'}})}
  document.querySelectorAll('.card.pc .q').forEach(q=>{const c=q.closest('.card');let f=Math.min(innerHeight*0.08,innerWidth*0.07);q.style.fontSize=f+'px';
   while(f>18&&(c.scrollHeight>c.clientHeight+1||q.scrollWidth>c.clientWidth)){f*=0.94;q.style.fontSize=f+'px'}});
- const w=document.querySelector('.wcard2');if(w){let f=Math.min(innerHeight*0.065,innerWidth*(innerWidth>760?0.045:0.08));w.style.fontSize=f+'px';while(f>13&&w.scrollHeight>w.clientHeight+1){f*=0.94;w.style.fontSize=f+'px'}}
+ const w=document.querySelector('.wcard2');if(w){let f=Math.min(innerHeight*0.065,innerWidth*(innerWidth>760?0.045:0.08));w.style.fontSize=f+'px';growTB();while(f>13&&w.scrollHeight>w.clientHeight+1){f*=0.94;w.style.fontSize=f+'px';growTB()}}
 }
 function fitRQ(){const q=document.querySelector('#rd .card .q');if(!q||!q.offsetParent)return;const c=q.closest('.card');let f=Math.min(innerHeight*0.075,innerWidth*(innerWidth>760?0.04:0.075));q.style.fontSize=f+'px';while(f>16&&c.scrollHeight>c.clientHeight+1){f*=0.94;q.style.fontSize=f+'px'}}
 const _fitBig=fitBig;fitBig=function(){_fitBig();fitRQ()};
@@ -639,7 +650,7 @@ const _go=go;go=function(l){_go(l);const b=new URLSearchParams(location.search).
 function over(el){return el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1}
 function shrinkToFit(el){if(!el||!el.offsetParent)return;const kids=[...el.children];kids.forEach(c=>c.style.zoom='');let z=1;while(over(el)&&z>0.3){z-=0.04;kids.forEach(c=>c.style.zoom=z)}}
 function noScroll(){const m=document.getElementById('main');if(!m)return;m.style.zoom='';
- document.querySelectorAll('#main .card, #main .rcol, #main .opts, #main .keys').forEach(shrinkToFit);
+ document.querySelectorAll('#main .card:not(.wcard2), #main .rcol, #main .opts, #main .keys').forEach(shrinkToFit);
  shrinkToFit(m);
  const hd=document.querySelector('header');if(hd){hd.style.zoom='';let z=1;while(hd.offsetHeight>innerHeight*0.16&&z>0.5){z-=0.05;hd.style.zoom=z}}
  window.scrollTo(0,0)}
@@ -657,6 +668,16 @@ function review(k,start){start=start||0;const ps=parts().filter((p,i)=>S.base.in
  setActions(`${k>0&&!back?'<button class="btn sec" id="pv">◀ Part</button>':''}${back?'<button class="btn sec" id="pb">◀</button>':''}<button class="btn" id="bk">Back to results</button>${more?'<button class="btn sec" id="pm">More ▶</button>':''}${!more&&k<ps.length-1?'<button class="btn sec" id="nx">Part ▶</button>':''}`);
  $('bk').onclick=results;if($('pv'))$('pv').onclick=()=>review(k-1);if($('nx'))$('nx').onclick=()=>review(k+1);
  if($('pm'))$('pm').onclick=()=>review(k,end);if($('pb'))$('pb').onclick=()=>review(k,Math.max(0,start-(end-start)))}
+
+/* choice words as big as each button allows */
+function fitOpts(){document.querySelectorAll('#main .opts, #main .keys').forEach(g=>{const bs=[...g.querySelectorAll('.opt')];if(!bs.length)return;let best=400;
+ bs.forEach(b=>{const sp=b.querySelector('span');if(!sp)return;const H=b.clientHeight;let f=Math.min(H*0.6,180);sp.style.setProperty('font-size',f+'px','important');
+  const tw=()=>{const r=document.createRange();r.selectNodeContents(sp);const cs=getComputedStyle(sp);const inner=sp.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);let mx=0;[...r.getClientRects()].forEach(q=>mx=Math.max(mx,q.width));return mx>inner+1};
+  const ic=b.querySelector('.ospk');let room=H-10;if(ic){const iw=ic.offsetHeight+10;if(H>3.2*iw){room=H-2*iw;sp.style.setProperty('padding','0 14px','important');ic.style.setProperty('top','8px','important');ic.style.setProperty('transform','none','important')}else{sp.style.setProperty('padding','0 '+iw+'px','important');ic.style.setProperty('top','50%','important');ic.style.setProperty('transform','translateY(-50%)','important')}}
+  while(f>12&&(tw()||sp.offsetHeight>room)){f*=0.93;sp.style.setProperty('font-size',f+'px','important')}best=Math.min(best,f)});
+ bs.forEach(b=>{const sp=b.querySelector('span');if(sp)sp.style.setProperty('font-size',best+'px','important')})})}
+const _fitBigO=fitBig;fitBig=function(){fitOpts();_fitBigO();fitOpts()};
+addEventListener('resize',()=>setTimeout(fitOpts,80));
 
 setRate(1);startScreen();try{speechSynthesis.getVoices()}catch(e){}
 </script></body></html>
