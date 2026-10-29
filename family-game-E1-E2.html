@@ -250,7 +250,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 <div id="modal" class="hide" onclick="if(event.target===this)this.classList.add('hide')"><div class="mbox" id="mbox"></div></div>
 <script>
 const IMG={};
-/* ======================= CONTENT – Family and Friends (home practice; new texts and examples, not from the slides or workbooks; with Stretch) ======================= */
+/* ======================= CONTENT – Family and Friends (home practice; new texts and examples, not from the slides or workbooks; with Challenge) ======================= */
 const MC=(arr)=>arr.map(([q,a,o,e])=>({q,a,opts:[a,...o],...(e?{emo:e}:{})}));
 const L1=[
 {id:'fam',name:'Family words',icon:'👪',type:'mcq',instr:'Look at the picture. Choose the word.',
@@ -274,6 +274,9 @@ const L1=[
 {id:'poss',name:'my, his, her',icon:'👫',type:'mcq',instr:'Choose the right word.',
  lesson:{title:'my • his • her • our • their',rules:['I → <b>my</b> • you → <b>your</b>','he → <b>his</b> • she → <b>her</b> • it → <b>its</b>','we → <b>our</b> • they → <b>their</b>'],examples:['Ali is my brother. <b>His</b> job is in a shop.']},
  items:MC([['Ali is my brother. ___ job is in a shop.','His',['Her','My']],['Rosa is my aunt. ___ house is in Fenton.','Her',['His','Its']],['I am Kasia. ___ son is five.','My',['Her','Our']],['We are a big family. ___ house is very noisy!','Our',['Their','My']],['My grandparents live in Poland. ___ garden is big.','Their',['His','Our']],['We have a cat. ___ name is Tom.','Its',['His','Their']]])},
+{id:'want',name:'want to',icon:'🎯',type:'mcq',instr:'Choose the right sentence.',long:true,
+ lesson:{title:'want + to + verb',rules:['I want <b>to</b> visit my sister.','he / she → wants <b>to</b>','Do you want <b>to</b> … ?'],examples:['My son <b>wants to</b> play football.']},
+ items:MC([['Choose the right sentence.','I want to visit my aunt.',['I want visit my aunt.','I want to visits my aunt.']],['Choose the right sentence.','Do you want to come to my house?',['Do you want come to my house?','Do you wants to come to my house?']],['Choose the right sentence.','My daughter wants to see her cousin.',['My daughter want to see her cousin.','My daughter wants see her cousin.']],['Choose the right sentence.','We want to go to the park.',['We wants to go to the park.','We want go to the park.']],['Choose the right sentence.','My father wants to cook dinner.',['My father want cook dinner.','My father wants cook dinner.']],['Choose the right sentence.','Do you want to meet my family?',['Do you want meet my family?','You want to meet my family?']]])},
 {id:'porder',name:'Build the sentence',icon:'🧩',type:'order',instr:'Put the words in order.',
  lesson:{title:'Sentences',rules:['Capital letter at the start.','Full stop at the end.'],examples:['My | sister’s | name | is | Rosa.']},
  items:[['My sister’s name is Rosa','.'],['Her husband works in a shop','.'],['I don’t have any brothers','.'],['His favourite food is rice','.'],['We visit our grandparents on Sunday','.']].map(([s,end])=>({w:s.split(' '),end}))},
@@ -302,12 +305,12 @@ const L1=[
  items:[['Hi Anna',','],['I live in Fenton with my family','.'],['I have one brother and two sisters','.'],['My brother’s name is Karim','.'],['Best wishes',',']].map(([s,end])=>({w:s.split(' '),end}))},
 {id:'write',name:'Write about YOUR family',icon:'✏️',type:'write',instr:'Type your sentence. Look at the example. How did you do?',noLearn:1,
  items:[{q:'Where do you live? Who do you live with?',hint:'I live in … with my …',ex:'I live in Hanley with my husband.',checks:[['Capital letter',/^[A-Z]/],['I live in',/I live in/i],['Full stop',/[.!]\s*$/]]},{q:'Who is in your family?',hint:'I have … / I don’t have any …',ex:'I have two sisters, but I don’t have any brothers.',checks:[['Capital letter',/^[A-Z]/],['I have',/I (have|don[’']t have)/i],['Full stop',/[.!]\s*$/]]},{q:'Write a name in your family.',hint:'My …’s name is … / His name is …',ex:'My sister’s name is Leila.',checks:[['Capital letter',/^[A-Z]/],['’s or his / her',/([’']s\b|\bhis\b|\bher\b)/i],['Full stop',/[.!]\s*$/]]},{q:'What do you do together?',hint:'At the weekend we …',ex:'At the weekend we go to the park.',checks:[['Capital letter',/^[A-Z]/],['we',/\bwe\b/i],['Full stop',/[.!]\s*$/]]}]},
-{id:'st1',name:'Stretch: make the question',icon:'⭐',type:'mcq',instr:'Read the answer. Choose the question.',long:true,noLearn:1,
+{id:'st1',name:'Challenge: make the question',icon:'⭐',type:'mcq',instr:'Read the answer. Choose the question.',long:true,noLearn:1,
  items:MC([['Answer: I have two brothers.','How many brothers do you have?',['How much brothers do you have?','Do you brothers?']],['Answer: Her name is Rosa.','What is your sister’s name?',['Who is your sister name?','What your sister’s name?']],['Answer: Yes, I do. I have one son.','Do you have any children?',['Have you any child?','Are you children?']],['Answer: He lives in Leeds.','Where does your brother live?',['Where your brother lives?','Where do your brother live?']],['Answer: She is 70.','How old is your mother?',['How many old is your mother?','What old is your mother?']]])},
-{id:'st2',name:'Stretch: party maths',icon:'⭐',type:'reading',instr:'Read the poster. Answer the questions.',title:'FAMILY PARTY – Tunstall Community Hall',noLearn:1,
+{id:'st2',name:'Challenge: party maths',icon:'⭐',type:'reading',instr:'Read the poster. Answer the questions.',title:'FAMILY PARTY – Tunstall Community Hall',noLearn:1,
  text:['Saturday 20 June, 2:00 pm – 6:00 pm','Adults £4 • Children £2 • Under 3s free','Party food: £3 a plate','Music, games and a bouncy castle'],
  items:MC([['How long is the party?','4 hours',['2 hours','6 hours']],['2 adults and 2 children go. How much do they pay?','£12',['£8','£16']],['Your baby is 1. How much is the ticket?','free',['£2','£4']],['You buy 3 plates of food. How much?','£9',['£3','£12']],['You arrive at 3:30 pm. How long can you stay?','2 hours 30 minutes',['3 hours','1 hour 30 minutes']]])},
-{id:'st3',name:'Stretch: ’s or ’?',icon:'⭐',type:'mcq',instr:'Choose the right words.',long:true,noLearn:1,
+{id:'st3',name:'Challenge: ’s or ’?',icon:'⭐',type:'mcq',instr:'Choose the right words.',long:true,noLearn:1,
  items:MC([['the toys of the children','the children’s toys',['the childrens’ toys','the childrens toys']],['the house of my grandparents','my grandparents’ house',['my grandparent’s house','my grandparents’s house']],['the coats of the men','the men’s coats',['the mens’ coats','the mens coats']],['the bikes of my brothers','my brothers’ bikes',['my brother’s bikes','my brothers’s bikes']]])}
 ];
 const L2=[
@@ -326,6 +329,12 @@ const L2=[
 {id:'poss2',name:'Possessive adjectives',icon:'👫',type:'mcq',instr:'Choose the right word.',long:true,
  lesson:{title:'my • your • his • her • its • our • their',rules:['They have a flat. <b>Their</b> flat is small.','The dog is old. <b>Its</b> eyes are brown.','<b>it’s</b> = it is'],examples:['My brother and I share a car. <b>Our</b> car is blue.']},
  items:MC([['My brother and I share a car. ___ car is blue.','Our',['Their','My']],['The cat is hungry. ___ bowl is empty.','Its',['It’s','Their']],['___ my mother’s birthday today.','It’s',['Its','Her']],['Leila and Omar have twins. ___ names are Ali and Sara.','Their',['Our','His']],['Sara’s husband is a nurse. ___ hospital is in Stoke.','His',['Her','Their']],['You and your sister look the same! ___ eyes are blue.','Your',['Their','Our']]])},
+{id:'its',name:'its or it’s?',icon:'🐕',type:'mcq',instr:'Choose its or it’s.',
+ lesson:{title:'its or it’s?',rules:['<b>its</b> = belongs to it: The cat is hungry. <b>Its</b> bowl is empty.','<b>it’s</b> = it is: <b>It’s</b> my birthday.'],examples:['Look at the dog! <b>Its</b> tail is long.']},
+ items:MC([['___ my brother’s wedding today.','It’s',['Its']],['The house is old. ___ windows are small.','Its',['It’s']],['___ cold in December.','It’s',['Its']],['Our cat is sleeping. ___ bed is warm.','Its',['It’s']],['___ a big family party.','It’s',['Its']],['The baby is happy. ___ toy is new.','Its',['It’s']]])},
+{id:'want2',name:'want to',icon:'🎯',type:'mcq',instr:'Only ONE sentence is correct. Find it.',long:true,
+ lesson:{title:'want + to + verb',rules:['I / you / we / they <b>want to</b> + verb','he / she / it <b>wants to</b> + verb','Do you <b>want to</b> … ?   Does she <b>want to</b> … ?'],examples:['Our children <b>want to</b> see their cousins.']},
+ items:MC([['Find the correct sentence.','Our grandparents want to visit us at Eid.',['Our grandparents wants to visit us at Eid.','Our grandparents want visit us at Eid.']],['Find the correct sentence.','My sister wants to have a party.',['My sister want to have a party.','My sister wants to has a party.']],['Find the correct sentence.','Does your husband want to come?',['Does your husband wants to come?','Do your husband want to come?']],['Find the correct sentence.','The children want to open their presents.',['The children wants to open their presents.','The children want opening their presents.']],['Find the correct sentence.','My nephew wants to play football with us.',['My nephew want to play football with us.','My nephew wants play football with us.']],['Find the correct sentence.','Do you want to celebrate with my family?',['Do you want celebrate with my family?','Do you wants to celebrate with my family?']]])},
 {id:'two',name:'Two ways to say it',icon:'↔',type:'mcq',instr:'Choose the sentence with the SAME meaning.',long:true,
  lesson:{title:'’s or a possessive adjective',rules:['Sara’s job = <b>her</b> job','Tom’s car = <b>his</b> car','my parents’ house = <b>their</b> house'],examples:['Rosa’s son is ten. → <b>Her</b> son is ten.']},
  items:MC([['Rosa’s son is ten.','Her son is ten.',['His son is ten.','Their son is ten.']],['Omar’s flat is near the station.','His flat is near the station.',['Her flat is near the station.','Its flat is near the station.']],['My grandparents’ garden is big.','Their garden is big.',['Our garden is big.','His garden is big.']],['The baby’s name is Adam.','Its name is Adam.',['It’s name is Adam.','Their name is Adam.']]])},
@@ -354,11 +363,11 @@ const L2=[
  items:[['My favourite celebration is Eid','.'],['Before the festival we clean the house','.'],['On the day we visit our relatives','.'],['The children get money from their aunts','.'],['I like it because everybody is happy','.']].map(([s,end])=>({w:s.split(' '),end}))},
 {id:'write',name:'Write: a celebration',icon:'✏️',type:'write',instr:'Type your sentence. Look at the example. How did you do?',noLearn:1,
  items:[{q:'What is your favourite celebration? When is it?',hint:'My favourite celebration is … . It is in …',ex:'My favourite celebration is Christmas. It is in December.',checks:[['Capital letter',/^[A-Z]/],['favourite celebration',/favourite celebration/i],['Full stop',/[.!]\s*$/]]},{q:'What do you do before it?',hint:'Before … we …',ex:'Before Christmas we decorate the house.',checks:[['Capital letter',/^[A-Z]/],['Before',/before/i],['Full stop',/[.!]\s*$/]]},{q:'Who do you celebrate with?',hint:'We visit our … / My …’s family comes …',ex:'We visit my parents’ house.',checks:[['Capital letter',/^[A-Z]/],['’s, ’ or our / their',/([’']s\b|s[’']|\bour\b|\btheir\b)/i],['Full stop',/[.!]\s*$/]]},{q:'Why do you like it?',hint:'I like it because …',ex:'I like it because the whole family is together.',checks:[['Capital letter',/^[A-Z]/],['because',/because/i],['Full stop',/[.!]\s*$/]]}]},
-{id:'st1',name:'Stretch: whose is it?',icon:'⭐',type:'mcq',instr:'Choose the right answer.',long:true,noLearn:1,
+{id:'st1',name:'Challenge: whose is it?',icon:'⭐',type:'mcq',instr:'Choose the right answer.',long:true,noLearn:1,
  items:MC([['Whose toys are these? (the children)','They’re the children’s.',['They’re the childrens’.','They’re the children.']],['Whose car is this? (my parents)','It’s my parents’.',['It’s my parents’s.','It’s my parent.']],['Whose bag is this? (James)','It’s James’s.',['It’s Jame’s.','It’s James.']],['Whose house is this? (Ali and Rosa)','It’s Ali and Rosa’s.',['It’s Ali’s and Rosa.','It’s Ali and Rosas.']]])},
-{id:'st2',name:'Stretch: describing people',icon:'⭐',type:'mcq',instr:'Choose the best word.',long:true,noLearn:1,
+{id:'st2',name:'Challenge: describing people',icon:'⭐',type:'mcq',instr:'Choose the best word.',long:true,noLearn:1,
  items:MC([['My aunt never gets angry. She waits calmly. She is very ___.','patient',['generous','noisy']],['My uncle always gives presents and money. He is ___.','generous',['lazy','quiet']],['My cousin works ten hours every day. She is ___.','hard-working',['funny','shy']],['My nephew makes everybody laugh. He is ___.','funny',['patient','serious']],['My niece doesn’t talk much with new people. She is ___.','shy',['friendly','generous']]])},
-{id:'st3',name:'Stretch: compare',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
+{id:'st3',name:'Challenge: compare',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
  items:[['Eid is longer than Christmas','.'],['Both festivals are about family and food','.'],['My family is bigger than my husband’s family','.'],['Diwali is the most colourful festival','.']].map(([s,end])=>({w:s.split(' '),end}))}
 ];
 const LEARN={1:{
@@ -369,6 +378,7 @@ const LEARN={1:{
  have:['I <b>have</b> …','I <b>don’t have any</b> …'],
  apos:['Ali<b>’s</b> mother','my parents<b>’</b> house'],
  poss:['he → <b>his</b>','she → <b>her</b>','they → <b>their</b>'],
+ want:['I want <b>to</b> + verb','he / she → wants <b>to</b>'],
  porder:['Capital letter at the start.','Full stop at the end.'],
  read:['WHO = person','WHERE = place','WHEN = day / time'],
  advert:['Look for days, times, prices.'],
@@ -383,6 +393,8 @@ const LEARN={1:{
  both:['brother ↔ <b>sister</b>','aunt ↔ <b>nephew / niece</b>'],
  apos2:['my parents<b>’</b> house','the children<b>’s</b> toys'],
  poss2:['<b>its</b> = belongs to it','<b>it’s</b> = it is'],
+ its:['<b>its</b> = belongs to it','<b>it’s</b> = it is'],
+ want2:['he / she → <b>wants to</b>','Does she <b>want to</b> …?'],
  two:['Sara’s job = <b>her</b> job','Tom’s car = <b>his</b> car'],
  read:['Read the question.','Find the key word.','<b>Why?</b> → because / so'],
  advert:['What is the purpose?','Look for days and prices.'],
@@ -391,9 +403,9 @@ const LEARN={1:{
  correct:['children • people','’s / ’ / their'],
  join2:['because • , so • , but'],
  emailorder:['Capital letter at the start.','Full stop at the end.']}};
-const BLOCKS={1:[['1','Vocabulary','👪',['fam','spell','who']],['2','Plurals, have and ’s','➕',['plural','have','apos']],['3','my, his, her','👫',['poss','porder']],['4','Reading','📖',['read','advert']],['5','Capitals and full stops','🔠',['caps','stops','fix']],['6','Sentences and email','✏️',['long','order','write']],['7','Stretch','⭐',['st1','st2','st3']]],
-2:[['1','Vocabulary','👪',['fam2','spell2','both']],['2','Possessives','’s',['apos2','poss2','two']],['3','Reading','📖',['read','advert']],['4','Punctuation','❓',['caps2','punct','correct']],['5','Sentences and writing','✏️',['join2','emailorder','write']],['6','Stretch','⭐',['st1','st2','st3']]]};
-const KEY=l=>'family-game-v1-e'+l;
+const BLOCKS={1:[['1','Vocabulary','👪',['fam','spell','who']],['2','Plurals, have and ’s','➕',['plural','have','apos']],['3','my, his, her and want to','👫',['poss','want','porder']],['4','Reading','📖',['read','advert']],['5','Capitals and full stops','🔠',['caps','stops','fix']],['6','Sentences and email','✏️',['long','order','write']],['7','Challenge','⭐',['st1','st2','st3']]],
+2:[['1','Vocabulary','👪',['fam2','spell2','both']],['2','Possessives','’s',['apos2','poss2','its','two']],['3','Reading','📖',['read','advert']],['4','Punctuation','❓',['caps2','punct','correct']],['5','Sentences and writing','✏️',['want2','join2','emailorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
+const KEY=l=>'family-game-v2-e'+l;
 
 const GAME={1:L1,2:L2};
 const RAG={G:80,A:50};const RN={G:'GREEN',A:'AMBER',R:'RED'};
@@ -718,5 +730,37 @@ function fitTiles(){const ts=[...document.querySelectorAll('.pmenu .btile')];if(
  ts.forEach(t=>{const pi=t.querySelector('.pi');t.style.setProperty('font-size',best+'px','important');if(pi)pi.style.setProperty('font-size',Math.min(best*2.3,t.clientHeight*0.4)+'px','important')})}
 const _fitBigT=fitBig;fitBig=function(){fitTiles();_fitBigT()};
 
+
+/* ---- best voice on every device + sound effects ---- */
+let _VC=null;
+const BAD=/albert|bad news|bahh|bells|boing|bubbles|cellos|zarvox|whisper|jester|organ|trinoids|wobble|superstar|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley|good news|hysterical|pipe|deranged/i;
+bestVoice=function(){try{if(_VC)return _VC;const all=speechSynthesis.getVoices().filter(v=>!BAD.test(v.name));if(!all.length)return null;
+ let vs=all.filter(v=>/^en[-_]GB/i.test(v.lang));if(!vs.length)vs=all.filter(v=>/^en/i.test(v.lang));if(!vs.length)return null;
+ const sc=v=>{const n=v.name;let x=0;
+  if(/natural/i.test(n))x+=120;            // Microsoft Edge neural (Windows)
+  if(/online/i.test(n))x+=40;
+  if(/premium/i.test(n))x+=110;            // Apple premium (iPhone, iPad, Mac)
+  if(/enhanced/i.test(n))x+=90;            // Apple enhanced
+  if(/siri/i.test(n))x+=80;
+  if(/google uk english/i.test(n))x+=85;   // Chrome desktop
+  if(/network/i.test(n))x+=70;             // Android network voices
+  if(/google/i.test(n))x+=30;
+  if(/sonia|libby|maisie|ryan|thomas|serena|kate|daniel|martha|arthur|stephanie|hazel|george|susan/i.test(n))x+=15;
+  if(/^en[-_]GB/i.test(v.lang))x+=20;
+  if(/local/i.test(n))x-=5;
+  if(/espeak|compact/i.test(n))x-=80;
+  return x};
+ _VC=vs.sort((a,b)=>sc(b)-sc(a))[0];return _VC}catch(e){return null}};
+try{speechSynthesis.onvoiceschanged=()=>{_VC=null;bestVoice()}}catch(e){}
+let _AC=null;
+function ac(){try{if(!_AC)_AC=new (window.AudioContext||window.webkitAudioContext)();if(_AC.state==='suspended')_AC.resume();return _AC}catch(e){return null}}
+['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>ac(),{once:true,passive:true}));
+function tone(c,f,t0,d,type,vol,f2){const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(f,c.currentTime+t0);if(f2)o.frequency.exponentialRampToValueAtTime(f2,c.currentTime+t0+d);
+ g.gain.setValueAtTime(0.0001,c.currentTime+t0);g.gain.exponentialRampToValueAtTime(vol,c.currentTime+t0+0.02);g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+t0+d);
+ o.connect(g);g.connect(c.destination);o.start(c.currentTime+t0);o.stop(c.currentTime+t0+d+0.05)}
+function sfx(ok){const c=ac();if(!c)return;try{
+ if(ok){tone(c,523.25,0,0.16,'triangle',0.25);tone(c,659.25,0.09,0.16,'triangle',0.25);tone(c,783.99,0.18,0.32,'triangle',0.28)}
+ else{tone(c,220,0,0.22,'square',0.08,180);tone(c,165,0.2,0.35,'square',0.08,120)}}catch(e){}}
+const _afterS=after;after=function(ok,right){sfx(ok);_afterS(ok,right)};
 setRate(1);startScreen();try{speechSynthesis.getVoices()}catch(e){}
 </script></body></html>
