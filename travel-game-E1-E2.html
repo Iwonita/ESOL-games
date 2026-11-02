@@ -193,7 +193,7 @@ table.res td,table.res th{padding:.12em .4em!important}
 @keyframes cheer{0%{opacity:0;transform:translate(-50%,-50%) scale(.3) rotate(-8deg)}18%{opacity:1;transform:translate(-50%,-50%) scale(1.15) rotate(3deg)}30%{transform:translate(-50%,-50%) scale(1) rotate(0)}80%{opacity:1}100%{opacity:0;transform:translate(-50%,-50%) scale(1.05)}}
 .fb.ok{font-size:clamp(24px,5vh,48px)!important;background:#2e9e3e!important;color:#fff!important}
 @media (max-width:700px){.pmenu .btile{font-size:22px!important}.pmenu .btile .pi{font-size:60px!important}.prow{font-size:20px}.brow .bh{font-size:20px}.brow .bp{font-size:15px}}
-/* ===== My House ===== */
+/* ===== Travel and Transport ===== */
 .emo{line-height:1;flex:none;font-size:120px}
 .card.pc .q{white-space:normal}
 .gcard{gap:1vh!important}
@@ -250,7 +250,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 <div id="modal" class="hide" onclick="if(event.target===this)this.classList.add('hide')"><div class="mbox" id="mbox"></div></div>
 <script>
 const IMG={};
-/* ======================= CONTENT – Travel and Transport (home practice; new texts and examples, not from the slides or workbooks; with Stretch) ======================= */
+/* ======================= CONTENT – Travel and Transport (home practice; new texts and examples, not from the slides or workbooks; with Challenge) ======================= */
 const MC=(arr)=>arr.map(([q,a,o,e])=>({q,a,opts:[a,...o],...(e?{emo:e}:{})}));
 const L1=[
 {id:'trans',name:'Transport',icon:'🚌',type:'mcq',instr:'Look at the picture. Choose the word.',
@@ -272,8 +272,8 @@ const L1=[
  lesson:{title:'Describing words',rules:['crowded – a lot of people','late – not on time','cheap – not a lot of money'],examples:['The bus is <b>crowded</b>.']},
  items:MC([['There are a lot of people on the tram. It is ___.','crowded',['empty','cheap'],'👥'],['The bus comes at 9:30, not 9:00. It is ___.','late',['early','fast'],'⏰'],['The ticket is £1. It is ___.','cheap',['expensive','slow'],'💷'],['The taxi is £40. It is ___.','expensive',['cheap','empty'],'💸'],['There is nobody on the train. It is ___.','empty',['crowded','dirty'],'🪑'],['The aeroplane goes very quickly. It is ___.','fast',['slow','late'],'✈️']])},
 {id:'prep',name:'Where is it?',icon:'📍',type:'mcq',instr:'Read. Choose the right word.',long:true,
- lesson:{title:'Where is it?',rules:['<b>next to</b> 🏦☕','<b>opposite</b> 🏦 🛣️ 🏫','<b>between</b> 🏦☕📮'],examples:['The café is <b>between</b> the bank and the post office.']},
- items:MC([['🏦☕📮  The café is ___ the bank and the post office.','between',['opposite','next to']],['🚏🏪  The bus stop is ___ the shop.','next to',['between','opposite']],['🏥 🛣️ 🏫  The school is ___ the hospital.','opposite',['between','next to']],['🅿️🏬  The car park is ___ the supermarket.','next to',['between','opposite']],['🏦🌳🚉  The park is ___ the bank and the station.','between',['next to','opposite']],['⛪ 🛣️ 🚏  The bus stop is ___ the church.','opposite',['between','next to']]])},
+ lesson:{title:'Where is it?',rules:['<b>next to</b> 🏦☕','<b>opposite</b> 🏦 | road | 🏫','<b>between</b> 🏦☕📮'],examples:['The café is <b>between</b> the bank and the post office.']},
+ items:MC([['🏦☕📮  The café is ___ the bank and the post office.','between',['opposite','next to']],['🚏🏪  The bus stop is ___ the shop.','next to',['between','opposite']],['🏥 | road | 🏫  The school is ___ the hospital.','opposite',['between','next to']],['🅿️🏬  The car park is ___ the supermarket.','next to',['between','opposite']],['🏦🌳🚉  The park is ___ the bank and the station.','between',['next to','opposite']],['⛪ | road | 🚏  The bus stop is ___ the church.','opposite',['between','next to']]])},
 {id:'opp',name:'Opposites',icon:'↔',type:'mcq',instr:'Choose the opposite.',
  lesson:{title:'Opposites',rules:['fast ↔ slow','cheap ↔ expensive','crowded ↔ empty • clean ↔ dirty • early ↔ late'],examples:['fast → <b>slow</b>']},
  items:MC([['fast ↔ ?','slow',['late','cheap']],['cheap ↔ ?','expensive',['empty','fast']],['crowded ↔ ?','empty',['dirty','slow']],['clean ↔ ?','dirty',['late','cheap']],['early ↔ ?','late',['slow','empty']]])},
@@ -305,12 +305,12 @@ const L1=[
  items:[['Hi Ali',','],['I usually go to college by tram','.'],['It is fast and clean','.'],['I like the tram, but it is sometimes late','.'],['Best wishes',',']].map(([s,end])=>({w:s.split(' '),end}))},
 {id:'write',name:'Write about YOUR journey',icon:'✏️',type:'write',instr:'Type your sentence. Look at the example. How did you do?',noLearn:1,
  items:[{q:'How do you go to college?',hint:'I usually go to college by …',ex:'I usually go to college by bus.',checks:[['Capital letter',/^[A-Z]/],['by …',/\bby (bus|train|tram|car|taxi|bike|bicycle)/i],['Full stop',/[.!]\s*$/]]},{q:'What is it like?',hint:'It is … and …',ex:'It is cheap and fast.',checks:[['Capital letter',/^[A-Z]/],['a describing word',/(cheap|expensive|fast|slow|crowded|empty|clean|dirty|late|early)/i],['Full stop',/[.!]\s*$/]]},{q:'What do you like or not like?',hint:'I like …, but …',ex:'I like the bus, but it is often late.',checks:[['Capital letter',/^[A-Z]/],['but',/\bbut\b/i],['Full stop',/[.!]\s*$/]]},{q:'How often do you take a taxi?',hint:'I never / sometimes take a taxi.',ex:'I never take a taxi.',checks:[['Capital letter',/^[A-Z]/],['how often',/(always|usually|often|sometimes|never)/i],['Full stop',/[.!]\s*$/]]}]},
-{id:'st1',name:'Stretch: make the question',icon:'⭐',type:'mcq',instr:'Read the answer. Choose the question.',long:true,noLearn:1,
+{id:'st1',lesson:{title:'Make the question',rules:['How do you go to …?','Do you like …? → Yes, I do. / No, I don’t.'],examples:['I go by bus. → <b>How do you go</b> to work?']},name:'Challenge: make the question',icon:'⭐',type:'mcq',instr:'Read the answer. Choose the question.',long:true,noLearn:1,
  items:MC([['Answer: I go by bus.','How do you go to work?',['Do you go to work?','Where do you work?']],['Answer: Yes, I do. I like the tram.','Do you like the tram?',['How do you like the tram?','Are you the tram?']],['Answer: No, I don’t. I don’t have a car.','Do you have a car?',['Have you car?','How is your car?']],['Answer: It is £2.','How much is the ticket?',['How many is the ticket?','Where is the ticket?']],['Answer: At 8 o’clock.','What time does the bus leave?',['Where does the bus leave?','How does the bus leave?']]])},
-{id:'st2',name:'Stretch: timetable',icon:'⭐',type:'reading',instr:'Read the timetable. Answer the questions.',title:'BUS 21 – Tunstall → Hanley',noLearn:1,
+{id:'st2',lesson:{title:'Read a timetable',rules:['Leaves = the bus goes','Arrives = the bus gets there'],examples:['8:00 → 8:25 = <b>25 minutes</b>']},name:'Challenge: timetable',icon:'⭐',type:'reading',instr:'Read the timetable. Answer the questions.',title:'BUS 21 – Tunstall → Hanley',noLearn:1,
  text:['Leaves Tunstall: 7:30 • 8:15 • 9:00','Arrives Hanley: 7:55 • 8:40 • 9:25','Single £2.20 • Return £3.80','Children under 5 travel free'],
  items:MC([['What time is the first bus?','7:30',['8:15','7:55']],['How long is the journey?','25 minutes',['15 minutes','45 minutes']],['You must be in Hanley at 9:00. Which bus?','8:15',['9:00','7:30']],['How much is a return ticket?','£3.80',['£2.20','£4.40']],['Two single tickets. How much?','£4.40',['£3.80','£2.20']],['Your son is 3. How much is his ticket?','free',['£2.20','£1.10']]])},
-{id:'st3',name:'Stretch: because',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
+{id:'st3',lesson:{title:'because',rules:['because + the reason'],examples:['I walk <b>because</b> it is free.']},name:'Challenge: because',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
  items:[['I take the tram because it is fast','.'],['She walks to work because it is free','.'],['We never drive because the car park is expensive','.'],['I like the train because I can read','.']].map(([s,end])=>({w:s.split(' '),end}))}
 ];
 const L2=[
@@ -366,11 +366,11 @@ const L2=[
  items:[['I hope you are well','.'],['Would you like to visit me next Saturday','?'],['You can come by bus because it is cheap','.'],['I will meet you at the bus stop','.'],['See you soon',',']].map(([s,end])=>({w:s.split(' '),end}))},
 {id:'write',name:'Write: an invitation',icon:'✏️',type:'write',instr:'Type your sentence. Look at the example. How did you do?',noLearn:1,
  items:[{q:'Invite your friend to your home.',hint:'Would you like to …?',ex:'Would you like to visit me next Sunday?',checks:[['Capital letter',/^[A-Z]/],['Would you like',/would you like/i],['Question mark',/\?\s*$/]]},{q:'How can your friend travel? Why?',hint:'You can come by … because …',ex:'You can come by train because it is faster than the bus.',checks:[['Capital letter',/^[A-Z]/],['because',/because/i],['Full stop',/[.!]\s*$/]]},{q:'Where will you meet?',hint:'I will meet you … the …',ex:'I will meet you outside the station.',checks:[['Capital letter',/^[A-Z]/],['will meet',/will meet/i],['Full stop',/[.!]\s*$/]]},{q:'Give one direction to your home.',hint:'Turn … into … / Go along …',ex:'Turn left into Church Street and go past the school.',checks:[['Capital letter',/^[A-Z]/],['a direction',/(turn|go along|go past|left|right)/i],['Full stop',/[.!]\s*$/]]},{q:'Compare two ways to travel.',hint:'The … is …er than the …',ex:'The tram is cheaper than a taxi.',checks:[['Capital letter',/^[A-Z]/],['than',/\bthan\b/i],['Full stop',/[.!]\s*$/]]}]},
-{id:'st1',name:'Stretch: as … as',icon:'⭐',type:'mcq',instr:'Choose the sentence with the SAME meaning.',long:true,noLearn:1,
+{id:'st1',lesson:{title:'as … as',rules:['as fast as = the same','not as fast as = less'],examples:['The bus <b>isn’t as fast as</b> the train.']},name:'Challenge: as … as',icon:'⭐',type:'mcq',instr:'Choose the sentence with the SAME meaning.',long:true,noLearn:1,
  items:MC([['The bus is slower than the train.','The bus isn’t as fast as the train.',['The bus is as fast as the train.','The train isn’t as fast as the bus.']],['The tram and the bus are both £2.','The tram is as cheap as the bus.',['The tram isn’t as cheap as the bus.','The tram is cheaper than the bus.']],['The coach is cheaper than the train.','The train isn’t as cheap as the coach.',['The coach isn’t as cheap as the train.','The train is as cheap as the coach.']],['Driving is more stressful than cycling.','Driving isn’t as relaxing as cycling.',['Cycling isn’t as relaxing as driving.','Driving is as relaxing as cycling.']]])},
-{id:'st2',name:'Stretch: rules',icon:'⭐',type:'mcq',instr:'Choose the right words.',long:true,noLearn:1,
+{id:'st2',lesson:{title:'Rules',rules:['must / have to = you need to','mustn’t = don’t do it!','don’t have to = you can choose'],examples:['You <b>mustn’t</b> smoke on the bus.']},name:'Challenge: rules',icon:'⭐',type:'mcq',instr:'Choose the right words.',long:true,noLearn:1,
  items:MC([['You ___ smoke on the train. It is against the law.','mustn’t',['don’t have to','have to']],['Children under 5 ___ pay on the bus. It is free.','don’t have to',['mustn’t','have to']],['You ___ wear a seatbelt in a car.','must',['mustn’t','don’t have to']],['You ___ buy a ticket before you get on the tram.','have to',['don’t have to','mustn’t']],['You ___ book the coach. You can buy a ticket on the day.','don’t have to',['mustn’t','must']]])},
-{id:'st3',name:'Stretch: a journey I remember',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
+{id:'st3',lesson:{title:'Past simple',rules:['travel → travelled','go → went • take → took'],examples:['I <b>travelled</b> to London by coach.']},name:'Challenge: a journey I remember',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
  items:[['Two years ago I travelled to Wales by train','.'],['The journey was longer than I expected','.'],['The train was crowded, so I stood all the way','.'],['It was the best journey of my life','.']].map(([s,end])=>({w:s.split(' '),end}))}
 ];
 const LEARN={1:{
@@ -407,9 +407,9 @@ const LEARN={1:{
  correct:['<b>?</b> after a question','will + verb'],
  join2:['because • , so • , but'],
  emailorder:['<b>.</b> • <b>?</b> • <b>,</b>']}};
-const BLOCKS={1:[['1','Vocabulary','🚌',['trans','spell','places']],['2','How I travel','🚶',['by','often','adj']],['3','Where is it?','📍',['prep','opp','prorder']],['4','Reading','📖',['read','advert']],['5','Capitals and full stops','🔠',['caps','stops','fix']],['6','Sentences and email','✏️',['long','order','write']],['7','Stretch','⭐',['st1','st2','st3']]],
-2:[['1','Vocabulary','🚆',['trans2','spell2','opp2']],['2','Comparing','⚖️',['comp','super','comporder']],['3','Directions and will','➡️',['dir','will','join']],['4','Reading','📖',['read','advert']],['5','Punctuation','❓',['caps2','punct','correct']],['6','Sentences and email','✏️',['join2','emailorder','write']],['7','Stretch','⭐',['st1','st2','st3']]]};
-const KEY=l=>'travel-game-v1-e'+l;
+const BLOCKS={1:[['1','Vocabulary','🚌',['trans','spell','places']],['2','How I travel','🚶',['by','often','adj']],['3','Where is it?','📍',['prep','opp','prorder']],['4','Reading','📖',['read','advert']],['5','Capitals and full stops','🔠',['caps','stops','fix']],['6','Sentences and email','✏️',['long','order','write']],['7','Challenge','⭐',['st1','st2','st3']]],
+2:[['1','Vocabulary','🚆',['trans2','spell2','opp2']],['2','Comparing','⚖️',['comp','super','comporder']],['3','Directions and will','➡️',['dir','will','join']],['4','Reading','📖',['read','advert']],['5','Punctuation','❓',['caps2','punct','correct']],['6','Sentences and email','✏️',['join2','emailorder','write']],['7','Challenge','⭐',['st1','st2','st3']]]};
+const KEY=l=>'travel-game-v2-e'+l;
 
 const GAME={1:L1,2:L2};
 const RAG={G:80,A:50};const RN={G:'GREEN',A:'AMBER',R:'RED'};
@@ -551,7 +551,7 @@ function review(k){const ps=parts().filter((p,i)=>S.base.includes(i));const p=ps
  setActions(`${k>0?'<button class="btn sec" id="pv">◀</button>':''}<button class="btn" id="bk">Back to results</button>${k<ps.length-1?'<button class="btn sec" id="nx">▶</button>':''}`);
  $('bk').onclick=results;if($('pv'))$('pv').onclick=()=>review(k-1);if($('nx'))$('nx').onclick=()=>review(k+1)}
 /* ---------- teacher QR ---------- */
-function teacher(){const here=/^https?:/.test(location.protocol)&&!/claude\.ai|claudeusercontent/.test(location.host)?location.origin+location.pathname:'https://iwonita.github.io/ESOL-games/travel-game-E1-E2.html';
+function teacher(){const here=/^https?:/.test(location.protocol)&&!/claude\.ai|claudeusercontent/.test(location.host)?location.origin+location.pathname:'https://iwonita.github.io/ESOL-games/places-in-town-game-E1-E2.html';
  $('mbox').innerHTML=`<h2>👩‍🏫 QR codes</h2><p>Web address of this game:</p><input id="qu" style="width:100%;font:inherit;padding:8px;border:2px solid var(--ink);border-radius:10px" value="${esc(here)}">
  <p><button class="btn" onclick="mkQR()">Make QR codes</button> <button class="btn sec" onclick="window.print()">🖨️ Print</button> <button class="btn sec" onclick="$('modal').classList.add('hide')">Close</button></p><p id="qm"></p><div class="qrs" id="qrs"></div>`;$('modal').classList.remove('hide')}
 function mkQR(){const u=$('qu').value.trim().split('?')[0];if(!/^https?:\/\//.test(u)){$('qm').textContent='Please use an address that starts with https://';return}
@@ -643,7 +643,7 @@ function results(){S.block=null;hud();const now=new Date();let tot=0,max=0;
  frame(`<div class="card allres"><div class="q mid">${lvName()} · ${now.toLocaleDateString('en-GB')} ${now.toLocaleTimeString('en-GB',{hour:'2-digit',minute:'2-digit'})}</div>${max?`<div class="bigrag ${tr}">All: ${pct(tot,max)}%  ${RN[tr]}</div>`:''}${rows}</div>`);
  setActions(`<button class="btn sec" id="rev">📝 My answers</button><button class="btn" id="bm">☰ Blocks</button>`);$('rev').onclick=()=>review(0);$('bm').onclick=blocksMenu}
 
-/* ===== My House additions: random missing letters, typing writing screen, fill-the-screen sizing ===== */
+/* ===== Sport additions: random missing letters, typing writing screen, fill-the-screen sizing ===== */
 const VOW='aeiou',CONS='bcdfghklmnprstw';
 function pickGaps(w,n){const idx=[...w].map((c,i)=>/[a-z]/i.test(c)?i:-1).filter(i=>i>=0&&!(i===0&&/^[A-Z]/.test(w)));
  if(n===1)return [idx[Math.floor(Math.random()*idx.length)]];
@@ -734,5 +734,55 @@ function fitTiles(){const ts=[...document.querySelectorAll('.pmenu .btile')];if(
  ts.forEach(t=>{const pi=t.querySelector('.pi');t.style.setProperty('font-size',best+'px','important');if(pi)pi.style.setProperty('font-size',Math.min(best*2.3,t.clientHeight*0.4)+'px','important')})}
 const _fitBigT=fitBig;fitBig=function(){fitTiles();_fitBigT()};
 
+
+/* ---- best voice on every device + sound effects ---- */
+let _VC=null;
+const BAD=/albert|bad news|bahh|bells|boing|bubbles|cellos|zarvox|whisper|jester|organ|trinoids|wobble|superstar|grandma|grandpa|eddy|flo|reed|rocko|sandy|shelley|good news|hysterical|pipe|deranged/i;
+bestVoice=function(){try{if(_VC)return _VC;const all=speechSynthesis.getVoices().filter(v=>!BAD.test(v.name));if(!all.length)return null;
+ let vs=all.filter(v=>/^en[-_]GB/i.test(v.lang));if(!vs.length)vs=all.filter(v=>/^en/i.test(v.lang));if(!vs.length)return null;
+ const sc=v=>{const n=v.name;let x=0;
+  if(/natural/i.test(n))x+=120;            // Microsoft Edge neural (Windows)
+  if(/online/i.test(n))x+=40;
+  if(/premium/i.test(n))x+=110;            // Apple premium (iPhone, iPad, Mac)
+  if(/enhanced/i.test(n))x+=90;            // Apple enhanced
+  if(/siri/i.test(n))x+=80;
+  if(/google uk english/i.test(n))x+=85;   // Chrome desktop
+  if(/network/i.test(n))x+=70;             // Android network voices
+  if(/google/i.test(n))x+=30;
+  if(/sonia|libby|maisie|ryan|thomas|serena|kate|daniel|martha|arthur|stephanie|hazel|george|susan/i.test(n))x+=15;
+  if(/^en[-_]GB/i.test(v.lang))x+=20;
+  if(/local/i.test(n))x-=5;
+  if(/espeak|compact/i.test(n))x-=80;
+  return x};
+ _VC=vs.sort((a,b)=>sc(b)-sc(a))[0];return _VC}catch(e){return null}};
+try{speechSynthesis.onvoiceschanged=()=>{_VC=null;bestVoice()}}catch(e){}
+let _AC=null;
+function ac(){try{if(!_AC)_AC=new (window.AudioContext||window.webkitAudioContext)();if(_AC.state==='suspended')_AC.resume();return _AC}catch(e){return null}}
+['pointerdown','keydown','touchstart'].forEach(ev=>addEventListener(ev,()=>ac(),{once:true,passive:true}));
+function tone(c,f,t0,d,type,vol,f2){const o=c.createOscillator(),g=c.createGain();o.type=type;o.frequency.setValueAtTime(f,c.currentTime+t0);if(f2)o.frequency.exponentialRampToValueAtTime(f2,c.currentTime+t0+d);
+ g.gain.setValueAtTime(0.0001,c.currentTime+t0);g.gain.exponentialRampToValueAtTime(vol,c.currentTime+t0+0.02);g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+t0+d);
+ o.connect(g);g.connect(c.destination);o.start(c.currentTime+t0);o.stop(c.currentTime+t0+d+0.05)}
+function sfx(ok){const c=ac();if(!c)return;try{
+ if(ok){tone(c,523.25,0,0.16,'triangle',0.25);tone(c,659.25,0.09,0.16,'triangle',0.25);tone(c,783.99,0.18,0.32,'triangle',0.28)}
+ else{tone(c,220,0,0.22,'square',0.08,180);tone(c,165,0.2,0.35,'square',0.08,120)}}catch(e){}}
+const _afterS=after;after=function(ok,right){sfx(ok);_afterS(ok,right)};
 setRate(1);startScreen();try{speechSynthesis.getVoices()}catch(e){}
+/* ---- accept other correct word orders (and / but / or) ---- */
+const _orderOK1=orderOK;
+function altOrders(r){const out=[];const low=w=>w.toLowerCase().replace(/[,.]/g,'');
+ r.forEach((w,c)=>{if(!['and','but','or'].includes(low(w))||c<2||c>r.length-2)return;
+  for(let i1=1;i1<c;i1++){for(let i2=c+1;i2<r.length;i2++){
+   const A=r.slice(i1,c),Bs=r.slice(i2);if(!A.length||!Bs.length)continue;
+   const same=low(r[i1-1])===low(r[i2-1]),wild=(i2===c+1&&A.length===Bs.length);
+   if(!same&&!wild)continue;
+   const lastA=A[A.length-1],punct=(lastA.match(/[,]$/)||[''])[0];
+   const A2=A.slice();A2[A2.length-1]=lastA.replace(/,$/,'');const B2=Bs.slice();B2[B2.length-1]=B2[B2.length-1]+punct;
+   out.push([...r.slice(0,i1),...B2,...r.slice(c,i2),...A2])}}});
+ r.forEach((w,c)=>{if(!['and','but'].includes(low(w))||c<2)return;const L=r.slice(0,c),R=r.slice(c+1);if(R.length<2)return;
+  const PR=/^(he|she|we|they|it|my|his|her|our|their|the|a|an|you)$/i;if(!PR.test(low(R[0]))&&R[0]!=='I')return;if(!PR.test(low(L[0]))&&L[0]!=='I')return;const SUBJ=/^(he|she|it|they)$/i;if(SUBJ.test(low(R[0]))&&!SUBJ.test(low(L[0]))&&L[0]!=='I')return;
+  const cap=x=>x==='I'?x:x[0].toUpperCase()+x.slice(1),dn=x=>x==='I'?x:x[0].toLowerCase()+x.slice(1);
+  const lp=(L[L.length-1].match(/,$/)||[''])[0];const L2=L.slice();L2[L2.length-1]=L2[L2.length-1].replace(/,$/,'');L2[0]=dn(L2[0]);
+  const R2=R.slice();R2[0]=cap(R2[0]);R2[R2.length-1]=R2[R2.length-1]+lp;out.push([...R2,w,...L2])});
+ return out}
+orderOK=function(got,right){if(_orderOK1(got,right))return true;try{return altOrders(right).some(a=>_orderOK1(got,a))}catch(e){return false}};
 </script></body></html>
