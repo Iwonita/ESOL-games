@@ -64,7 +64,7 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;gap:10px;padding:10p
 .text{background:#fffbea;border:3px solid var(--ink);border-radius:20px;padding:12px 18px;overflow:hidden;text-align:left;font-size:clamp(22px,min(4.6vh,3.4vw),44px);line-height:1.45}
 .text h3{margin:0 0 .3em;color:var(--lv)}
 .tabs{display:none}
-@media (max-width:760px){.reading{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr)}.tabs{display:flex;gap:8px}.tabs button{flex:1}.reading[data-show=q] .text{display:none}.reading[data-show=t] .card{display:none}.text{font-size:clamp(20px,3.6vh,30px)}}
+@media (max-width:760px){.reading{grid-template-columns:1fr;grid-template-rows:minmax(0,1fr)}.tabs{display:flex;gap:8px}.reading[data-show=t] .gotoq{display:block;width:100%;margin-top:16px;font-size:clamp(20px,3.4vh,28px)}.tabs button{flex:1}.reading[data-show=q] .text{display:none}.reading[data-show=t] .card{display:none}.text{font-size:clamp(20px,3.6vh,30px)}}
 /* lesson + results */
 .lesson{align-items:stretch;text-align:left;overflow:hidden;justify-content:flex-start}
 .lesson h2{margin:0;color:var(--lv)}.lesson ul{margin:.2em 0;font-size:clamp(17px,3vh,30px);line-height:1.4}.lesson .ex{background:var(--lvs);border-radius:14px;padding:10px 16px;font-size:clamp(16px,2.8vh,28px)}
@@ -243,7 +243,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .pmenu .btile{gap:.15em!important;padding:4px!important;line-height:1.1}.pmenu .btile .pr{font-size:.8em!important}
 @media (max-width:760px){.pmenu .pgrid{gap:6px!important}}
 @media (max-width:760px){.actions{flex-wrap:nowrap!important;gap:6px!important}.actions .btn{font-size:16px!important;padding:.4em .55em!important;white-space:nowrap}.pmenu .q{font-size:20px!important}.pmenu .btile .pr{display:none!important}.pmenu .btile.bG .pr,.pmenu .btile.bA .pr,.pmenu .btile.bR .pr{display:inline-block!important}}
-</style></head><body class="l1">
+.gotoq{display:none}</style></head><body class="l1">
 <header><span class="flag" aria-hidden="true"></span><span class="brand">Family and Friends</span><div id="hud"></div>
 <div class="sw"><button id="sp0" onclick="setRate(0)">🐢</button><button id="sp1" onclick="setRate(1)">Normal</button></div></header>
 <main id="main"></main>
@@ -507,8 +507,8 @@ function rOrder(p,it){const pool=shuffle(it.w.map((w,i)=>({w,i})));if(pool.every
  $('und').onclick=()=>{if(!S.lock){picked.pop();draw()}};$('clr').onclick=()=>{if(!S.lock){picked.length=0;draw()}};
  $('chk').onclick=()=>{if(S.lock)return;S.lock=true;const got=picked.map(i=>it.w[i]).join(' '),right=it.w.join(' ');const ok=orderOK(picked.map(i=>it.w[i]),it.w);score(ok,'Word order',got+it.end,right+it.end);speak(right);after(ok,right+it.end)};draw()}
 function rReading(p,it){const m=opts(it.opts,it.a,(ok,g)=>{score(ok,it.q,g,it.a);speak(it.a);after(ok,it.a)});const first=S.item===0;
- frame(`<div class="tabs"><button class="btn sec" onclick="document.getElementById('rd').dataset.show='t';fitText()">📖 Text</button><button class="btn sec" onclick="document.getElementById('rd').dataset.show='q'">❓ Question</button></div>
- <div class="reading" id="rd" data-show="${first?'t':'q'}"><div class="text"><h3>${esc(p.title)} ${sayB(p.text.join(' '))}</h3>${p.text.map(t=>`<p>${esc(t)}</p>`).join('')}</div>
+ frame(`<div class="tabs"><button class="btn sec" onclick="document.getElementById('rd').dataset.show='t';fitText()">📖 Text</button><button class="btn sec" onclick="document.getElementById('rd').dataset.show='q';setTimeout(function(){if(window.fitBig)fitBig();else if(window.fitOpts)fitOpts();if(window.fitRQ)fitRQ()},0)">❓ Question</button></div>
+ <div class="reading" id="rd" data-show="${first?'t':'q'}"><div class="text"><h3>${esc(p.title)} ${sayB(p.text.join(' '))}</h3>${p.text.map(t=>`<p>${esc(t)}</p>`).join('')}<button class="btn lv gotoq" onclick="document.getElementById('rd').dataset.show='q';setTimeout(function(){if(window.fitBig)fitBig();else if(window.fitOpts)fitOpts();if(window.fitRQ)fitRQ()},0)">❓ Answer the question ▶</button></div>
  <div class="card"><div class="instr">Question ${S.item+1} of ${p.items.length}</div><div class="q mid">${esc(it.q)}</div>${m.html.replace('class="opts','class="opts long')}</div></div>`);m.bind();setTimeout(fitText,0);setTimeout(fitText,250)}
 function fitText(){const el=document.querySelector('#rd .text');if(!el||!el.offsetParent)return;let z=52;el.style.fontSize=z+'px';while(z>9&&(el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)){z-=1;el.style.fontSize=z+'px'}noScroll()}
 window.addEventListener('resize',()=>setTimeout(fitText,50));
@@ -713,7 +713,7 @@ function review(k,start){start=start||0;const ps=parts().filter((p,i)=>S.base.in
  if($('pm'))$('pm').onclick=()=>review(k,end);if($('pb'))$('pb').onclick=()=>review(k,Math.max(0,start-(end-start)))}
 
 /* choice words as big as each button allows */
-function fitOpts(){document.querySelectorAll('#main .opts, #main .keys').forEach(g=>{const bs=[...g.querySelectorAll('.opt')];if(!bs.length)return;let best=400;
+function fitOpts(){document.querySelectorAll('#main .opts, #main .keys').forEach(g=>{const bs=[...g.querySelectorAll('.opt')];if(!bs.length||!g.offsetParent)return;let best=400;
  bs.forEach(b=>{const sp=b.querySelector('span');if(!sp)return;const H=b.clientHeight;let f=Math.min(H*0.6,180);sp.style.setProperty('font-size',f+'px','important');
   const tw=()=>{const r=document.createRange();r.selectNodeContents(sp);const cs=getComputedStyle(sp);const inner=sp.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);let mx=0;[...r.getClientRects()].forEach(q=>mx=Math.max(mx,q.width));return mx>inner+1};
   const ic=b.querySelector('.ospk');let room=H-10;if(ic){const iw=ic.offsetHeight+10;if(H>3.2*iw){room=H-2*iw;sp.style.setProperty('padding','0 14px','important');ic.style.setProperty('top','8px','important');ic.style.setProperty('transform','none','important')}else{sp.style.setProperty('padding','0 '+iw+'px','important');ic.style.setProperty('top','50%','important');ic.style.setProperty('transform','translateY(-50%)','important')}}
