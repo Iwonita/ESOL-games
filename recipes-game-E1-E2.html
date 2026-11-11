@@ -296,7 +296,11 @@ const L1=[
  items:MC([['1 person: 2 eggs. 2 people?','4 eggs',['3 eggs','6 eggs']],['Boil the rice for 15 minutes. You start at 6:00. Finish?','6:15',['6:50','7:15']],['1 kg of flour = ___ g','1000 g',['100 g','10 g']],['Bake for 30 minutes. Start at 2:30. Finish?','3:00',['2:60','3:30']],['3 people: 1 onion each. How many onions?','3',['1','6']]])},
 {id:'st2',name:'Challenge: a slice, a cup …',icon:'⭐',type:'mcq',instr:'Choose the right word.',long:true,noLearn:1,
  lesson:{title:'Amounts',rules:['a <b>slice</b> of bread • a <b>cup</b> of tea','a <b>spoon</b> of sugar • a <b>bottle</b> of oil','a <b>bag</b> of rice • a <b>piece</b> of cake'],examples:['Can I have a <b>slice</b> of bread?']},
- items:MC([['a ___ of bread','slice',['bottle','cup']],['a ___ of tea','cup',['slice','bag']],['a ___ of sugar','spoon',['bottle','slice']],['a ___ of oil','bottle',['slice','piece']],['a ___ of rice','bag',['cup','slice']],['a ___ of cake','piece',['bottle','bag']]])}
+ items:MC([['a ___ of bread','slice',['bottle','cup']],['a ___ of tea','cup',['slice','bag']],['a ___ of sugar','spoon',['bottle','slice']],['a ___ of oil','bottle',['slice','piece']],['a ___ of rice','bag',['cup','slice']],['a ___ of cake','piece',['bottle','bag']]])},
+{id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>'],examples:['I | cook | rice | in the kitchen | every day.']},
+ items:[{w:['I','cook','rice','in the kitchen','every day'],end:'.'},{w:['My mum','makes','a big cake','at home','on Sunday'],end:'.'},{w:['We','eat','fish','at the café','on Friday'],end:'.'},{w:['They','buy','vegetables','at the market','every week'],end:'.'},{w:['Sam','drinks','tea','at work','in the morning'],end:'.'}]},
+{id:'comp1',name:'Hot, hotter',icon:'⚖️',type:'mcq',instr:'Choose the right word.',long:true,lesson:{title:'Comparing',rules:['cheap → cheap<b>er</b> than','hot → hot<b>ter</b> than • big → big<b>ger</b> than','nice → nice<b>r</b> than'],examples:['Soup is <b>hotter than</b> salad.']},
+ items:MC([['Soup is ___ than ice cream. (hot)','hotter',['hoter','more hot']],['A cake is ___ than a biscuit. (big)','bigger',['biger','more big']],['Rice is £1. Pasta is £2. Rice is ___ than pasta.','cheaper',['cheap','more cheap']],['A pan is ___ than a spoon. (big)','bigger',['bigest','big']],['My soup is ___ than your soup! (nice)','nicer',['nicest','more nice']],['Tea is ___ than coffee for me. (cheap)','cheaper',['cheapest','more cheap']]])}
 ];
 const L2=[
 {id:'verbs',name:'Cooking verbs',icon:'🔥',type:'mcq',instr:'Look at the picture. Choose the word.',
@@ -341,7 +345,11 @@ const L2=[
  items:MC([['4 people: 300 g pasta. 8 people?','600 g',['900 g','450 g']],['4 people: 6 eggs. 2 people?','3 eggs',['2 eggs','12 eggs']],['Roast for 1 hour 20 minutes. Start at 5:15 pm. Finish?','6:35 pm',['6:20 pm','6:15 pm']],['500 ml + 500 ml = ?','1 litre',['10 litres','100 ml']],['Pasta £1.20, sauce £1.80, cheese £2. Total?','£5',['£4','£5.20']]])},
 {id:'st2',name:'Challenge: past simple',icon:'⭐',type:'mcq',instr:'Choose the past simple.',long:true,noLearn:1,
  lesson:{title:'Past simple – cooking',rules:['bake → bak<b>ed</b> • fry → fr<b>ied</b> • chop → cho<b>pped</b>','make → <b>made</b> • cut → <b>cut</b> • eat → <b>ate</b>'],examples:['Last night I <b>made</b> a curry.']},
- items:MC([['Yesterday I ___ a cake.','baked',['bakeed','bake']],['She ___ the onions in oil.','fried',['fryed','fry']],['We ___ the vegetables.','chopped',['choped','chop']],['Last Sunday my mum ___ a big dinner.','made',['maked','make']],['He ___ the bread into slices.','cut',['cutted','cuts']]])}
+ items:MC([['Yesterday I ___ a cake.','baked',['bakeed','bake']],['She ___ the onions in oil.','fried',['fryed','fry']],['We ___ the vegetables.','chopped',['choped','chop']],['Last Sunday my mum ___ a big dinner.','made',['maked','make']],['He ___ the bread into slices.','cut',['cutted','cuts']]])},
+{id:'wo2',name:'Word order – past',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>','<b>WHEN</b> can go first + comma: <b>Last Sunday</b>, we roasted …'],examples:['We | roasted | a chicken | at my friend’s house | last Sunday.']},
+ items:[{w:['My grandmother','made','a big pot of soup','in her kitchen','last winter'],end:'.'},{w:['We','roasted','a chicken','at my friend’s house','last Sunday'],end:'.'},{w:['I','didn’t cook','much rice','at home','yesterday'],end:'.'},{w:['The chef','grilled','some fish','at the restaurant','two days ago'],end:'.'},{w:['My son','baked','a few cakes','at school','last week'],end:'.'}]},
+{id:'comp2',name:'Healthier, the tastiest',icon:'⚖️',type:'mcq',instr:'Choose the right word.',long:true,lesson:{title:'Comparing food',rules:['healthy → health<b>ier</b> than • the health<b>iest</b>','tasty → tast<b>ier</b> • quick → quick<b>er</b>','delicious → <b>more</b> delicious • good → <b>better</b> / the <b>best</b>'],examples:['Home-made soup is <b>healthier than</b> chips.']},
+ items:MC([['Fruit is ___ than chocolate.','healthier',['healthyer','more healthy']],['This is ___ curry I have ever eaten! (good)','the best',['the goodest','the better']],['Grilled fish is ___ than fried fish. (healthy)','healthier',['the healthiest','more healthier']],['Fresh bread is ___ than old bread. (tasty)','tastier',['tastyer','more tasty']],['My mum’s cake is ___ cake in the world! (delicious)','the most delicious',['the deliciousest','more delicious']],['Boiling is ___ than roasting. (quick)','quicker',['more quick','quickest']]])}
 ];
 const LEARN={1:{
  cook:['<b>chop</b> • <b>peel</b> • <b>slice</b>','<b>boil</b> • <b>fry</b> • <b>bake</b>'],
@@ -366,8 +374,8 @@ const LEARN={1:{
  punct:['<b>,</b> after First / After that','<b>,</b> in a list'],
  correct:['How much / How many','instructions'],
  msgorder:['Would you like to …?','<b>?</b> at the end of a question']}};
-const BLOCKS={1:[['1','Cooking words','🍳',['cook','spell','kitchen']],['2','Instructions','👉',['instr','aan','seq']],['3','Reading','📖',['read','list']],['4','Writing','✏️',['caps','order','write']],['5','Challenge','⭐',['st1','st2']]],
-2:[['1','Cooking verbs','🔥',['verbs','spell2']],['2','Amounts','⚖️',['muchmany','qty','seq2']],['3','Reading','📖',['read','poster','purpose']],['4','Writing','✏️',['punct','correct','msgorder','write']],['5','Challenge','⭐',['st1','st2']]]};
+const BLOCKS={1:[['1','Cooking words','🍳',['cook','spell','kitchen']],['2','Instructions','👉',['instr','aan','seq','comp1']],['3','Reading','📖',['read','list']],['4','Writing','✏️',['caps','wo','order','write']],['5','Challenge','⭐',['st1','st2']]],
+2:[['1','Cooking verbs','🔥',['verbs','spell2']],['2','Amounts','⚖️',['muchmany','qty','seq2','comp2']],['3','Reading','📖',['read','poster','purpose']],['4','Writing','✏️',['punct','correct','wo2','msgorder','write']],['5','Challenge','⭐',['st1','st2']]]};
 
 const KEY=l=>'recipes-game-v1-e'+l;
 
@@ -744,5 +752,5 @@ function altOrders(r){const out=[];const low=w=>w.toLowerCase().replace(/[,.]/g,
   const lp=(L[L.length-1].match(/,$/)||[''])[0];const L2=L.slice();L2[L2.length-1]=L2[L2.length-1].replace(/,$/,'');L2[0]=dn(L2[0]);
   const R2=R.slice();R2[0]=cap(R2[0]);R2[R2.length-1]=R2[R2.length-1]+lp;out.push([...R2,w,...L2])});
  return out}
-orderOK=function(got,right){if(_orderOK1(got,right))return true;try{return altOrders(right).some(a=>_orderOK1(got,a))}catch(e){return false}};
+orderOK=function(got,right){if(_orderOK1(got,right))return true;try{const lw=x=>String(x).toLowerCase().replace(/[,.?!]/g,'').trim();if(got.length===right.length&&right.length>=4&&lw(got[0])===lw(right[right.length-1])&&got.slice(1).every((g,k)=>lw(g)===lw(right[k])))return true;return altOrders(right).some(a=>_orderOK1(got,a))}catch(e){return false}};
 </script></body></html>
