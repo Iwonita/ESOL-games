@@ -302,7 +302,9 @@ const L1=[
 {id:'st2',name:'Challenge: Do or Does?',icon:'⭐',type:'mcq',instr:'Choose Do or Does.',noLearn:1,
  items:MC([['___ you walk to college?','Do',['Does','Are']],['___ Hamid work on Monday?','Does',['Do','Is']],['___ your children go to school?','Do',['Does','Are']],['___ she drink coffee?','Does',['Do','Is']]])},
 {id:'st3',name:'Challenge: my day in order',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['First, I get up and I have a shower','.'],['Then I have breakfast at 8 o’clock','.'],['I go to bed early because I am tired','.'],['After that, she takes the bus to work','.']])}
+ items:O([['First, I get up and I have a shower','.'],['Then I have breakfast at 8 o’clock','.'],['I go to bed early because I am tired','.'],['After that, she takes the bus to work','.']])},
+{id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>'],examples:['I | eat | breakfast | in the kitchen | at 7 o’clock.']},
+ items:[{w:['I','eat','breakfast','in the kitchen','at 7 o’clock'],end:'.'},{w:['My husband','takes','the bus','to work','every morning'],end:'.'},{w:['She','does','her homework','in the library','after class'],end:'.'},{w:['We','watch','TV','in the living room','in the evening'],end:'.'},{w:['Ali','starts','work','at the factory','at 8 am'],end:'.'}]}
 ];
 const L2=[
 {id:'colloc',name:'Words that go together',icon:'🔗',type:'mcq',instr:'Choose the verb.',
@@ -360,7 +362,9 @@ const L2=[
 {id:'st2',name:'Challenge: ask the question',icon:'⭐',type:'mcq',instr:'Choose the question for the answer.',long:true,noLearn:1,
  items:MC([['She went to work by bus.','How did she go to work?',['How she went to work?','How did she went to work?']],['They had lunch in the park.','Where did they have lunch?',['Where they had lunch?','Where did they had lunch?']],['He phoned his brother.','Who did he phone?',['Who he phoned?','Who did he phoned?']],['I was late because of the traffic.','Why were you late?',['Why did you late?','Why you were late?']]])},
 {id:'st3',name:'Challenge: longer sentences',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['I left home at 6:15, but my bus broke down','.'],['I waited for 40 minutes, so I was late','.'],['Before I went to bed, I set two alarms','.'],['She was exhausted because she worked all day','.']])}
+ items:O([['I left home at 6:15, but my bus broke down','.'],['I waited for 40 minutes, so I was late','.'],['Before I went to bed, I set two alarms','.'],['She was exhausted because she worked all day','.']])},
+{id:'wo2',name:'Word order – past',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>','<b>WHEN</b> can go first + comma: <b>Yesterday</b>, I caught …'],examples:['I | caught | the early bus | to town | yesterday.']},
+ items:[{w:['I','caught','the early bus','to town','yesterday'],end:'.'},{w:['My sister','cooked','dinner','at home','last night'],end:'.'},{w:['We','did','the shopping','at the supermarket','on Saturday morning'],end:'.'},{w:['He','missed','his train','at the station','this morning'],end:'.'},{w:['They','ate','lunch','in the canteen','at 1 pm'],end:'.'}]}
 ];
 const LEARN={1:{
  words:['get up • have a shower','cook dinner • go to bed'],
@@ -391,8 +395,8 @@ const LEARN={1:{
  caps2:['days • places','names • I'],
  punct:['<b>,</b> after Yesterday','<b>?</b> after a question'],
  paraorder:['past simple','then • after that']}};
-const BLOCKS={1:[['1','Routine words','🪥',['words','spell','parts']],['2','he / she and don’t','👤',['heshe','neg']],['3','Telling the time','🕐',['time1','time2','digit']],['4','Reading','📖',['read','notice']],['5','Writing','✏️',['caps','porder','write']],['6','Challenge','⭐',['st1','st2','st3']]],
-2:[['1','Words and times','🔗',['colloc','times','spell2']],['2','Past simple','⏪',['past','reg','neg2']],['3','Joining words','🔗',['conn','join','usual']],['4','Reading','📖',['read','purpose','timetable']],['5','Writing','✏️',['caps2','punct','paraorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
+const BLOCKS={1:[['1','Routine words','🪥',['words','spell','parts']],['2','he / she and don’t','👤',['heshe','neg']],['3','Telling the time','🕐',['time1','time2','digit']],['4','Reading','📖',['read','notice']],['5','Writing','✏️',['wo','caps','porder','write']],['6','Challenge','⭐',['st1','st2','st3']]],
+2:[['1','Words and times','🔗',['colloc','times','spell2']],['2','Past simple','⏪',['past','reg','neg2']],['3','Joining words','🔗',['conn','join','usual']],['4','Reading','📖',['read','purpose','timetable']],['5','Writing','✏️',['wo2','caps2','punct','paraorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
 
 const KEY=l=>'routine-game-v2-e'+l;
 
@@ -596,7 +600,8 @@ function results(){S.block=null;hud();const now=new Date();let tot=0,max=0;
 const pct=(sc,mx)=>mx?Math.round(sc/mx*100):0;
 const ADVW=new Set(['always','usually','often','sometimes','never','hardly','ever','rarely','normally']);
 const bare=w=>String(w).toLowerCase().replace(/[^a-z]/g,'');
-function orderOK(got,right){if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
+function _wf(got,right){try{const lw=x=>String(x).toLowerCase().replace(/[,.?!]/g,'').trim();return got.length===right.length&&right.length>=4&&lw(got[0])===lw(right[right.length-1])&&got.slice(1).every((g,k)=>lw(g)===lw(right[k]))}catch(e){return false}}
+function orderOK(got,right){if(_wf(got,right))return true;if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
  const ga=[],ra=[];for(let i=0;i<right.length;i++){const ra1=ADVW.has(bare(right[i])),ga1=ADVW.has(bare(got[i]));if(ra1!==ga1)return false;if(ra1){ra.push(right[i]);ga.push(got[i])}else if(got[i]!==right[i])return false}
  return ga.slice().sort().join('|')===ra.slice().sort().join('|')}
 function qwords(q){return esc(q).replace(/^(How often|How many|How much|How long|What time|What|Who|Where|When|Which|Why|How)\b/,'<span class="qw">$1</span>')}

@@ -281,7 +281,9 @@ const L1=[
 {id:'st1',name:'Challenge: why is it not fair?',icon:'⭐',type:'mcq',instr:'Read. Why is it not fair?',long:true,noLearn:1,
  items:MC([['“You are pregnant. No job for you.”','She is having a baby.',['She is too old.','She is a judge.'],'pregnancy'],['“You can’t wear a hijab here.”','because of her religion',['because of her age','because of her job'],'relig_disc'],['They laugh at him because of his skin colour.','because of his race',['because of his religion','because of his age'],'race'],['“No job for you. You are 60.”','because of his age',['because of his race','because he is late'],'age'],['She gets £1,800. He gets £2,500 for the same job.','She is a woman.',['She is new.','She is late.'],'pay']])},
 {id:'st2',name:'Challenge: can or should?',icon:'⭐',type:'mcq',nospk:1,instr:'Choose can or should.',noLearn:1,
- items:MC([['At 18, you ___ vote.','can',['should']],['You ___ follow the rules at work.','should',['can']],['You ___ choose your religion.','can',['should']],['You ___ be polite to other people.','should',['can']],['You ___ say what you think.','can',['should']],['Workers ___ wear safety clothes.','should',['can']]])}
+ items:MC([['At 18, you ___ vote.','can',['should']],['You ___ follow the rules at work.','should',['can']],['You ___ choose your religion.','can',['should']],['You ___ be polite to other people.','should',['can']],['You ___ say what you think.','can',['should']],['Workers ___ wear safety clothes.','should',['can']]])},
+{id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>'],examples:['I | see | a doctor | at the surgery | every year.']},
+ items:[{w:['I','see','a doctor','at the surgery','every year'],end:'.'},{w:['My children','get','free lessons','at school','every day'],end:'.'},{w:['We','pay','tax','in the UK','every month'],end:'.'},{w:['She','takes','her holiday','from work','in August'],end:'.'},{w:['He','gets','his pay','at work','every Friday'],end:'.'}]}
 ];
 const L2=[
 {id:'what2',name:'Rights words',icon:'⚖️',type:'mcq',instr:'Look at the picture. Choose the words.',long:true,
@@ -310,7 +312,9 @@ const L2=[
 {id:'st1',name:'Challenge: what does it mean?',icon:'⭐',type:'mcq',instr:'Choose the meaning.',long:true,noLearn:1,
  items:MC([['equal','the same – nobody is more important',['very important','not allowed']],['eligible','you are allowed – for example, to vote',['you must do it','you are too young']],['against the law','not allowed by the law',['a new law','a fair law']],['a fair trial','a judge listens to both people',['you vote for a judge','you pay the judge']],['government','the people who run the country',['the people in a court','the people at a polling station']]])},
 {id:'st2',name:'Challenge: which is correct?',icon:'⭐',type:'mcq',instr:'Only ONE sentence is correct. Find it.',long:true,noLearn:1,
- items:MC([['Which is correct?','Discrimination is against the law.',['Discrimination is again the law.','Discrimination are against the law.']],['Which is correct?','She can’t vote because she is 15.',['She can’t vote so she is 15.','She can’t votes because she is 15.']],['Which is correct?','Everyone has the right to a fair trial.',['Everyone have the right to a fair trial.','Everyone has the right of fair trial.']],['Which is correct?','You can say what you think, but be polite.',['You can say what you think but, be polite.','You can to say what you think, but be polite.']]])}
+ items:MC([['Which is correct?','Discrimination is against the law.',['Discrimination is again the law.','Discrimination are against the law.']],['Which is correct?','She can’t vote because she is 15.',['She can’t vote so she is 15.','She can’t votes because she is 15.']],['Which is correct?','Everyone has the right to a fair trial.',['Everyone have the right to a fair trial.','Everyone has the right of fair trial.']],['Which is correct?','You can say what you think, but be polite.',['You can say what you think but, be polite.','You can to say what you think, but be polite.']]])},
+{id:'wo2',name:'Word order – past',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>','<b>WHEN</b> can go first + comma: <b>Last week</b>, I reported …'],examples:['I | reported | the problem | to my manager | last week.']},
+ items:[{w:['I','reported','the problem','to my manager','last week'],end:'.'},{w:['She','got','equal pay','at her new job','last year'],end:'.'},{w:['We','made','a complaint','at the council','yesterday'],end:'.'},{w:['The company','paid','the minimum wage','to its workers','last year'],end:'.'},{w:['They','asked for','help','at Citizens Advice','two days ago'],end:'.'}]}
 ];
 const LEARN={1:{
  what:['<b>vote</b> • <b>ballot paper</b> • <b>polling station</b>','<b>judge</b> • <b>court</b> • <b>trial</b>','<b>freedom</b> • <b>follow the rules</b>'],
@@ -327,8 +331,8 @@ const LEARN={1:{
  gap2:['<b>so</b> = the result','<b>because</b> = the reason • <b>but</b> = different'],
  punct:['<b>,</b> before but / so','<b>.</b> or <b>?</b> at the end'],
  order2:['Capital letter at the start.','<b>.</b> at the end']}};
-const BLOCKS={1:[['1','Rights words','⚖️',['what','spell']],['2','Fair or not fair?','🤔',['fair']],['3','Sentences','✏️',['gap','caps']],['4','Writing','🧱',['order','write']],['5','Challenge','⭐',['st1','st2']]],
-2:[['1','Rights words','⚖️',['what2','spell2']],['2','Discrimination','🚫',['disc','fair2']],['3','Sentences','🔗',['gap2','punct']],['4','Writing','🧩',['order2','write2']],['5','Challenge','⭐',['st1','st2']]]};
+const BLOCKS={1:[['1','Rights words','⚖️',['what','spell']],['2','Fair or not fair?','🤔',['fair']],['3','Sentences','✏️',['gap','caps']],['4','Writing','🧱',['wo','order','write']],['5','Challenge','⭐',['st1','st2']]],
+2:[['1','Rights words','⚖️',['what2','spell2']],['2','Discrimination','🚫',['disc','fair2']],['3','Sentences','🔗',['gap2','punct']],['4','Writing','🧩',['wo2','order2','write2']],['5','Challenge','⭐',['st1','st2']]]};
 const KEY=l=>'vocabulary-rights-game-v2-e'+l;
 
 const GAME={1:L1,2:L2};
@@ -531,7 +535,8 @@ function results(){S.block=null;hud();const now=new Date();let tot=0,max=0;
 const pct=(sc,mx)=>mx?Math.round(sc/mx*100):0;
 const ADVW=new Set(['always','usually','often','sometimes','never','hardly','ever','rarely','normally']);
 const bare=w=>String(w).toLowerCase().replace(/[^a-z]/g,'');
-function orderOK(got,right){if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
+function _wf(got,right){try{const lw=x=>String(x).toLowerCase().replace(/[,.?!]/g,'').trim();return got.length===right.length&&right.length>=4&&lw(got[0])===lw(right[right.length-1])&&got.slice(1).every((g,k)=>lw(g)===lw(right[k]))}catch(e){return false}}
+function orderOK(got,right){if(_wf(got,right))return true;if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
  const ga=[],ra=[];for(let i=0;i<right.length;i++){const ra1=ADVW.has(bare(right[i])),ga1=ADVW.has(bare(got[i]));if(ra1!==ga1)return false;if(ra1){ra.push(right[i]);ga.push(got[i])}else if(got[i]!==right[i])return false}
  return ga.slice().sort().join('|')===ra.slice().sort().join('|')}
 function qwords(q){return esc(q).replace(/^(How often|How many|How much|How long|What time|What|Who|Where|When|Which|Why|How)\b/,'<span class="qw">$1</span>')}

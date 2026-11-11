@@ -313,7 +313,9 @@ const L1=[
 {id:'st2',name:'Challenge: about a partner',icon:'⭐',type:'mcq',instr:'Your partner says this. Write about her or him.',long:true,noLearn:1,
  items:MC([['Ana: “I like my job.”','She likes her job.',['She like her job.','He likes his job.']],['Kofi: “I live with my brother.”','He lives with his brother.',['He live with her brother.','She lives with his brother.']],['Lena: “My son is 7.”','Her son is 7.',['His son is 7.','She son is 7.']],['Rami: “I have a big family.”','He has a big family.',['He have a big family.','He is a big family.']]])},
 {id:'st3',name:'Challenge: questions order',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['Where do you live','?'],['What is your job','?'],['How old are you','?'],['What languages do you speak','?']])}
+ items:O([['Where do you live','?'],['What is your job','?'],['How old are you','?'],['What languages do you speak','?']])},
+{id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>'],examples:['I | study | English | at Acorn | on Monday.']},
+ items:[{w:['I','study','English','at Acorn','on Monday'],end:'.'},{w:['My friend','speaks','Arabic','at home','every day'],end:'.'},{w:['We','have','lunch','in the canteen','at 12 o’clock'],end:'.'},{w:['She','meets','her friends','in town','at the weekend'],end:'.'},{w:['He','drives','a taxi','in Stoke','every night'],end:'.'}]}
 ];
 const L2=[
 {id:'form',name:'Form words',icon:'📝',type:'mcq',instr:'Read the clue. Choose the form word.',long:true,
@@ -365,7 +367,9 @@ const L2=[
 {id:'st2',name:'Challenge: the best sentence',icon:'⭐',type:'mcq',instr:'Choose the best sentence for an email to a new tutor.',long:true,noLearn:1,
  items:MC([['Start the email.','Dear Iwona,',['Hiya babe,','Yo teacher']],['Say why you study.','I study English because I want to help my children with their homework.',['English because children homework.','I study English so I want help children.']],['Say what is difficult.','Speaking is easy for me, but spelling is difficult.',['Speaking easy, spelling difficult but.','Speaking is easy for me because spelling is difficult.']],['Finish the email.','Best wishes, Kofi',['Bye bye love Kofi','From Kofi xxx']]])},
 {id:'st3',name:'Challenge: compare',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['Amina comes from Eritrea, but I come from Iran','.'],['We both speak Arabic, and we both have daughters','.'],['Her shift is in the evening, but my shift is in the morning','.'],['She studies English because she wants to be a nurse','.']])}
+ items:O([['Amina comes from Eritrea, but I come from Iran','.'],['We both speak Arabic, and we both have daughters','.'],['Her shift is in the evening, but my shift is in the morning','.'],['She studies English because she wants to be a nurse','.']])},
+{id:'wo2',name:'Word order – past',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>','<b>WHEN</b> can go first + comma: <b>Last month</b>, I started …'],examples:['I | started | an English course | at Acorn | last month.']},
+ items:[{w:['I','started','an English course','at Acorn','last month'],end:'.'},{w:['My family','bought','a house','in Hanley','three years ago'],end:'.'},{w:['She','met','her husband','in Poland','in 2015'],end:'.'},{w:['We','visited','our new college','in town','last week'],end:'.'},{w:['He','found','a job','in a factory','two months ago'],end:'.'}]}
 ];
 const LEARN={1:{
  info:['<b>name</b> • <b>address</b>','<b>age</b> • <b>job</b>'],
@@ -398,8 +402,8 @@ const LEARN={1:{
  caps2:['towns • countries','languages • days'],
  punct:['<b>,</b> in a list','no comma before because'],
  paraorder:['and • but','because • so']}};
-const BLOCKS={1:[['1','Personal information','🪪',['info','qa','spell','abc']],['2','my, his, her','👤',['poss','possfix']],['3','Sentences about me','🧩',['verb','heshe','porder']],['4','Reading','📖',['read','letter','type']],['5','Capitals and full stops','🔠',['caps','stops','fix']],['6','A letter','✏️',['order','write']],['7','Challenge','⭐',['st1','st2','st3']]],
-2:[['1','Form words','📝',['form','vocab2','spell2']],['2','Possessives','👤',['poss2','whose','fixp']],['3','and, but, because, so','🔗',['conn','join']],['4','Reading','📖',['read','form2']],['5','Punctuation','❓',['caps2','punct']],['6','Writing','✏️',['paraorder','write']],['7','Challenge','⭐',['st1','st2','st3']]]};
+const BLOCKS={1:[['1','Personal information','🪪',['info','qa','spell','abc']],['2','my, his, her','👤',['poss','possfix']],['3','Sentences about me','🧩',['verb','heshe','porder']],['4','Reading','📖',['read','letter','type']],['5','Capitals and full stops','🔠',['caps','stops','fix']],['6','A letter','✏️',['wo','order','write']],['7','Challenge','⭐',['st1','st2','st3']]],
+2:[['1','Form words','📝',['form','vocab2','spell2']],['2','Possessives','👤',['poss2','whose','fixp']],['3','and, but, because, so','🔗',['conn','join']],['4','Reading','📖',['read','form2']],['5','Punctuation','❓',['caps2','punct']],['6','Writing','✏️',['wo2','paraorder','write']],['7','Challenge','⭐',['st1','st2','st3']]]};
 
 const KEY=l=>'gtky-game-v2-e'+l;
 
@@ -603,7 +607,8 @@ function results(){S.block=null;hud();const now=new Date();let tot=0,max=0;
 const pct=(sc,mx)=>mx?Math.round(sc/mx*100):0;
 const ADVW=new Set(['always','usually','often','sometimes','never','hardly','ever','rarely','normally']);
 const bare=w=>String(w).toLowerCase().replace(/[^a-z]/g,'');
-function orderOK(got,right){if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
+function _wf(got,right){try{const lw=x=>String(x).toLowerCase().replace(/[,.?!]/g,'').trim();return got.length===right.length&&right.length>=4&&lw(got[0])===lw(right[right.length-1])&&got.slice(1).every((g,k)=>lw(g)===lw(right[k]))}catch(e){return false}}
+function orderOK(got,right){if(_wf(got,right))return true;if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
  const ga=[],ra=[];for(let i=0;i<right.length;i++){const ra1=ADVW.has(bare(right[i])),ga1=ADVW.has(bare(got[i]));if(ra1!==ga1)return false;if(ra1){ra.push(right[i]);ga.push(got[i])}else if(got[i]!==right[i])return false}
  return ga.slice().sort().join('|')===ra.slice().sort().join('|')}
 function qwords(q){return esc(q).replace(/^(How often|How many|How much|How long|What time|What|Who|Where|When|Which|Why|How)\b/,'<span class="qw">$1</span>')}

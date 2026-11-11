@@ -295,7 +295,9 @@ const L1=[
 {id:'st2',name:'Challenge: check the form',icon:'⭐',type:'mcq',instr:'Amina Osei, 4 Bell Road, Leek, ST13 5AB. Which box is wrong?',long:true,noLearn:1,
  items:MC([['First name: Osei','First name – it is Amina.',['It is correct.','Surname']],['Postcode: ST13 5AB','It is correct.',['It is wrong.','It is a phone number.']],['Surname: amina','Surname – it is Osei.',['It is correct.','Postcode']],['Address: 4 bell road, leek','Capital letters: 4 Bell Road, Leek',['It is correct.','It is a postcode.']]])},
 {id:'st3',name:'Challenge: an email',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['My college is on Station Road','.'],['I study English on Tuesday and Thursday','.'],['You must bring your ID','.'],['Do you want to come with me','?']])}
+ items:O([['My college is on Station Road','.'],['I study English on Tuesday and Thursday','.'],['You must bring your ID','.'],['Do you want to come with me','?']])},
+{id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>'],examples:['I | fill in | a form | at the library | today.']},
+ items:[{w:['I','fill in','a form','at the library','today'],end:'.'},{w:['She','signs','the form','at reception','on Monday'],end:'.'},{w:['We','borrow','books','from the library','every week'],end:'.'},{w:['He','shows','his ID card','at the desk','every time'],end:'.'},{w:['They','pay','the fee','at the office','in September'],end:'.'}]}
 ];
 const L2=[
 {id:'fwords2',name:'Form words',icon:'📝',type:'mcq',instr:'Read the meaning. Choose the form word.',long:true,
@@ -340,7 +342,9 @@ const L2=[
 {id:'st2',name:'Challenge: mustn’t or don’t have to?',icon:'⭐',type:'mcq',instr:'Choose the correct sentence.',long:true,noLearn:1,
  items:MC([['Membership is free.','You don’t have to pay.',['You mustn’t pay.','You had to pay.']],['Smoking is not allowed.','You mustn’t smoke.',['You don’t have to smoke.','You haven’t to smoke.']],['The trip is not compulsory.','You don’t have to go.',['You mustn’t go.','You must go.']],['Photos of other learners are not allowed.','You mustn’t take photos.',['You don’t have to take photos.','You didn’t have to take photos.']]])},
 {id:'st3',name:'Challenge: check the form',icon:'⭐',type:'mcq',instr:'Leila Ahmadi, Mrs, married, born 14 / 02 / 1990. Which is correct?',long:true,noLearn:1,
- items:MC([['Title','Mrs',['Miss','Mr']],['Family name (BLOCK CAPITALS)','AHMADI',['Ahmadi','LEILA']],['Initial','L',['A','M']],['D.O.B. (day / month / year)','14 / 02 / 1990',['02 / 14 / 1990','1990 / 14 / 02']]])}
+ items:MC([['Title','Mrs',['Miss','Mr']],['Family name (BLOCK CAPITALS)','AHMADI',['Ahmadi','LEILA']],['Initial','L',['A','M']],['D.O.B. (day / month / year)','14 / 02 / 1990',['02 / 14 / 1990','1990 / 14 / 02']]])},
+{id:'wo2',name:'Word order – past',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>','<b>WHEN</b> can go first + comma: <b>Last week</b>, I filled in …'],examples:['I | filled in | an application form | online | last week.']},
+ items:[{w:['I','filled in','an application form','online','last week'],end:'.'},{w:['My husband','renewed','his passport','at the post office','in May'],end:'.'},{w:['She','showed','her passport','at the bank','yesterday'],end:'.'},{w:['We','returned','the library books','to the desk','on Friday'],end:'.'},{w:['They','sent','the form','to the council','two days ago'],end:'.'}]}
 ];
 const LEARN={1:{
  fwords:['first name • surname','address • email'],
@@ -365,8 +369,8 @@ const LEARN={1:{
  leaf:['days • times','prices • who?'],
  conn:['<b>so</b> = result','<b>because</b> = reason'],
  paraorder:['comma + but / so','had to + verb']}};
-const BLOCKS={1:[['1','Words on forms','📝',['fwords','info','same']],['2','Capital letters','🔠',['caps','capyn']],['3','Library rules','🚦',['must','can']],['4','Reading','📖',['read','notice']],['5','Writing','✏️',['porder','write']],['6','Challenge','⭐',['st1','st2','st3']]],
-2:[['1','Form words and instructions','📝',['fwords2','short','instr']],['2','Capital letters','🔠',['caps2','tricky']],['3','must, have to, had to','⚖️',['have','hadto']],['4','Reading','📖',['read','leaf']],['5','Writing','✏️',['conn','paraorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
+const BLOCKS={1:[['1','Words on forms','📝',['fwords','info','same']],['2','Capital letters','🔠',['caps','capyn']],['3','Library rules','🚦',['must','can']],['4','Reading','📖',['read','notice']],['5','Writing','✏️',['wo','porder','write']],['6','Challenge','⭐',['st1','st2','st3']]],
+2:[['1','Form words and instructions','📝',['fwords2','short','instr']],['2','Capital letters','🔠',['caps2','tricky']],['3','must, have to, had to','⚖️',['have','hadto']],['4','Reading','📖',['read','leaf']],['5','Writing','✏️',['wo2','conn','paraorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
 
 const KEY=l=>'forms-game-v1-e'+l;
 
@@ -570,7 +574,8 @@ function results(){S.block=null;hud();const now=new Date();let tot=0,max=0;
 const pct=(sc,mx)=>mx?Math.round(sc/mx*100):0;
 const ADVW=new Set(['always','usually','often','sometimes','never','hardly','ever','rarely','normally']);
 const bare=w=>String(w).toLowerCase().replace(/[^a-z]/g,'');
-function orderOK(got,right){if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
+function _wf(got,right){try{const lw=x=>String(x).toLowerCase().replace(/[,.?!]/g,'').trim();return got.length===right.length&&right.length>=4&&lw(got[0])===lw(right[right.length-1])&&got.slice(1).every((g,k)=>lw(g)===lw(right[k]))}catch(e){return false}}
+function orderOK(got,right){if(_wf(got,right))return true;if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
  const ga=[],ra=[];for(let i=0;i<right.length;i++){const ra1=ADVW.has(bare(right[i])),ga1=ADVW.has(bare(got[i]));if(ra1!==ga1)return false;if(ra1){ra.push(right[i]);ga.push(got[i])}else if(got[i]!==right[i])return false}
  return ga.slice().sort().join('|')===ra.slice().sort().join('|')}
 function qwords(q){return esc(q).replace(/^(How often|How many|How much|How long|What time|What|Who|Where|When|Which|Why|How)\b/,'<span class="qw">$1</span>')}

@@ -298,7 +298,9 @@ const L1=[
 {id:'st2',name:'Challenge: times',icon:'⭐',type:'mcq',instr:'Work it out.',noLearn:1,
  items:MC([['The library is open from 9:00 to 5:00. How many hours?','8',['4','7']],['The bus from Fenton to Hanley takes 15 minutes. You leave at 10:50. When do you arrive?','11:05',['10:65','11:15']],['The pool is open 7:00 – 9:00 pm (21:00). How many hours?','14',['2','12']]])},
 {id:'st3',name:'Challenge: longer sentences',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['There is a park, but there isn’t a pool','.'],['I go to the library because it is quiet','.'],['The cafe is next to the bank and opposite the park','.'],['There are some shops, and there is a market too','.']])}
+ items:O([['There is a park, but there isn’t a pool','.'],['I go to the library because it is quiet','.'],['The cafe is next to the bank and opposite the park','.'],['There are some shops, and there is a market too','.']])},
+{id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>'],examples:['I | buy | stamps | at the post office | on Monday.']},
+ items:[{w:['I','buy','stamps','at the post office','on Monday'],end:'.'},{w:['We','borrow','books','at the library','every week'],end:'.'},{w:['My son','plays','football','in the park','after school'],end:'.'},{w:['She','sees','the doctor','at the health centre','on Friday'],end:'.'},{w:['They','catch','the bus','at the bus station','every morning'],end:'.'}]}
 ];
 const L2=[
 {id:'places2',name:'More places',icon:'🏥',type:'mcq',instr:'Look at the picture. Choose the place.',
@@ -350,7 +352,9 @@ const L2=[
 {id:'st2',name:'Challenge: compare and join',icon:'⭐',type:'mcq',instr:'Choose the best sentence.',long:true,noLearn:1,
  items:MC([['The market is cheap. The shopping centre is expensive.','The market is cheaper than the shopping centre, but the shopping centre is more modern.',['The market is more cheap than the shopping centre.','The market cheaper, but expensive.']],['My street is quiet. The town centre is noisy.','My street is quieter than the town centre, so I sleep well.',['My street is more quieter than the town centre.','My street quiet than town centre so.']],['Leek is small. Stoke is big.','Stoke is bigger than Leek, and it has more shops.',['Stoke is more big than Leek.','Stoke bigger Leek and shops.']]])},
 {id:'st3',name:'Challenge: an advert',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['Come to Leek, the friendliest town in Staffordshire','!'],['It is greener and quieter than the city','.'],['There is a lively market every Wednesday','.'],['You can relax in our peaceful parks','.']])}
+ items:O([['Come to Leek, the friendliest town in Staffordshire','!'],['It is greener and quieter than the city','.'],['There is a lively market every Wednesday','.'],['You can relax in our peaceful parks','.']])},
+{id:'wo2',name:'Word order – past',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>','<b>WHEN</b> can go first + comma: <b>Yesterday</b>, I posted …'],examples:['I | posted | a parcel | at the post office | yesterday.']},
+ items:[{w:['I','posted','a parcel','at the post office','yesterday'],end:'.'},{w:['We','watched','a film','at the new cinema','last Saturday'],end:'.'},{w:['My mum','visited','the museum','in the city centre','last week'],end:'.'},{w:['He','met','his friends','at the shopping centre','two days ago'],end:'.'},{w:['They','opened','a bank account','in Hanley','last month'],end:'.'}]}
 ];
 const LEARN={1:{
  places:['library • bank','market • cinema'],
@@ -378,8 +382,8 @@ const LEARN={1:{
  leisure:['days • times','prices'],
  caps2:['towns • rivers','days • names'],
  paraorder:['than','comma before but / so']}};
-const BLOCKS={1:[['1','Places','🏦',['places','where','spell']],['2','a / an, There is / are','🧩',['aan','isare']],['3','Describe and where','📍',['opp','map']],['4','Reading','📖',['read','notice']],['5','Writing','✏️',['caps','porder','write']],['6','Challenge','⭐',['st1','st2','st3']]],
-2:[['1','Places and adjectives','🏙️',['places2','adj','spell2']],['2','a / an, There is, joining','🔗',['aan2','there2','conn']],['3','Comparing and where','⚖️',['comp','compsent','map2']],['4','Reading','📖',['read','leisure']],['5','Writing','✏️',['caps2','paraorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
+const BLOCKS={1:[['1','Places','🏦',['places','where','spell']],['2','a / an, There is / are','🧩',['aan','isare']],['3','Describe and where','📍',['opp','map']],['4','Reading','📖',['read','notice']],['5','Writing','✏️',['wo','caps','porder','write']],['6','Challenge','⭐',['st1','st2','st3']]],
+2:[['1','Places and adjectives','🏙️',['places2','adj','spell2']],['2','a / an, There is, joining','🔗',['aan2','there2','conn']],['3','Comparing and where','⚖️',['comp','compsent','map2']],['4','Reading','📖',['read','leisure']],['5','Writing','✏️',['wo2','caps2','paraorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
 
 const KEY=l=>'places-game-v2-e'+l;
 
@@ -583,7 +587,8 @@ function results(){S.block=null;hud();const now=new Date();let tot=0,max=0;
 const pct=(sc,mx)=>mx?Math.round(sc/mx*100):0;
 const ADVW=new Set(['always','usually','often','sometimes','never','hardly','ever','rarely','normally']);
 const bare=w=>String(w).toLowerCase().replace(/[^a-z]/g,'');
-function orderOK(got,right){if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
+function _wf(got,right){try{const lw=x=>String(x).toLowerCase().replace(/[,.?!]/g,'').trim();return got.length===right.length&&right.length>=4&&lw(got[0])===lw(right[right.length-1])&&got.slice(1).every((g,k)=>lw(g)===lw(right[k]))}catch(e){return false}}
+function orderOK(got,right){if(_wf(got,right))return true;if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
  const ga=[],ra=[];for(let i=0;i<right.length;i++){const ra1=ADVW.has(bare(right[i])),ga1=ADVW.has(bare(got[i]));if(ra1!==ga1)return false;if(ra1){ra.push(right[i]);ga.push(got[i])}else if(got[i]!==right[i])return false}
  return ga.slice().sort().join('|')===ra.slice().sort().join('|')}
 function qwords(q){return esc(q).replace(/^(How often|How many|How much|How long|What time|What|Who|Where|When|Which|Why|How)\b/,'<span class="qw">$1</span>')}

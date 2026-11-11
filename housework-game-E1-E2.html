@@ -298,7 +298,9 @@ const L1=[
 {id:'st2',name:'Challenge: how many minutes?',icon:'⭐',type:'mcq',instr:'Work it out.',noLearn:1,
  items:MC([['Ana cleans for 20 minutes and vacuums for 25 minutes. How many minutes?','45',['40','55']],['Leo washes the dishes for 15 minutes every day. How many minutes in a week?','105',['75','150']],['The washing machine starts at 10:00. It takes 90 minutes. When does it finish?','11:30',['10:90','11:00']]])},
 {id:'st3',name:'Challenge: longer sentences',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['I like cooking, but I hate ironing','.'],['First, I wash the dishes and then I wipe the table','.'],['My daughter always helps me because she is kind','.'],['On Sunday, we don’t do any housework','.']])}
+ items:O([['I like cooking, but I hate ironing','.'],['First, I wash the dishes and then I wipe the table','.'],['My daughter always helps me because she is kind','.'],['On Sunday, we don’t do any housework','.']])},
+{id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>'],examples:['I | clean | the kitchen | at home | every day.']},
+ items:[{w:['I','clean','the kitchen','at home','every day'],end:'.'},{w:['My husband','washes','the dishes','in the kitchen','after dinner'],end:'.'},{w:['She','irons','the clothes','in the bedroom','on Sunday'],end:'.'},{w:['We','vacuum','the carpet','in the living room','every Saturday'],end:'.'},{w:['My son','takes','the rubbish','to the bin','on Tuesday'],end:'.'}]}
 ];
 const L2=[
 {id:'colloc',name:'Words that go together',icon:'🔗',type:'mcq',instr:'Choose the verb.',
@@ -350,7 +352,9 @@ const L2=[
 {id:'st2',name:'Challenge: maths',icon:'⭐',type:'mcq',instr:'Work it out.',noLearn:1,
  items:MC([['A cleaner earns £12 an hour. She works 3 hours. How much?','£36',['£15','£32']],['Raj washed dishes for 45 minutes and Priya cleaned for 2 hours 15 minutes. Total?','3 hours',['2 hours 60 minutes','2 hours 30 minutes']],['Cleaning spray costs £2.40. You buy 3. How much?','£7.20',['£6.40','£7.40']]])},
 {id:'st3',name:'Challenge: longer sentences',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
- items:O([['I cleaned the kitchen, but I didn’t have time to vacuum','.'],['We hardly ever do the ironing because it is boring','.'],['After the party, Raj washed the dishes and Priya vacuumed','.'],['Can you take the rubbish out, please','?']])}
+ items:O([['I cleaned the kitchen, but I didn’t have time to vacuum','.'],['We hardly ever do the ironing because it is boring','.'],['After the party, Raj washed the dishes and Priya vacuumed','.'],['Can you take the rubbish out, please','?']])},
+{id:'wo2',name:'Word order – past',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>','<b>WHEN</b> can go first + comma: <b>Yesterday</b>, I cleaned …'],examples:['I | cleaned | the windows | in the living room | yesterday.']},
+ items:[{w:['I','cleaned','the windows','in the living room','yesterday'],end:'.'},{w:['My daughter','tidied','her toys','in her bedroom','last night'],end:'.'},{w:['We','painted','the walls','in the hall','last weekend'],end:'.'},{w:['He','didn’t wash','the car','on the drive','on Sunday'],end:'.'},{w:['They','mopped','the floor','in the kitchen','this morning'],end:'.'}]}
 ];
 const LEARN={1:{
  words:['wash the dishes','water the plants'],
@@ -378,8 +382,8 @@ const LEARN={1:{
  conn:['<b>so</b> = result','<b>because</b> = reason'],
  caps2:['days • months','names • places'],
  paraorder:['how often','comma before but / so']}};
-const BLOCKS={1:[['1','Housework words','🧽',['words','tools','spell','dmt']],['2','How often?','📊',['often']],['3','he / she and doesn’t','👤',['heshe','neg']],['4','Reading','📖',['read','rota']],['5','Writing','✏️',['caps','porder','write']],['6','Challenge','⭐',['st1','st2','st3']]],
-2:[['1','Housework words','🔗',['colloc','phrasal','spell2']],['2','Likes and how often','❤️',['ing','freq','heshe2']],['3','Past simple','⏪',['past','fixp']],['4','Reading','📖',['read','notice']],['5','Writing','✏️',['conn','caps2','paraorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
+const BLOCKS={1:[['1','Housework words','🧽',['words','tools','spell','dmt']],['2','How often?','📊',['often']],['3','he / she and doesn’t','👤',['heshe','neg']],['4','Reading','📖',['read','rota']],['5','Writing','✏️',['wo','caps','porder','write']],['6','Challenge','⭐',['st1','st2','st3']]],
+2:[['1','Housework words','🔗',['colloc','phrasal','spell2']],['2','Likes and how often','❤️',['ing','freq','heshe2']],['3','Past simple','⏪',['past','fixp']],['4','Reading','📖',['read','notice']],['5','Writing','✏️',['wo2','conn','caps2','paraorder','write']],['6','Challenge','⭐',['st1','st2','st3']]]};
 
 const KEY=l=>'housework-game-v2-e'+l;
 
@@ -583,7 +587,8 @@ function results(){S.block=null;hud();const now=new Date();let tot=0,max=0;
 const pct=(sc,mx)=>mx?Math.round(sc/mx*100):0;
 const ADVW=new Set(['always','usually','often','sometimes','never','hardly','ever','rarely','normally']);
 const bare=w=>String(w).toLowerCase().replace(/[^a-z]/g,'');
-function orderOK(got,right){if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
+function _wf(got,right){try{const lw=x=>String(x).toLowerCase().replace(/[,.?!]/g,'').trim();return got.length===right.length&&right.length>=4&&lw(got[0])===lw(right[right.length-1])&&got.slice(1).every((g,k)=>lw(g)===lw(right[k]))}catch(e){return false}}
+function orderOK(got,right){if(_wf(got,right))return true;if(got.join(' ')===right.join(' '))return true;if(got.length!==right.length)return false;
  const ga=[],ra=[];for(let i=0;i<right.length;i++){const ra1=ADVW.has(bare(right[i])),ga1=ADVW.has(bare(got[i]));if(ra1!==ga1)return false;if(ra1){ra.push(right[i]);ga.push(got[i])}else if(got[i]!==right[i])return false}
  return ga.slice().sort().join('|')===ra.slice().sort().join('|')}
 function qwords(q){return esc(q).replace(/^(How often|How many|How much|How long|What time|What|Who|Where|When|Which|Why|How)\b/,'<span class="qw">$1</span>')}
