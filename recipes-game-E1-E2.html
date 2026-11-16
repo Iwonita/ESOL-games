@@ -246,6 +246,11 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .gotoq{display:none}
 /* phone fixes (Nov 2026): bigger word tiles, praise banner fits the screen */
 @media (max-width:600px){#pool .chip,#ws .chip,#line .chip,#line{font-size:27px!important}.chip{font-size:27px!important;padding:.2em .55em!important}.pool{gap:12px}.cheer{font-size:clamp(34px,11vw,64px)!important;white-space:normal;text-align:center;max-width:92vw}}
+
+/* reading text: never smaller than 18px – scroll inside the box instead */
+#rd .text.scroll{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;scrollbar-width:auto;scrollbar-color:var(--ink) transparent}
+#rd .text.scroll::-webkit-scrollbar{width:12px}#rd .text.scroll::-webkit-scrollbar-thumb{background:var(--ink);border-radius:6px}
+#rd .text.scroll{box-shadow:inset 0 -18px 14px -12px rgba(0,0,0,.25)}
 </style></head><body class="l1">
 <header><span class="flag" aria-hidden="true"></span><span class="brand">Recipes</span><div id="hud"></div>
 <div class="sw"><button id="sp0" onclick="setRate(0)">🐢</button><button id="sp1" onclick="setRate(1)">Normal</button></div></header>
@@ -389,7 +394,7 @@ const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(M
 const st=(k,v)=>{try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v)}catch(e){}};
 let S={name:'',level:0,base:[],queue:[],qi:0,item:0,res:{},log:{},attempt:{},lock:false};
 let RATE=1;
-function bestVoice(){try{const all=speechSynthesis.getVoices();let vs=all.filter(v=>/^en[-_]GB/i.test(v.lang));if(!vs.length)vs=all.filter(v=>/^en/i.test(v.lang));const sc=v=>(/natural/i.test(v.name)?100:0)+(/online/i.test(v.name)?50:0)+(/google/i.test(v.name)?40:0)+(/premium/i.test(v.name)?35:0)+(/enhanced/i.test(v.name)?30:0)+(/sonia|libby|serena|kate|daniel|female/i.test(v.name)?5:0)+(/^en[-_]US/i.test(v.lang)?3:0)-(v.localService===false?0:1);return vs.sort((a,b)=>sc(b)-sc(a))[0]}catch(e){}}
+function bestVoice(){try{const all=speechSynthesis.getVoices();if(bestVoice.v&&all.includes(bestVoice.v))return bestVoice.v;const bad=/albert|bad news|bahh|bells|boing|bubbles|cellos|good news|jester|organ|superstar|trinoids|whisper|wobble|zarvox|fred|junior|ralph|kathy|eloquence|eddy|flo|grandma|grandpa|reed|rocko|sandy|shelley/i;let vs=all.filter(v=>/^en[-_]GB/i.test(v.lang)&&!bad.test(v.name));if(!vs.length)vs=all.filter(v=>/^en/i.test(v.lang)&&!bad.test(v.name));if(!vs.length)vs=all.filter(v=>/^en/i.test(v.lang));const sc=v=>(/natural/i.test(v.name)?100:0)+(/neural/i.test(v.name)?90:0)+(/premium/i.test(v.name)?60:0)+(/online/i.test(v.name)?50:0)+(/enhanced/i.test(v.name)?45:0)+(/google/i.test(v.name)?40:0)+(/sonia|libby|serena|kate|daniel|stephanie|arthur|martha|hazel|female/i.test(v.name)?5:0)+(/^en[-_]GB/i.test(v.lang)?20:0)+(v.default?2:0);const b=vs.sort((a,b)=>sc(b)-sc(a))[0];if(b)bestVoice.v=b;return b}catch(e){}}
 try{speechSynthesis.onvoiceschanged=()=>speechSynthesis.getVoices()}catch(e){}
 function voice(){return bestVoice()}
 function speak(t){try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(t).replace(/_+/g,' … ').replace(/[✘✔→●○↔|]/g,' ').replace(/\p{Extended_Pictographic}|\u200d|\ufe0f/gu,' ').replace(/\s{2,}/g,' ').trim().replace(/\([^)]*\)/g,''));u.lang='en-GB';u.rate=[0.65,0.9][RATE];const v=voice();if(v)u.voice=v;speechSynthesis.speak(u)}catch(e){}}
@@ -482,7 +487,7 @@ function rReading(p,it){const m=opts(it.opts,it.a,(ok,g)=>{score(ok,it.q,g,it.a)
  frame(`<div class="tabs"><button class="btn sec" onclick="document.getElementById('rd').dataset.show='t';fitText()">📖 Text</button><button class="btn sec" onclick="document.getElementById('rd').dataset.show='q';setTimeout(function(){if(window.fitBig)fitBig();else if(window.fitOpts)fitOpts();if(window.fitRQ)fitRQ()},0)">❓ Question</button></div>
  <div class="reading" id="rd" data-show="${first?'t':'q'}"><div class="text"><h3>${esc(p.title)} ${sayB(p.text.join(' '))}</h3>${p.text.map(t=>`<p>${esc(t)}</p>`).join('')}<button class="btn lv gotoq" onclick="document.getElementById('rd').dataset.show='q';setTimeout(function(){if(window.fitBig)fitBig();else if(window.fitOpts)fitOpts();if(window.fitRQ)fitRQ()},0)">❓ Answer the question ▶</button></div>
  <div class="card"><div class="instr">Question ${S.item+1} of ${p.items.length}</div><div class="q mid">${esc(it.q)}</div>${m.html.replace('class="opts','class="opts long')}</div></div>`);m.bind();setTimeout(fitText,0);setTimeout(fitText,250)}
-function fitText(){const el=document.querySelector('#rd .text');if(!el||!el.offsetParent)return;let z=52;el.style.fontSize=z+'px';while(z>9&&(el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)){z-=1;el.style.fontSize=z+'px'}noScroll()}
+function fitText(){const el=document.querySelector('#rd .text');if(!el||!el.offsetParent)return;const MIN=Math.max(18,Math.min(24,Math.round(Math.min(innerWidth,innerHeight)/22)));el.classList.remove('scroll');let z=52;el.style.fontSize=z+'px';while(z>MIN&&(el.scrollHeight>el.clientHeight+1||el.scrollWidth>el.clientWidth+1)){z-=1;el.style.fontSize=z+'px'}if(el.scrollHeight>el.clientHeight+1){el.classList.add('scroll');el.scrollTop=0}noScroll()}
 window.addEventListener('resize',()=>setTimeout(fitText,50));
 let NOSPK=false;
 function boardHTML(sc){return `<div class="bt">${esc(sc.title)}</div><div class="board">${sc.cells.map(c=>`<div class="cell ${c.x?'x':''}">${c.pic&&IMG[c.pic]?`<img src="${IMG[c.pic]}" alt="">`:`<span style="font-size:2em">${c.ic||''}</span>`}<span>${esc(c.t)}</span><span class="m">${esc(c.m||'')}</span></div>`).join('')}</div>`}
