@@ -86,6 +86,18 @@ textarea,input.ty{width:100%;font-family:inherit;font-size:clamp(24px,5vw,34px);
 .res .pts{font-size:clamp(22px,4.5vw,30px)}
 /* question box in level colour (Entry 2 = blue) */
 .prompt,.qside .q{background:var(--paleb);border:3px solid var(--b);border-radius:16px;padding:10px 14px}
+/* pick layout: picture + question on the left, big answers on the right */
+.pk{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:16px;min-height:0}
+.pk .lp{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:0}
+.pk .lp .emoji{font-size:clamp(110px,30vh,260px)}
+.pk .lp img.pic{max-width:100%;max-height:42vh;object-fit:contain;border-radius:18px}
+.pk .lp .prompt{width:100%}
+.pk .rp{display:flex;flex-direction:column;gap:14px;min-height:0}
+.pk .rp .ch{flex:1;font-size:clamp(26px,4.2vw,46px);min-height:64px}
+.pk .nextslot{min-height:66px;display:flex;justify-content:center;width:100%}
+.next{background:#012169!important}
+.pk .nextslot .next{min-width:80%}
+@media (max-width:760px){.pk{grid-template-columns:1fr;grid-template-rows:auto 1fr}.pk .lp{gap:8px}.pk .lp .emoji{font-size:clamp(60px,14vh,110px)}.pk .lp img.pic{max-height:20vh}.pk .rp .ch{font-size:clamp(22px,6vw,32px)}}
 </style>
 </head>
 <body>
@@ -329,12 +341,14 @@ function wireChoices(b, it, area) {
 }
 
 function pick(b, p, it) {
-  const cls = p.one ? 'one' : (it.ch.length === 3 || p.three) ? 'one' : '';
-  let top = '';
-  if (it.emoji) top += `<div class="emoji">${it.emoji}</div>`;
-  if (it.listen) top += `<button class="spk" id="sp">🔊</button>`;
-  if (it.q) top += `<div class="prompt">${it.q.replace('___', '<span class="gap">_____</span>')}</div>`;
-  h(frame(b, `<div class="inst">${p.inst}</div>${top}<div class="fb"></div>${choiceButtons(b, it, cls)}<div id="area" style="display:flex;justify-content:center"></div>`));
+  let vis = '';
+  if (it.img) vis = `<img class="pic" src="${it.img}" alt="" onerror="this.outerHTML='<div class=&quot;emoji&quot;>${it.emoji || ''}</div>'">`;
+  else if (it.emoji) vis = `<div class="emoji">${it.emoji}</div>`;
+  const spk = it.listen ? `<button class="spk" id="sp">🔊</button>` : '';
+  const q = it.q ? `<div class="prompt">${it.q.replace('___', '<span class="gap">_____</span>')}</div>` : '';
+  const opts = shuffle(it.ch).map(o => `<button class="ch" data-v="${esc(o)}">${esc(o)}</button>`).join('');
+  h(frame(b, `<div class="pk"><div class="lp"><div class="inst">${p.inst}</div>${vis}${spk}${q}<div class="fb"></div><div class="nextslot" id="area"></div></div>
+    <div class="rp">${opts}</div></div>`));
   if (it.listen) { document.getElementById('sp').onclick = () => speak(it.listen); setTimeout(() => speak(it.listen), 300); }
   wireChoices(b, it, document.getElementById('area'));
 }
