@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Jobs – my game (Entry 2)</title>
+<style>
+:root{--g:#2E7D32;--b:#1F5FA8;--red:#C62828;--amb:#F9A825;--dark:#262626;--grey:#595959;--bg:#FFF8E7;--pale:#EAF4E4;--paleb:#E6EFFA;--txt:#7A3E00}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--dark);display:flex;justify-content:center}
+#app{width:100%;max-width:1100px;height:100dvh;display:flex;flex-direction:column;padding:10px 12px}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:16px;touch-action:manipulation}
+.top{display:flex;align-items:center;gap:8px;min-height:52px}
+.top .home{background:#fff;border:2px solid #BFBFBF;font-size:20px;font-weight:bold;padding:8px 14px}
+.top .bar{flex:1;height:14px;background:#E0E0E0;border-radius:8px;overflow:hidden}
+.top .bar i{display:block;height:100%;background:var(--g);width:0}
+.top .count{font-weight:bold;font-size:18px;min-width:56px;text-align:right}
+.screen{flex:1;display:flex;flex-direction:column;min-height:0;gap:10px;padding-top:6px}
+.inst{font-size:clamp(22px,4.5vw,30px);font-weight:bold;color:var(--b);text-align:center}
+.prompt{font-size:clamp(28px,6vw,48px);font-weight:bold;text-align:center;line-height:1.25}
+.emoji{font-size:clamp(70px,16vh,130px);text-align:center;line-height:1.1}
+.choices{display:grid;gap:10px;grid-template-columns:1fr 1fr}
+.choices.one{grid-template-columns:1fr}
+.ch{background:#fff;border:3px solid var(--b);color:var(--dark);font-size:clamp(22px,4.6vw,36px);font-weight:bold;padding:14px 10px;min-height:72px;line-height:1.15}
+.ch.ok{background:var(--g);border-color:var(--g);color:#fff}
+.ch.no{background:var(--red);border-color:var(--red);color:#fff;animation:shake .35s}
+.ch:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.big{background:var(--g);color:#fff;font-size:clamp(24px,5vw,34px);font-weight:bold;padding:14px 24px;min-height:66px}
+.next{align-self:center;min-width:60%}
+.spk{background:#fff;border:3px solid var(--g);font-size:32px;padding:6px 18px;align-self:center}
+.fb{font-size:clamp(22px,4.4vw,32px);font-weight:bold;text-align:center;min-height:1.3em}
+.fb.ok{color:var(--g)} .fb.no{color:var(--red)}
+.gap{color:var(--b);text-decoration:underline}
+/* home */
+.flag{width:min(46vw,260px);height:auto;display:block;margin:4px auto;border-radius:10px;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+h1{text-align:center;font-size:clamp(30px,6vw,46px)}
+.sub{text-align:center;font-size:clamp(18px,3.5vw,24px);color:var(--grey)}
+.blocks{display:grid;gap:10px;grid-template-columns:1fr 1fr;flex:1;min-height:0;align-content:center}
+.blk{background:#fff;border:3px solid var(--g);font-size:clamp(22px,4.6vw,32px);font-weight:bold;padding:10px;display:flex;flex-direction:column;align-items:center;gap:4px;min-height:84px}
+.blk.st{border-color:#E67E22;grid-column:1/-1}
+.blk small{font-size:clamp(15px,3vw,19px);color:var(--grey);font-weight:normal}
+.rag{display:inline-block;width:22px;height:22px;border-radius:50%;vertical-align:middle;margin-left:6px;border:2px solid #fff;box-shadow:0 0 0 2px #999}
+.R{background:var(--red)} .A{background:var(--amb)} .G{background:#2E9E3A} .N{background:#E0E0E0}
+/* intro */
+.intro{flex:1;display:flex;flex-direction:column;justify-content:center;gap:22px;align-items:center}
+.intro .card{text-align:center;background:#fff;border-radius:20px;padding:18px 26px;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.intro .card .emoji{font-size:clamp(70px,14vh,110px)}
+.intro .card .pt{font-size:clamp(24px,5vw,36px);font-weight:bold}
+.intro .how{text-align:center}
+.intro .how .i1{font-size:clamp(26px,5.5vw,38px);font-weight:bold;color:var(--b)}
+.intro .how .i2{font-size:clamp(18px,3.6vw,24px);color:var(--grey);margin-top:6px}
+/* reading */
+.read{flex:1;display:flex;gap:12px;min-height:0}
+.textbox{background:#fff;border:3px solid #E0C49A;border-radius:16px;padding:12px 14px;overflow:hidden;color:var(--txt);line-height:1.35;flex:1.3;min-height:0}
+.textbox b{color:var(--dark)}
+.qside{flex:1;display:flex;flex-direction:column;gap:10px;justify-content:center;min-height:0}
+.q{font-weight:bold;line-height:1.25}
+@media (max-width:760px){.read{flex-direction:column}.textbox{flex:1}.qside{flex:none}}
+/* order */
+.slots{min-height:76px;background:#fff;border:3px dashed var(--b);border-radius:16px;display:flex;flex-wrap:wrap;gap:8px;padding:8px;align-items:center;justify-content:center}
+.tiles{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;min-height:70px}
+.tile{background:var(--paleb);border:3px solid var(--b);font-size:clamp(22px,4.6vw,32px);font-weight:bold;padding:10px 16px}
+.slots .tile{background:#FFF3B0;border-color:#C9A800}
+.row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.ghost{background:#fff;border:3px solid #BFBFBF;font-size:22px;font-weight:bold;padding:10px 18px}
+/* typing */
+textarea,input.ty{width:100%;font-family:inherit;font-size:clamp(24px,5vw,34px);padding:12px;border:3px solid var(--b);border-radius:14px;resize:none}
+.correct{font-size:clamp(22px,4.5vw,32px);font-weight:bold;color:var(--g);text-align:center}
+.formcard{background:#fff;border:3px solid #E0C49A;border-radius:16px;padding:10px 14px;color:var(--txt);line-height:1.35;overflow:hidden;min-height:0}
+.label{font-size:clamp(24px,5vw,36px);font-weight:bold;text-align:center}
+/* write */
+.write{flex:1;display:flex;gap:14px;min-height:0}
+.wl{flex:1;display:flex;flex-direction:column;gap:8px;min-height:0}
+.wr{width:220px;display:flex;flex-direction:column;gap:10px;justify-content:center}
+.wr button{font-size:20px;font-weight:bold;padding:12px 8px;color:#fff}
+.small{font-size:16px;color:var(--grey);font-weight:bold;text-transform:uppercase;letter-spacing:.5px}
+.starter{font-size:clamp(26px,5.5vw,38px);font-weight:bold;color:var(--b)}
+.ex{font-size:clamp(20px,4vw,28px);color:var(--g);font-weight:bold}
+@media (max-width:760px){.write{flex-direction:column}.wr{width:100%;flex-direction:row}.wr button{flex:1;font-size:17px;padding:10px 4px}}
+/* result */
+.res{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center}
+.res .light{width:140px;height:140px;border-radius:50%}
+.res .msg{font-size:clamp(28px,6vw,44px);font-weight:bold}
+.res .pts{font-size:clamp(22px,4.5vw,30px)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+/* ===================== CONTENT – from his Jobs Essentials books ===================== */
+const ADVERT = `<b>HOTEL RECEPTIONIST – FULL-TIME</b><br>The Meridian Hotel, Newcastle-under-Lyme<br><br><b>Hours:</b> 40 hours per week, 5 days from 7<br><b>Shift pattern:</b> Early (7am–3pm) or Late (3pm–11pm)<br><b>Salary:</b> £13.50 per hour. Holiday pay. Staff meals included.<br><br>We are looking for a confident and well-organised person. You must be friendly and polite at all times.<br>Previous experience in a hotel or customer service is an advantage. Good communication skills are essential. A second language is desirable.<br><br><b>To apply:</b> Send your CV and a covering letter to hr@meridianhotel.co.uk<br><b>Closing date:</b> 31 January 2027`;
+const MALIA = `<b>Malia</b><br>I am a teaching assistant and I work in a primary school in Stoke-on-Trent. I help the class teacher with reading, writing and maths activities. I also help children who find learning difficult.<br>I work Monday to Friday, from 8.30am to 3.30pm. I don’t work in the school holidays.<br>I love my job because I enjoy working with children. I am very patient and good at explaining things.<br>In the future, I want to do a teaching qualification and become a teacher.`;
+const ISHAK = `<b>Ishak</b><br>I am a taxi driver. I work for a private taxi company in the city. I usually work in the evenings and at weekends, from 6pm to 2am. My job can be very busy, especially on Friday and Saturday nights.<br>I drive many different people – students, families, workers and tourists. I need to know the roads very well. I also need to be polite and reliable.<br>I like my job because I meet interesting people every day. One day I want to buy my own taxi and work for myself.`;
+const YAQOOB = `Hello – my name is <b>Yaqoob Sherif Ali</b>. I come from Turkey and I speak Turkish and German. I live at <b>33 Allan Road</b>, Linton, Coalville, Leicestershire, <b>LE12 3ER</b>. My date of birth is <b>30th June 1965</b>. I worked for two years in a kebab house and five years in a supermarket.`;
+
+const BLOCKS = [
+ {id:'words', name:'Words', icon:'💼', parts:[
+  {title:'Jobs', icon:'👩‍🍳', inst:'Listen. Tap the job.', type:'pick', items:[
+   {emoji:'👨‍🍳', listen:'a chef', ch:['chef','nurse','hairdresser','taxi driver'], a:'chef', say:'a chef'},
+   {emoji:'👩‍⚕️', listen:'a nurse', ch:['nurse','chef','receptionist','car mechanic'], a:'nurse', say:'a nurse'},
+   {emoji:'💇', listen:'a hairdresser', ch:['hairdresser','taxi driver','nurse','chef'], a:'hairdresser', say:'a hairdresser'},
+   {emoji:'🧑‍🔧', listen:'a car mechanic', ch:['car mechanic','receptionist','chef','nurse'], a:'car mechanic', say:'a car mechanic'},
+   {emoji:'🛎️', listen:'a receptionist', ch:['receptionist','hairdresser','taxi driver','car mechanic'], a:'receptionist', say:'a receptionist'},
+   {emoji:'🚕', listen:'a taxi driver', ch:['taxi driver','nurse','receptionist','hairdresser'], a:'taxi driver', say:'a taxi driver'}]},
+  {title:'What do they do?', icon:'🛠️', inst:'Tap the answer.', type:'pick', one:true, items:[
+   {emoji:'👨‍🍳', q:'A chef …', ch:['cooks food','cuts hair','mends cars'], a:'cooks food', say:'A chef works in a restaurant and cooks food.'},
+   {emoji:'👩‍⚕️', q:'A nurse …', ch:['looks after sick people','drives people','cooks food'], a:'looks after sick people', say:'A nurse works in a hospital and looks after sick people.'},
+   {emoji:'💇', q:'A hairdresser …', ch:['cuts hair','mends cars','talks to guests'], a:'cuts hair', say:'A hairdresser works in a salon and cuts hair.'},
+   {emoji:'🧑‍🔧', q:'A car mechanic …', ch:['mends cars','cooks food','cuts hair'], a:'mends cars', say:'A car mechanic works in a garage and mends cars.'},
+   {emoji:'🛎️', q:'A receptionist …', ch:['talks to guests','mends cars','drives people'], a:'talks to guests', say:'A receptionist works in a hotel and talks to guests.'},
+   {emoji:'🚕', q:'A taxi driver …', ch:['drives people','cuts hair','looks after sick people'], a:'drives people', say:'A taxi driver drives people in a car.'}]},
+  {title:'Job advert words', icon:'📰', inst:'Tap the meaning.', type:'pick', one:true, items:[
+   {q:'full-time', ch:['35–40 hours a week','fewer hours','the last day'], a:'35–40 hours a week', say:'full-time'},
+   {q:'part-time', ch:['fewer hours','35–40 hours a week','money for your work'], a:'fewer hours', say:'part-time'},
+   {q:'shift', ch:['the time you work','the last day','you must have it'], a:'the time you work', say:'shift'},
+   {q:'salary', ch:['money for your work','the time you work','fewer hours'], a:'money for your work', say:'salary'},
+   {q:'essential', ch:['you MUST have it','good, but not needed','the last day'], a:'you MUST have it', say:'essential'},
+   {q:'closing date', ch:['the last day','the time you work','money for your work'], a:'the last day', say:'closing date'}]}
+ ]},
+ {id:'grammar', name:'Grammar', icon:'🧩', parts:[
+  {title:'must or should?', icon:'⚠️', inst:'Tap the word.', type:'pick', items:[
+   {q:'A bus driver ___ have a driving licence.', ch:['must','should'], a:'must', say:'A bus driver must have a driving licence.'},
+   {q:'A waiter ___ smile at customers.', ch:['must','should'], a:'should', say:'A waiter should smile at customers.'},
+   {q:'You ___ wear a seat belt in a car.', ch:['must','should'], a:'must', say:'You must wear a seat belt in a car.'},
+   {q:'Students ___ read at home.', ch:['must','should'], a:'should', say:'Students should read at home.'},
+   {q:'A chef ___ wash their hands.', ch:['must','should'], a:'must', say:'A chef must wash their hands.'}]},
+  {title:'The past', icon:'🕰️', inst:'Tap the past.', type:'pick', items:[
+   {q:'I <span class="gap">am</span> → I ___', ch:['was','were','am'], a:'was', say:'I was'},
+   {q:'I <span class="gap">work</span> → I ___', ch:['worked','works','working'], a:'worked', say:'I worked'},
+   {q:'I <span class="gap">wear</span> → I ___', ch:['wore','weared','wears'], a:'wore', say:'I wore'},
+   {q:'I <span class="gap">make</span> → I ___', ch:['made','maked','makes'], a:'made', say:'I made'},
+   {q:'I <span class="gap">keep</span> → I ___', ch:['kept','keeped','keeps'], a:'kept', say:'I kept'},
+   {q:'I <span class="gap">use</span> → I ___', ch:['used','useed','uses'], a:'used', say:'I used'}]},
+  {title:'because, but, so', icon:'🔗', inst:'Tap the word.', type:'pick', three:true, items:[
+   {q:'I want to be a nurse ___ I like helping people.', ch:['because','but','so'], a:'because', say:'I want to be a nurse because I like helping people.'},
+   {q:'I can drive, ___ I don’t have a car.', ch:['because','but','so'], a:'but', say:'I can drive, but I don’t have a car.'},
+   {q:'I speak two languages, ___ I can work in a hotel.', ch:['because','but','so'], a:'so', say:'I speak two languages, so I can work in a hotel.'},
+   {q:'I want a part-time job ___ I look after my children.', ch:['because','but','so'], a:'because', say:'I want a part-time job because I look after my children.'},
+   {q:'I worked in a shop, ___ I can use a till.', ch:['because','but','so'], a:'so', say:'I worked in a shop, so I can use a till.'}]},
+  {title:'Word order', icon:'🧱', inst:'Put the words in order.', type:'order', items:[
+   {tiles:['I','can','use','a till'], ok:[['I','can','use','a till']], say:'I can use a till.'},
+   {tiles:['I','am','friendly','and','patient'], ok:[['I','am','friendly','and','patient'],['I','am','patient','and','friendly']], say:'I am friendly and patient.'},
+   {tiles:['Last year','I','worked','in a shop'], ok:[['Last year','I','worked','in a shop'],['I','worked','in a shop','Last year']], say:'Last year I worked in a shop.'},
+   {tiles:['A chef','must','wash','their hands'], ok:[['A chef','must','wash','their hands']], say:'A chef must wash their hands.'}]}
+ ]},
+ {id:'reading', name:'Reading', icon:'📖', parts:[
+  {title:'The job advert', icon:'📰', inst:'Read. Tap the answer.', type:'read', text:ADVERT, items:[
+   {q:'Is the job full-time or part-time?', ch:['full-time','part-time'], a:'full-time', say:'It is full-time.'},
+   {q:'How many hours per week?', ch:['40','5','7'], a:'40', say:'40 hours per week.'},
+   {q:'What are the shifts?', ch:['7am–3pm or 3pm–11pm','9am–5pm','6pm–2am'], a:'7am–3pm or 3pm–11pm', say:'7am to 3pm or 3pm to 11pm.'},
+   {q:'What TWO benefits?', ch:['holiday pay and staff meals','a car and a phone','a uniform and parking'], a:'holiday pay and staff meals', say:'Holiday pay and staff meals.'},
+   {q:'Is experience essential?', ch:['No – it is an advantage.','Yes – you must have it.'], a:'No – it is an advantage.', say:'No. It is an advantage.'},
+   {q:'What must you send?', ch:['a CV and a covering letter','a photo','your passport'], a:'a CV and a covering letter', say:'A CV and a covering letter.'},
+   {q:'What is the closing date?', ch:['31 January 2027','13 January 2027','3 January 2027'], a:'31 January 2027', say:'31 January 2027.'}]},
+  {title:'Malia', icon:'👩‍🏫', inst:'Read. Tap the answer.', type:'read', text:MALIA, items:[
+   {q:'Where does Malia work?', ch:['in a primary school','in a hospital','in a hotel'], a:'in a primary school', say:'In a primary school.'},
+   {q:'When does she work?', ch:['Monday to Friday','evenings and weekends','Saturday only'], a:'Monday to Friday', say:'Monday to Friday.'},
+   {q:'Why does she love her job?', ch:['She enjoys working with children.','She meets interesting people.','The pay is good.'], a:'She enjoys working with children.', say:'She enjoys working with children.'},
+   {q:'What does she want to become?', ch:['a teacher','a taxi driver','a nurse'], a:'a teacher', say:'A teacher.'}]},
+  {title:'Ishak', icon:'🚕', inst:'Read. Tap the answer.', type:'read', text:ISHAK, items:[
+   {q:'What is Ishak’s job?', ch:['taxi driver','teaching assistant','chef'], a:'taxi driver', say:'He is a taxi driver.'},
+   {q:'When does he work?', ch:['6pm to 2am','8.30am to 3.30pm','7am to 3pm'], a:'6pm to 2am', say:'6pm to 2am.'},
+   {q:'He needs to be …', ch:['polite and reliable','quiet and shy','fast and strong'], a:'polite and reliable', say:'Polite and reliable.'},
+   {q:'Why does he like his job?', ch:['He meets interesting people.','He works in the day.','He likes children.'], a:'He meets interesting people.', say:'He meets interesting people every day.'},
+   {q:'What does he want one day?', ch:['his own taxi','a new job','a teaching qualification'], a:'his own taxi', say:'He wants to buy his own taxi.'}]}
+ ]},
+ {id:'writing', name:'Writing', icon:'✍️', parts:[
+  {title:'Capital letters', icon:'🔠', inst:'Type it with capital letters.', type:'type', items:[
+   {show:'hi fatima,', a:['Hi Fatima,'], say:'Hi Fatima,'},
+   {show:'i have just arrived in england.', a:['I have just arrived in England.'], say:'I have just arrived in England.'},
+   {show:'last year i worked in a café.', a:['Last year I worked in a café.'], say:'Last year I worked in a café.'},
+   {show:'i am friendly and patient.', a:['I am friendly and patient.'], say:'I am friendly and patient.'},
+   {show:'best wishes, mariam', a:['Best wishes, Mariam'], say:'Best wishes, Mariam'}]},
+  {title:'The form', icon:'📝', inst:'Read. Type in CAPITALS.', type:'type', text:YAQOOB, caps:true, items:[
+   {label:'First name', a:['YAQOOB'], say:'Yaqoob'},
+   {label:'Middle name', a:['SHERIF'], say:'Sherif'},
+   {label:'Surname', a:['ALI'], say:'Ali'},
+   {label:'Date of birth (DD/MM/YYYY)', a:['30/06/1965'], say:'30/06/1965'},
+   {label:'House number', a:['33'], say:'33'},
+   {label:'Postcode', a:['LE12 3ER'], say:'LE12 3ER'}]},
+  {title:'My email', icon:'✉️', inst:'Finish the sentence.', type:'write', items:[
+   {q:'Your past job?', starter:'Last year I worked in ', ex:'Last year I worked in a café in my country.'},
+   {q:'What can you do?', starter:'I can ', ex:'I can make coffee and I can talk to customers.'},
+   {q:'What are you like?', starter:'I am ', ex:'I am friendly and patient.'},
+   {q:'Your free time?', starter:'In my free time I enjoy ', ex:'In my free time I enjoy cooking because it is relaxing.'},
+   {q:'Ask your friend.', starter:'What job ', ex:'What job do you think is good for me?'}]}
+ ]},
+ {id:'stretch', name:'Stretch', icon:'★', st:true, parts:[
+  {title:'Compare', icon:'⚖️', inst:'Tap the word.', type:'pick', items:[
+   {q:'Ishak finishes work ___ than Malia.', ch:['later','earlier'], a:'later', say:'Ishak finishes work later than Malia.'},
+   {q:'Malia starts work ___ than Ishak.', ch:['earlier','later'], a:'earlier', say:'Malia starts work earlier than Ishak.'},
+   {q:'A full-time job is ___ than a part-time job.', ch:['longer','shorter'], a:'longer', say:'A full-time job is longer than a part-time job.'},
+   {q:'Ishak is ___ on Saturday nights.', ch:['busier','busy than'], a:'busier', say:'Ishak is busier on Saturday nights.'}]},
+  {title:'Long sentences', icon:'🧱', inst:'Put the words in order.', type:'order', items:[
+   {tiles:['Malia','wants to','become','a teacher','in the future'], ok:[['Malia','wants to','become','a teacher','in the future'],['in the future','Malia','wants to','become','a teacher']], say:'Malia wants to become a teacher in the future.'},
+   {tiles:['Ishak','works','in the evenings','and','at weekends'], ok:[['Ishak','works','in the evenings','and','at weekends'],['Ishak','works','at weekends','and','in the evenings']], say:'Ishak works in the evenings and at weekends.'},
+   {tiles:['I speak two languages,','so','I can work','in a hotel'], ok:[['I speak two languages,','so','I can work','in a hotel']], say:'I speak two languages, so I can work in a hotel.'}]}
+ ]}
+];
+
+/* ===================== STATE (saved on this phone) ===================== */
+const KEY = 'jobs-essentials-E2-v1';
+let S = {};
+try { S = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) { S = {}; }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function st(id) { return S[id] || (S[id] = {part:0, item:0, pts:{}, done:false}); }
+
+/* ===================== VOICE – best en-GB voice ===================== */
+let VOICE = null;
+function pickVoice() {
+  const vs = (window.speechSynthesis && speechSynthesis.getVoices()) || [];
+  const gb = vs.filter(v => /en[-_]GB/i.test(v.lang));
+  const rank = v => /Natural|Online/i.test(v.name) ? 0 : /Google UK/i.test(v.name) ? 1 : /Premium|Enhanced/i.test(v.name) ? 2 : 3;
+  gb.sort((a, b) => rank(a) - rank(b));
+  VOICE = gb[0] || vs.find(v => /^en/i.test(v.lang)) || null;
+}
+if (window.speechSynthesis) { pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
+function speak(t) {
+  try {
+    if (!window.speechSynthesis || !t) return;
+    speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(t.replace(/[^\p{L}\p{N}\s.,'’?!:/–-]/gu, '').replace(/–/g, ' to '));
+    if (VOICE) { u.voice = VOICE; u.lang = VOICE.lang; } else u.lang = 'en-GB';
+    u.rate = 0.9; speechSynthesis.speak(u);
+  } catch (e) {}
+}
+
+/* ===================== HELPERS ===================== */
+const app = document.getElementById('app');
+const h = (html) => { app.innerHTML = html; };
+const shuffle = a => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const esc = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+function rag(p) { return p == null ? 'N' : p >= 0.9 ? 'G' : p >= 0.6 ? 'A' : 'R'; }
+function blockScore(b) {
+  const s = st(b.id); let got = 0, max = 0;
+  Object.values(s.pts).forEach(arr => arr.forEach(v => { got += v; max += 1; }));
+  return {got, max};
+}
+function fit(el, min) {
+  if (!el) return; let fs = parseFloat(getComputedStyle(el).fontSize);
+  while (el.scrollHeight > el.clientHeight + 1 && fs > (min || 13)) { fs -= 1; el.style.fontSize = fs + 'px'; }
+}
+const UNION = `<svg class="flag" viewBox="0 0 60 30" xmlns="http://www.w3.org/2000/svg"><clipPath id="t"><path d="M30,15 h30 v15 z v15 h-30 z h-30 v-15 z v-15 h30 z"/></clipPath><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" clip-path="url(#t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg>`;
+
+/* ===================== HOME ===================== */
+function home() {
+  try { speechSynthesis.cancel(); } catch (e) {}
+  let html = `<div class="screen">${UNION}<h1>Jobs</h1><div class="sub">Entry 2 · Tap a part</div><div class="blocks">`;
+  BLOCKS.forEach(b => {
+    const s = st(b.id), sc = blockScore(b);
+    const status = s.done ? `<span class="rag ${rag(sc.got / sc.max)}"></span>` :
+      (s.part || s.item) ? `<small>Part ${s.part + 1} of ${b.parts.length} – go on</small>` : `<small>${b.parts.length} parts</small>`;
+    html += `<button class="blk ${b.st ? 'st' : ''}" data-b="${b.id}">${b.icon} ${b.name} ${s.done ? status : ''}${s.done ? `<small>${sc.got} / ${sc.max}</small>` : status}</button>`;
+  });
+  html += `</div></div>`;
+  h(html);
+  app.querySelectorAll('.blk').forEach(x => x.onclick = () => openBlock(x.dataset.b));
+}
+function openBlock(id) {
+  const b = BLOCKS.find(x => x.id === id), s = st(id);
+  if (s.done) { S[id] = {part:0, item:0, pts:{}, done:false}; save(); }
+  st(id).item === 0 ? intro(b) : item(b);
+}
+
+/* ===================== FRAME ===================== */
+function frame(b, inner) {
+  const s = st(b.id), p = b.parts[s.part];
+  const pct = Math.round(100 * s.item / p.items.length);
+  return `<div class="top"><button class="home">⌂ Stop</button><div class="bar"><i style="width:${pct}%"></i></div><div class="count">${s.item + 1}/${p.items.length}</div></div><div class="screen">${inner}</div>`;
+}
+function wireHome() { const x = app.querySelector('.home'); if (x) x.onclick = home; }
+
+function intro(b) {
+  const s = st(b.id), p = b.parts[s.part];
+  const pts = p.type === 'write' ? 'Check your sentence' : '1 point each';
+  h(`<div class="top"><button class="home">⌂ Stop</button></div><div class="intro">
+     <div class="card"><div class="emoji">${p.icon}</div><div class="pt">Part ${s.part + 1} of ${b.parts.length}: ${p.title}</div></div>
+     <div class="how"><div class="i1">${p.inst}</div><div class="i2">${p.items.length} questions · ${pts}</div></div>
+     <button class="big" id="go">Start ▶</button></div>`);
+  wireHome(); document.getElementById('go').onclick = () => item(b);
+}
+
+function record(b, v) {
+  const s = st(b.id); (s.pts[s.part] = s.pts[s.part] || [])[s.item] = v; save();
+}
+function advance(b) {
+  const s = st(b.id), p = b.parts[s.part];
+  s.item++;
+  if (s.item >= p.items.length) { s.part++; s.item = 0; }
+  if (s.part >= b.parts.length) { s.done = true; s.part = 0; save(); return result(b); }
+  save(); s.item === 0 ? intro(b) : item(b);
+}
+function nextBtn(b) {
+  const n = document.createElement('button'); n.className = 'big next'; n.textContent = 'Next ▶';
+  n.onclick = () => advance(b); return n;
+}
+
+/* ===================== ITEMS ===================== */
+function item(b) {
+  const s = st(b.id), p = b.parts[s.part], it = p.items[s.item];
+  ({pick, read, order, type, write})[p.type](b, p, it);
+  wireHome();
+}
+
+function choiceButtons(b, it, cls) {
+  const opts = shuffle(it.ch);
+  return `<div class="choices ${cls}">${opts.map(o => `<button class="ch" data-v="${esc(o)}">${esc(o)}</button>`).join('')}</div>`;
+}
+function wireChoices(b, it, area) {
+  let first = true;
+  app.querySelectorAll('.ch').forEach(btn => btn.onclick = () => {
+    const v = btn.dataset.v;
+    if (v === it.a) {
+      btn.classList.add('ok'); app.querySelectorAll('.ch').forEach(x => x.disabled = true);
+      if (first) record(b, 1);
+      app.querySelector('.fb').className = 'fb ok'; app.querySelector('.fb').textContent = first ? '✔ Yes!' : '✔';
+      speak(it.say || it.a);
+      if (!app.querySelector('.next')) area.appendChild(nextBtn(b));
+    } else {
+      btn.classList.add('no'); btn.disabled = true;
+      if (first) { record(b, 0); first = false; }
+      app.querySelector('.fb').className = 'fb no'; app.querySelector('.fb').textContent = '✗ Try again.';
+    }
+  });
+}
+
+function pick(b, p, it) {
+  const cls = p.one ? 'one' : (it.ch.length === 3 || p.three) ? 'one' : '';
+  let top = '';
+  if (it.emoji) top += `<div class="emoji">${it.emoji}</div>`;
+  if (it.listen) top += `<button class="spk" id="sp">🔊</button>`;
+  if (it.q) top += `<div class="prompt">${it.q.replace('___', '<span class="gap">_____</span>')}</div>`;
+  h(frame(b, `<div class="inst">${p.inst}</div>${top}<div class="fb"></div>${choiceButtons(b, it, cls)}<div id="area" style="display:flex;justify-content:center"></div>`));
+  if (it.listen) { document.getElementById('sp').onclick = () => speak(it.listen); setTimeout(() => speak(it.listen), 300); }
+  wireChoices(b, it, document.getElementById('area'));
+}
+
+function read(b, p, it) {
+  h(frame(b, `<div class="inst">${p.inst}</div><div class="read"><div class="textbox" id="tx">${p.text}</div>
+    <div class="qside"><div class="q prompt" style="font-size:clamp(22px,4vw,32px)">${it.q}</div><div class="fb"></div>${choiceButtons(b, it, 'one')}<div id="area" style="display:flex;justify-content:center"></div></div></div>`));
+  const tx = document.getElementById('tx');
+  tx.style.fontSize = (window.innerWidth > 760 ? 24 : 19) + 'px'; fit(tx, 12);
+  app.querySelectorAll('.ch').forEach(c => { c.style.fontSize = 'clamp(19px,3.6vw,30px)'; if (window.innerWidth <= 760) { c.style.minHeight = '52px'; c.style.padding = '8px'; } });
+  wireChoices(b, it, document.getElementById('area'));
+}
+
+function order(b, p, it) {
+  let tiles = shuffle(it.tiles.map((t, i) => ({t, i})));
+  while (tiles.map(x => x.t).join('|') === it.tiles.join('|')) tiles = shuffle(tiles);
+  let placed = [], first = true;
+  h(frame(b, `<div class="inst">${p.inst}</div><div class="slots" id="sl"></div><div class="tiles" id="tl"></div>
+    <div class="fb"></div><div class="row" id="area"><button class="ghost" id="undo">↩ Back</button><button class="big" id="chk">Check ✔</button></div>`));
+  const sl = document.getElementById('sl'), tl = document.getElementById('tl');
+  function draw() {
+    sl.innerHTML = placed.map(x => `<button class="tile">${esc(x.t)}</button>`).join('') + (placed.length ? '<span style="font-size:32px;font-weight:bold">.</span>' : '');
+    tl.innerHTML = tiles.filter(x => !placed.includes(x)).map(x => `<button class="tile" data-i="${x.i}">${esc(x.t)}</button>`).join('');
+    tl.querySelectorAll('.tile').forEach(btn => btn.onclick = () => { placed.push(tiles.find(x => x.i == btn.dataset.i)); draw(); });
+    sl.querySelectorAll('.tile').forEach((btn, k) => btn.onclick = () => { placed.splice(k, 1); draw(); });
+  }
+  draw();
+  document.getElementById('undo').onclick = () => { placed.pop(); draw(); };
+  document.getElementById('chk').onclick = () => {
+    if (placed.length < it.tiles.length) return;
+    const got = placed.map(x => x.t).join('|').toLowerCase();
+    const fb = app.querySelector('.fb');
+    if (it.ok.some(o => o.join('|').toLowerCase() === got)) {
+      if (first) record(b, 1);
+      fb.className = 'fb ok'; fb.textContent = '✔ ' + it.say; speak(it.say);
+      const area = document.getElementById('area'); area.innerHTML = ''; area.appendChild(nextBtn(b));
+      sl.querySelectorAll('.tile').forEach(x => x.disabled = true);
+    } else {
+      if (first) { record(b, 0); first = false; }
+      fb.className = 'fb no'; fb.textContent = '✗ Try again.'; placed = []; draw();
+    }
+  };
+}
+
+function norm(s, caps) {
+  s = s.replace(/\s+/g, ' ').trim().replace(/\s+([,.?!])/g, '$1');
+  if (!caps) s = s.normalize('NFD').replace(/[̀-ͯ]/g, '');
+  return s;
+}
+function type(b, p, it) {
+  const top = p.text ? `<div class="formcard" id="fc">${p.text}</div><div class="label">${it.label}</div>` :
+    `<div class="prompt" style="color:var(--txt)">${esc(it.show)}</div>`;
+  h(frame(b, `<div class="inst">${p.inst}</div>${top}<input class="ty" id="ty" autocomplete="off" autocapitalize="off" spellcheck="false">
+    <div class="fb"></div><div class="correct" id="cor"></div><div class="row" id="area"><button class="big" id="chk">Check ✔</button></div>`));
+  if (p.text) { const fc = document.getElementById('fc'); fc.style.fontSize = (window.innerWidth > 760 ? 24 : 18) + 'px'; fc.style.flex = '1'; fit(fc, 12); }
+  const ty = document.getElementById('ty'); let first = true;
+  setTimeout(() => ty.focus(), 100);
+  const check = () => {
+    const v = norm(ty.value, p.caps); if (!v) return;
+    const ok = it.a.some(a => norm(a, p.caps) === v || (!p.caps && norm(a, false) === v));
+    const fb = app.querySelector('.fb');
+    if (ok) {
+      if (first) record(b, 1);
+      fb.className = 'fb ok'; fb.textContent = '✔ Yes!'; speak(it.say); ty.disabled = true;
+      const area = document.getElementById('area'); area.innerHTML = ''; area.appendChild(nextBtn(b));
+    } else if (first) {
+      record(b, 0); first = false;
+      fb.className = 'fb no'; fb.textContent = '✗ Look:'; document.getElementById('cor').textContent = it.a[0];
+      speak(it.say); ty.value = ''; ty.focus();
+    } else {
+      fb.className = 'fb no'; fb.textContent = '✗ Copy it:';
+    }
+  };
+  document.getElementById('chk').onclick = check;
+  ty.addEventListener('keydown', e => { if (e.key === 'Enter') check(); });
+}
+
+function write(b, p, it) {
+  h(frame(b, `<div class="write"><div class="wl">
+      <div class="inst" style="text-align:left">${it.q}</div>
+      <div class="small">Sentence starter</div><div class="starter">${esc(it.starter)}…</div>
+      <textarea id="ty" rows="3" spellcheck="false"></textarea>
+      <div class="small" style="text-transform:none">Then write it on paper ✏️</div>
+      <div id="exw"></div>
+      <button class="big" id="see" style="align-self:flex-start">Check ✔</button></div>
+    <div class="wr" id="wr" style="visibility:hidden">
+      <button style="background:var(--red)" data-v="0">Not yet</button>
+      <button style="background:var(--amb);color:#262626" data-v="0.5">Nearly</button>
+      <button style="background:#2E9E3A" data-v="1">I can write it!</button></div></div>`));
+  const ty = document.getElementById('ty'); ty.value = it.starter;
+  setTimeout(() => { ty.focus(); ty.setSelectionRange(ty.value.length, ty.value.length); }, 100);
+  const grow = () => { ty.style.height = 'auto'; ty.style.height = ty.scrollHeight + 'px'; };
+  ty.addEventListener('input', grow); grow();
+  document.getElementById('see').onclick = () => {
+    if (ty.value.trim().length <= it.starter.trim().length) return;
+    document.getElementById('exw').innerHTML = `<div class="small">Example</div><div class="ex">${esc(it.ex)}</div>`;
+    document.getElementById('see').remove(); speak(it.ex);
+    document.getElementById('wr').style.visibility = 'visible';
+  };
+  app.querySelectorAll('#wr button').forEach(x => x.onclick = () => { record(b, parseFloat(x.dataset.v)); advance(b); });
+}
+
+/* ===================== RESULT ===================== */
+function result(b) {
+  const sc = blockScore(b), r = rag(sc.got / sc.max);
+  const msg = {G:'Excellent! 🎉', A:'Good! Practise again.', R:'Try again. You can do it!'}[r];
+  const col = {G:'#2E9E3A', A:'#F9A825', R:'#C62828'}[r];
+  h(`<div class="res"><div class="light" style="background:${col}"></div><div class="msg">${msg}</div>
+     <div class="pts">${b.icon} ${b.name}: ${Math.round(sc.got * 10) / 10} / ${sc.max}</div>
+     <div class="row"><button class="ghost" id="again">↻ Again</button><button class="big" id="menu">Menu ▶</button></div></div>`);
+  document.getElementById('menu').onclick = home;
+  document.getElementById('again').onclick = () => { S[b.id] = {part:0, item:0, pts:{}, done:false}; save(); intro(b); };
+}
+
+home();
+</script>
+</body>
+</html>
