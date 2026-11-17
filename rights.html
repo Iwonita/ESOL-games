@@ -100,6 +100,9 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;padding:8px 12px 10p
 @media (max-width:700px){.opts{max-height:none}.people{grid-template-columns:1fr;}.pbtn{flex-direction:row}.pbtn img{height:80cqh}.pbtn b{font-size:min(30cqh,12cqw)}}
 @media (max-width:700px){.gbtn .gt{font-size:min(18cqh,15cqw)}.gbtn .gic{font-size:36cqmin}}
 @media print{header,.bottom,#home,#play,.row,input,.hint,.mx,.mbox p{display:none!important}#modal{position:static;background:none}.mbox{max-height:none;border:0}}
+/* question box in level colour */
+body.l1 .card:has(+ .opts){background:#e4f2e4;border-color:#2e7d32}
+body.l2 .card:has(+ .opts){background:#e3edf9;border-color:#1f5fa8}
 </style></head><body class="l1">
 <header><div class="brand"><span class="flag" aria-hidden="true"></span>Rights and Responsibilities</div><span class="pill">⭐ <span id="ptsN">0</span> <span id="badge"></span></span>
 <button class="vb" onclick="voices()">🗣️ Voice</button>

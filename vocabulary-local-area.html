@@ -85,6 +85,9 @@ main{flex:1;min-height:0;display:flex;flex-direction:column;padding:4px 12px 10p
 @media (max-width:700px){.opts.long{grid-template-columns:1fr;flex:1.8}.opt .t.sent{font-size:min(40cqh,7.5cqw)}.opts.n3 .opt .t.sent{font-size:min(44cqh,7.5cqw)}}
 .popt{container-type:size}.popt .lbl{font-size:min(16cqh,11cqw)!important}
 .bottom button{font-size:clamp(16px,2.8vh,28px)}
+/* question box in level colour */
+body[data-lv="1"] .card:has(+ .opts){background:#e4f2e4;border-color:#2e7d32}
+body[data-lv="2"] .card:has(+ .opts){background:#e3edf9;border-color:#1f5fa8}
 </style></head><body>
 <header><div class="brand">🏘️ My Local Area</div><span class="pill">⭐ <span id="ptsN">0</span> <span id="badge"></span></span>
 <button class="vb" onclick="voices()">🗣️ Voice</button>
@@ -161,7 +164,7 @@ function voices(){const vs=gbVoices();const cur=(pickVoice()||{}).name;
  modal(`<h2>🗣️ Choose a British voice</h2>${vs.length?vs.map(v=>`<button class="vbtn ${v.name===cur?'on':''}" onclick='setVoice(${JSON.stringify(v.name).replace(/'/g,"&#39;")})'>${esc(v.name.replace(/Microsoft |Google /,''))}${/natural/i.test(v.name)?' ⭐ natural':''}</button>`).join(''):'<p>No British voices found on this device.</p>'}
  <p class="hint">Voices depend on the device and browser. For the most natural voices, open the game in <b>Microsoft Edge</b> (voices marked ⭐ natural).</p>`)}
 function setVoice(n){st('la-voice',n);speak('Hello! This is my voice. My neighbour lives next door.');voices()}
-function setLevel(l){LEVEL=l;$('lv1').classList.toggle('on',l===1);$('lv2').classList.toggle('on',l===2);st('la-level',l);home()}
+function setLevel(l){LEVEL=l;document.body.dataset.lv=LEVEL;$('lv1').classList.toggle('on',l===1);$('lv2').classList.toggle('on',l===2);st('la-level',l);home()}
 /* points */
 const BADGES=[[50,'🥉'],[150,'🥈'],[300,'🥇'],[500,'🏆']];
 const pts=()=>parseInt(st('la-pts-'+LEVEL)||'0')||0;
@@ -256,6 +259,6 @@ function mkQR(){const u=$('qu').value.trim().split('?')[0];if(!/^https?:\/\//.te
  if(window.QRCode)return go();const s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';s.onload=go;s.onerror=()=>$('qm').textContent='Connect to the internet to make QR codes.';document.head.appendChild(s)}
 /* init */
 {const r=st('la-rate');if(r!==null&&RATES[+r]!==undefined)RATE=+r;[0,1,2].forEach(i=>$('sp'+i).classList.toggle('on',i===RATE));
- const q=new URLSearchParams(location.search).get('level');if(q==='1'||q==='2'){LEVEL=+q;$('lvsw').classList.add('hide')}else if(st('la-level')==='2')LEVEL=2;
+ const q=new URLSearchParams(location.search).get('level');if(q==='1'||q==='2'){LEVEL=+q;document.body.dataset.lv=LEVEL;$('lvsw').classList.add('hide')}else if(st('la-level')==='2')LEVEL=2;document.body.dataset.lv=LEVEL;
  $('lv1').classList.toggle('on',LEVEL===1);$('lv2').classList.toggle('on',LEVEL===2);home();try{speechSynthesis.getVoices()}catch(e){}}
 </script></body></html>
