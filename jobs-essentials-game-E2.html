@@ -254,6 +254,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 /* question box in level colour */
 .card.cq,.card.pc,.split>.card,.card.scard,.reading>.card{background:var(--lvs)!important;border-color:var(--lv)!important}
 .rpic{float:right;width:32%;max-width:260px;border-radius:14px;margin:0 0 8px 12px}
+#pbar{height:18px;background:#dfe6ee;flex:none;margin:6px 12px 0;border-radius:10px;overflow:hidden;border:2px solid #c5d0dc}#pbar i{display:block;height:100%;width:0;background:var(--G);border-radius:8px;transition:width .4s}
 </style></head><body class="l1">
 <header><span class="flag" aria-hidden="true"></span><span class="brand">Jobs – Essentials</span><div id="hud"></div>
 <div class="sw"><button id="sp0" onclick="setRate(0)">🐢</button><button id="sp1" onclick="setRate(1)">Normal</button></div></header>
@@ -283,7 +284,7 @@ const L2=[
 {id:'past',name:'My past job',icon:'🕰️',type:'mcq',instr:'Tap the past.',
  lesson:{title:'The past',rules:['am → <b>was</b> • work → work<b>ed</b> • use → us<b>ed</b>','wear → <b>wore</b> • make → <b>made</b> • keep → <b>kept</b>'],examples:['I <b>was</b> a nurse. I <b>worked</b> in a hospital.']},
  items:MC([['I ___ a nurse. (am)','was',['were','am']],['I ___ in a hospital. (work)','worked',['works','working']],['I ___ a uniform. (wear)','wore',['weared','wears']],['I ___ beds. (make)','made',['maked','makes']],['I ___ the ward tidy. (keep)','kept',['keeped','keeps']],['I ___ thermometers and syringes. (use)','used',['useed','uses']]])},
-{id:'conj',name:'because, but, so',icon:'🔗',type:'mcq',instr:'Tap the word.',long:true,
+{id:'conj',name:'because, but, so',icon:'🔗',type:'mcq',instr:'Tap the word.',
  lesson:{title:'because, but, so',rules:['<b>because</b> + the reason','<b>but</b> + something different','<b>so</b> + the result'],examples:['I worked in a shop, <b>so</b> I can use a till.']},
  items:MC([['I want to be a nurse ___ I like helping people.','because',['but','so']],['I can drive, ___ I don’t have a car.','but',['because','so']],['I speak two languages, ___ I can work in a hotel.','so',['because','but']],['I want a part-time job ___ I look after my children.','because',['but','so']],['I worked in a shop, ___ I can use a till.','so',['because','but']]])},
 {id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the words in order.',
@@ -311,7 +312,7 @@ const L2=[
  {q:'What are you like?',hint:'I am … and …',ex:'I am friendly and patient.',checks:[['Capital letter',/^[A-Z]/],['I am',/\bI am\b/],['Full stop',/[.!]\s*$/]]},
  {q:'Your free time?',hint:'In my free time I enjoy … because …',ex:'In my free time I enjoy cooking because it is relaxing.',checks:[['Capital letter',/^[A-Z]/],['because',/\bbecause\b/i],['Full stop',/[.!]\s*$/]]},
  {q:'Ask your friend.',hint:'What job do you think …?',ex:'What job do you think is good for me?',checks:[['Capital letter',/^[A-Z]/],['Question mark',/\?\s*$/]]}]},
-{id:'comp',name:'Challenge: comparing',icon:'⭐',type:'mcq',instr:'Tap the word.',long:true,
+{id:'comp',name:'Challenge: comparing',icon:'⭐',type:'mcq',instr:'Tap the word.',
  lesson:{title:'Comparing',rules:['late → lat<b>er</b> than • early → earl<b>ier</b> than','busy → bus<b>ier</b> • long → long<b>er</b>'],examples:['Ishak finishes work <b>later</b> than Malia.']},
  items:MC([['Ishak finishes work ___ than Malia.','later',['earlier']],['Malia starts work ___ than Ishak.','earlier',['later']],['A full-time job is ___ than a part-time job.','longer',['shorter']],['Ishak is ___ on Saturday nights than on Mondays.','busier',['busy']]])},
 {id:'wo2',name:'Challenge: long sentences',icon:'⭐',type:'order',instr:'Put the words in order.',noLearn:1,
@@ -701,4 +702,9 @@ function altOrders(r){const out=[];const low=w=>w.toLowerCase().replace(/[,.]/g,
 orderOK=function(got,right){if(_orderOK1(got,right))return true;try{const lw=x=>String(x).toLowerCase().replace(/[,.?!]/g,'').trim();if(got.length===right.length&&right.length>=4&&lw(got[0])===lw(right[right.length-1])&&got.slice(1).every((g,k)=>lw(g)===lw(right[k])))return true;return altOrders(right).some(a=>_orderOK1(got,a))}catch(e){return false}};
 </script>
 <script>(function(){if(typeof fitBig!=='function')return;const _f=fitBig;fitBig=function(){_f();eqRead()};const _o=window.fitOpts;if(typeof _o==='function'){fitOpts=function(){_o();eqRead()}}addEventListener('resize',()=>setTimeout(eqRead,150))})();</script>
-</body></html>
+<script>
+/* thick progress bar under the header */
+(function(){const h=document.querySelector('header');const d=document.createElement('div');d.id='pbar';d.innerHTML='<i></i>';h.after(d);
+function upd(){const p=(S.level&&S.block!=null&&S.queue&&S.queue.length)?cur():null;if(!p||!p.items){d.style.visibility='hidden';return}d.style.visibility='visible';const n=Math.min(p.items.length,S.item+(S.lock?1:0));d.firstChild.style.width=Math.round(100*n/p.items.length)+'%'}
+const _f=frame;frame=function(x){_f(x);upd()};const _a=after;after=function(ok,r){_a(ok,r);upd()};window.updBar=upd})();
+</script></body></html>
