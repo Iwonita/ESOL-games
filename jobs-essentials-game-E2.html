@@ -90,7 +90,7 @@ textarea,input.ty{width:100%;font-family:inherit;font-size:clamp(24px,5vw,34px);
 .pk{flex:1;display:grid;grid-template-columns:1fr 1fr;gap:16px;min-height:0}
 .pk .lp{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;min-height:0}
 .pk .lp .emoji{font-size:clamp(110px,30vh,260px)}
-.pk .lp img.pic{max-width:100%;max-height:42vh;object-fit:contain;border-radius:18px}
+.pk .lp img.pic{max-width:100%;max-height:56vh;object-fit:contain;border-radius:18px}
 .pk .lp .prompt{width:100%}
 .pk .rp{display:flex;flex-direction:column;gap:14px;min-height:0}
 .pk .rp .ch{flex:1;font-size:clamp(26px,4.2vw,46px);min-height:64px}
@@ -98,6 +98,8 @@ textarea,input.ty{width:100%;font-family:inherit;font-size:clamp(24px,5vw,34px);
 .next{background:#012169!important}
 .pk .nextslot .next{min-width:80%}
 @media (max-width:760px){.pk{grid-template-columns:1fr;grid-template-rows:auto 1fr}.pk .lp{gap:8px}.pk .lp .emoji{font-size:clamp(60px,14vh,110px)}.pk .lp img.pic{max-height:20vh}.pk .rp .ch{font-size:clamp(22px,6vw,32px)}}
+.rpic{float:right;width:34%;max-width:230px;border-radius:12px;margin:0 0 6px 10px}
+@media (max-width:760px){.rpic{width:28%}}
 </style>
 </head>
 <body>
@@ -112,19 +114,19 @@ const YAQOOB = `Hello – my name is <b>Yaqoob Sherif Ali</b>. I come from Turke
 const BLOCKS = [
  {id:'words', name:'Words', icon:'💼', parts:[
   {title:'Jobs', icon:'👩‍🍳', inst:'Listen. Tap the job.', type:'pick', items:[
-   {emoji:'👨‍🍳', listen:'a chef', ch:['chef','nurse','hairdresser','taxi driver'], a:'chef', say:'a chef'},
-   {emoji:'👩‍⚕️', listen:'a nurse', ch:['nurse','chef','receptionist','car mechanic'], a:'nurse', say:'a nurse'},
-   {emoji:'💇', listen:'a hairdresser', ch:['hairdresser','taxi driver','nurse','chef'], a:'hairdresser', say:'a hairdresser'},
-   {emoji:'🧑‍🔧', listen:'a car mechanic', ch:['car mechanic','receptionist','chef','nurse'], a:'car mechanic', say:'a car mechanic'},
-   {emoji:'🛎️', listen:'a receptionist', ch:['receptionist','hairdresser','taxi driver','car mechanic'], a:'receptionist', say:'a receptionist'},
-   {emoji:'🚕', listen:'a taxi driver', ch:['taxi driver','nurse','receptionist','hairdresser'], a:'taxi driver', say:'a taxi driver'}]},
+   {emoji:'👨‍🍳', img:'img/jobs/chef.jpg', listen:'a chef', ch:['chef','nurse','hairdresser','taxi driver'], a:'chef', say:'a chef'},
+   {emoji:'👩‍⚕️', img:'img/jobs/nurse.jpg', listen:'a nurse', ch:['nurse','chef','receptionist','car mechanic'], a:'nurse', say:'a nurse'},
+   {emoji:'💇', img:'img/jobs/hairdresser.jpg', listen:'a hairdresser', ch:['hairdresser','taxi driver','nurse','chef'], a:'hairdresser', say:'a hairdresser'},
+   {emoji:'🧑‍🔧', img:'img/jobs/car-mechanic.jpg', listen:'a car mechanic', ch:['car mechanic','receptionist','chef','nurse'], a:'car mechanic', say:'a car mechanic'},
+   {emoji:'🛎️', img:'img/jobs/receptionist.jpg', listen:'a receptionist', ch:['receptionist','hairdresser','taxi driver','car mechanic'], a:'receptionist', say:'a receptionist'},
+   {emoji:'🚕', img:'img/jobs/taxi-driver.jpg', listen:'a taxi driver', ch:['taxi driver','nurse','receptionist','hairdresser'], a:'taxi driver', say:'a taxi driver'}]},
   {title:'What do they do?', icon:'🛠️', inst:'Tap the answer.', type:'pick', one:true, items:[
-   {emoji:'👨‍🍳', q:'A chef …', ch:['cooks food','cuts hair','mends cars'], a:'cooks food', say:'A chef works in a restaurant and cooks food.'},
-   {emoji:'👩‍⚕️', q:'A nurse …', ch:['looks after sick people','drives people','cooks food'], a:'looks after sick people', say:'A nurse works in a hospital and looks after sick people.'},
-   {emoji:'💇', q:'A hairdresser …', ch:['cuts hair','mends cars','talks to guests'], a:'cuts hair', say:'A hairdresser works in a salon and cuts hair.'},
-   {emoji:'🧑‍🔧', q:'A car mechanic …', ch:['mends cars','cooks food','cuts hair'], a:'mends cars', say:'A car mechanic works in a garage and mends cars.'},
-   {emoji:'🛎️', q:'A receptionist …', ch:['talks to guests','mends cars','drives people'], a:'talks to guests', say:'A receptionist works in a hotel and talks to guests.'},
-   {emoji:'🚕', q:'A taxi driver …', ch:['drives people','cuts hair','looks after sick people'], a:'drives people', say:'A taxi driver drives people in a car.'}]},
+   {emoji:'👨‍🍳', img:'img/jobs/chef.jpg', q:'A chef …', ch:['cooks food','cuts hair','mends cars'], a:'cooks food', say:'A chef works in a restaurant and cooks food.'},
+   {emoji:'👩‍⚕️', img:'img/jobs/nurse.jpg', q:'A nurse …', ch:['looks after sick people','drives people','cooks food'], a:'looks after sick people', say:'A nurse works in a hospital and looks after sick people.'},
+   {emoji:'💇', img:'img/jobs/hairdresser.jpg', q:'A hairdresser …', ch:['cuts hair','mends cars','talks to guests'], a:'cuts hair', say:'A hairdresser works in a salon and cuts hair.'},
+   {emoji:'🧑‍🔧', img:'img/jobs/car-mechanic.jpg', q:'A car mechanic …', ch:['mends cars','cooks food','cuts hair'], a:'mends cars', say:'A car mechanic works in a garage and mends cars.'},
+   {emoji:'🛎️', img:'img/jobs/receptionist.jpg', q:'A receptionist …', ch:['talks to guests','mends cars','drives people'], a:'talks to guests', say:'A receptionist works in a hotel and talks to guests.'},
+   {emoji:'🚕', img:'img/jobs/taxi-driver.jpg', q:'A taxi driver …', ch:['drives people','cuts hair','looks after sick people'], a:'drives people', say:'A taxi driver drives people in a car.'}]},
   {title:'Job advert words', icon:'📰', inst:'Tap the meaning.', type:'pick', one:true, items:[
    {q:'full-time', ch:['35–40 hours a week','fewer hours','the last day'], a:'35–40 hours a week', say:'full-time'},
    {q:'part-time', ch:['fewer hours','35–40 hours a week','money for your work'], a:'fewer hours', say:'part-time'},
@@ -168,12 +170,12 @@ const BLOCKS = [
    {q:'Is experience essential?', ch:['No – it is an advantage.','Yes – you must have it.'], a:'No – it is an advantage.', say:'No. It is an advantage.'},
    {q:'What must you send?', ch:['a CV and a covering letter','a photo','your passport'], a:'a CV and a covering letter', say:'A CV and a covering letter.'},
    {q:'What is the closing date?', ch:['31 January 2027','13 January 2027','3 January 2027'], a:'31 January 2027', say:'31 January 2027.'}]},
-  {title:'Malia', icon:'👩‍🏫', inst:'Read. Tap the answer.', type:'read', text:MALIA, items:[
+  {title:'Malia', icon:'👩‍🏫', inst:'Read. Tap the answer.', type:'read', pic:'img/jobs/malia.jpg', text:MALIA, items:[
    {q:'Where does Malia work?', ch:['in a primary school','in a hospital','in a hotel'], a:'in a primary school', say:'In a primary school.'},
    {q:'When does she work?', ch:['Monday to Friday','evenings and weekends','Saturday only'], a:'Monday to Friday', say:'Monday to Friday.'},
    {q:'Why does she love her job?', ch:['She enjoys working with children.','She meets interesting people.','The pay is good.'], a:'She enjoys working with children.', say:'She enjoys working with children.'},
    {q:'What does she want to become?', ch:['a teacher','a taxi driver','a nurse'], a:'a teacher', say:'A teacher.'}]},
-  {title:'Ishak', icon:'🚕', inst:'Read. Tap the answer.', type:'read', text:ISHAK, items:[
+  {title:'Ishak', icon:'🚕', inst:'Read. Tap the answer.', type:'read', pic:'img/jobs/ishak.jpg', text:ISHAK, items:[
    {q:'What is Ishak’s job?', ch:['taxi driver','teaching assistant','chef'], a:'taxi driver', say:'He is a taxi driver.'},
    {q:'When does he work?', ch:['6pm to 2am','8.30am to 3.30pm','7am to 3pm'], a:'6pm to 2am', say:'6pm to 2am.'},
    {q:'He needs to be …', ch:['polite and reliable','quiet and shy','fast and strong'], a:'polite and reliable', say:'Polite and reliable.'},
@@ -354,7 +356,7 @@ function pick(b, p, it) {
 }
 
 function read(b, p, it) {
-  h(frame(b, `<div class="inst">${p.inst}</div><div class="read"><div class="textbox" id="tx">${p.text}</div>
+  h(frame(b, `<div class="inst">${p.inst}</div><div class="read"><div class="textbox" id="tx">${p.pic ? `<img class="rpic" src="${p.pic}" alt="" onerror="this.remove()">` : ''}${p.text}</div>
     <div class="qside"><div class="q prompt" style="font-size:clamp(22px,4vw,32px)">${it.q}</div><div class="fb"></div>${choiceButtons(b, it, 'one')}<div id="area" style="display:flex;justify-content:center"></div></div></div>`));
   const tx = document.getElementById('tx');
   tx.style.fontSize = (window.innerWidth > 760 ? 24 : 19) + 'px'; fit(tx, 12);
