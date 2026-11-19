@@ -256,7 +256,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 
 /* ===== new activity types ===== */
 .vimg{max-width:100%;max-height:100%;object-fit:contain;display:block}
-.shp{width:100%;height:100%;display:block}
+.shp{width:100%;height:100%;display:block}.ishp{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;margin:0 .1em}
 .vemo{line-height:1;font-size:min(16vh,12vw)}
 .vtxt{font-weight:700;font-size:clamp(26px,min(7vh,6vw),72px);line-height:1.15;color:var(--ink)}
 .card.pq{flex:0 0 auto}
@@ -269,16 +269,16 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .mlines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:2}
 .mcol{display:flex;flex-direction:column;gap:12px;min-height:0}
 .mb{flex:1;min-height:0;border:4px solid var(--ink);border-radius:18px;background:#fff;display:flex;align-items:center;justify-content:center;padding:6px;overflow:hidden;box-shadow:0 4px 0 rgba(0,0,0,.12)}
-.mb .vtxt{font-size:clamp(22px,min(6vh,4vw),56px)}.mb .vemo{font-size:min(8vh,6vw)}.mb .shp{height:88%;width:auto;aspect-ratio:1/1;max-width:100%}
+.mb .vtxt{font-size:clamp(30px,min(9vh,6vw),90px)}.mb .vemo{font-size:min(8vh,6vw)}.mb .shp{height:88%;width:auto;aspect-ratio:1/1;max-width:100%}
 .mb.sel{background:#fff3b0;border-color:#e0a800;border-width:6px}.mb.hint{background:#fff3b0}.mb.no{background:var(--nos);border-color:var(--no)}
-.scard2{flex:0 0 36%!important}
+.scard2{flex:0 0 40%!important}
 .sitem{display:flex;align-items:center;gap:24px;justify-content:center;min-height:0;flex:1}
-.sitem .vtxt{font-size:clamp(34px,min(10vh,7vw),100px)}
+.sitem .vtxt{font-size:clamp(60px,min(17vh,12vw),180px)}
 .buckets{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1fr;gap:16px}.buckets.n3{grid-template-columns:repeat(3,1fr)}
 .bk{border:6px solid var(--bc);border-radius:24px;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:10px;padding:12px;min-height:0;overflow:hidden;box-shadow:0 6px 0 rgba(0,0,0,.15)}
-.bt2{background:var(--bc);color:#fff;border-radius:16px;padding:.25em .8em;font-weight:700;font-size:clamp(22px,min(5vh,3.4vw),50px)}
+.bt2{background:var(--bc);color:#fff;border-radius:16px;padding:.25em .8em;font-weight:700;font-size:clamp(26px,min(6vh,4vw),60px)}
 .bt2 .ck,.bt2 .xr{color:#fff}
-.bpile{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.bpile i{font-style:normal;background:#fff;border:2px solid #ccc;border-radius:10px;padding:2px 12px;font-size:clamp(18px,3.6vh,36px);font-weight:700}
+.bpile{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}.bpile i{font-style:normal;background:#fff;border:2px solid #ccc;border-radius:10px;padding:4px 16px;font-size:clamp(28px,min(7vh,5vw),70px);font-weight:700}
 .bk.ok{background:var(--oks)}.bk.no{background:var(--nos)}
 .dq{flex:0 0 auto}.q.huge2{font-size:clamp(28px,min(8vh,6vw),80px)}
 .dobjs{flex:1;min-height:0;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;padding:8px}.dobjs.n2{grid-template-columns:1fr 1fr}.dobjs.n4{grid-template-columns:repeat(4,1fr)}
@@ -297,7 +297,10 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .mt{display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;color:#fff;font-size:min(5vh,3vw);border:2px solid #fff;transition:opacity .45s}
 .mt.off{opacity:0;pointer-events:none}
 .mopts{height:auto!important;flex:1;min-height:0}
-@media (max-width:760px){.ptl .vemo{font-size:min(14vh,30vw)}.mb .vtxt{font-size:24px}.dobjs.n3{grid-template-columns:1fr;gap:8px}.dob{padding:6px}.dob .shp{max-height:16vh;width:auto}.dob .vtxt{font-size:44px}.mt{font-size:4vw}.ptiles{grid-template-columns:1fr 1fr}.mys{grid-template-columns:1fr!important;grid-template-rows:1.2fr 1fr}.dobjs{gap:10px}.buckets.n3{grid-template-columns:1fr}.mwrap{column-gap:14%}}
+main #pool .chip,main #ws .chip,main #line .chip{font-size:clamp(30px,min(11vh,7vw),110px)!important;padding:.1em .5em!important}
+main #line{font-size:clamp(30px,min(11vh,7vw),110px)!important}
+.vtxt.let{font-family:'Comic Sans MS','Comic Neue','Trebuchet MS',sans-serif}
+@media (max-width:760px){main #pool .chip,main #ws .chip,main #line .chip{font-size:30px!important}.ptl .vemo{font-size:min(14vh,30vw)}.mb .vtxt{font-size:24px}.dobjs.n3{grid-template-columns:1fr;gap:8px}.dob{padding:6px}.dob .shp{max-height:16vh;width:auto}.dob .vtxt{font-size:44px}.mt{font-size:4vw}.ptiles{grid-template-columns:1fr 1fr}.mys{grid-template-columns:1fr!important;grid-template-rows:1.2fr 1fr}.dobjs{gap:10px}.buckets.n3{grid-template-columns:1fr}.mwrap{column-gap:14%}}
 
 #pbar{height:18px;background:#dfe6ee;flex:none;margin:6px 12px 0;border-radius:10px;overflow:hidden;border:2px solid #c5d0dc}#pbar i{display:block;height:100%;width:0;background:var(--G);border-radius:8px;transition:width .4s}
 </style></head><body class="l1">
@@ -306,11 +309,17 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 <main id="main"></main>
 <div id="modal" class="hide" onclick="if(event.target===this)this.classList.add('hide')"><div class="mbox" id="mbox"></div></div>
 <script>
-const IMG={"highlighter": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20transform%3D%22rotate%28-35%2050%2050%29%22%3E%3Crect%20x%3D%2218%22%20y%3D%2238%22%20width%3D%2252%22%20height%3D%2224%22%20rx%3D%225%22%20fill%3D%22%23ffeb3b%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%2266%22%20y%3D%2238%22%20width%3D%2216%22%20height%3D%2224%22%20rx%3D%223%22%20fill%3D%22%23fbc02d%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Cpolygon%20points%3D%2282%2C42%2094%2C46%2094%2C54%2082%2C58%22%20fill%3D%22%23fff176%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2240%22%20width%3D%2210%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%23f9a825%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3C/g%3E%3C/svg%3E", "rubber": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20transform%3D%22rotate%28-20%2050%2050%29%22%3E%3Crect%20x%3D%2214%22%20y%3D%2234%22%20width%3D%2272%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%23f8bbd0%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%2244%22%20y%3D%2234%22%20width%3D%2226%22%20height%3D%2232%22%20fill%3D%22%2364b5f6%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3C/g%3E%3C/svg%3E"};
+const IMG={"highlighter": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20transform%3D%22rotate%28-35%2050%2050%29%22%3E%3Crect%20x%3D%2218%22%20y%3D%2238%22%20width%3D%2252%22%20height%3D%2224%22%20rx%3D%225%22%20fill%3D%22%23ffeb3b%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%2266%22%20y%3D%2238%22%20width%3D%2216%22%20height%3D%2224%22%20rx%3D%223%22%20fill%3D%22%23fbc02d%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Cpolygon%20points%3D%2282%2C42%2094%2C46%2094%2C54%2082%2C58%22%20fill%3D%22%23fff176%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%2210%22%20y%3D%2240%22%20width%3D%2210%22%20height%3D%2220%22%20rx%3D%223%22%20fill%3D%22%23f9a825%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3C/g%3E%3C/svg%3E", "draw": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cpath%20d%3D%22M8%2080%20C22%2058%2034%2092%2050%2070%20C62%2054%2070%2074%2080%2062%22%20fill%3D%22none%22%20stroke%3D%22%231e66d0%22%20stroke-width%3D%225%22%20stroke-linecap%3D%22round%22/%3E%3Cg%20transform%3D%22rotate%2840%2070%2040%29%22%3E%3Crect%20x%3D%2262%22%20y%3D%226%22%20width%3D%2216%22%20height%3D%2252%22%20fill%3D%22%23fdd835%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Cpolygon%20points%3D%2262%2C58%2078%2C58%2070%2C74%22%20fill%3D%22%23f5d0a9%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Cpolygon%20points%3D%2267%2C68%2073%2C68%2070%2C74%22%20fill%3D%22%231f1b2e%22/%3E%3Crect%20x%3D%2262%22%20y%3D%222%22%20width%3D%2216%22%20height%3D%228%22%20fill%3D%22%23f48fb1%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3C/g%3E%3C/svg%3E", "rubber": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cg%20transform%3D%22rotate%28-20%2050%2050%29%22%3E%3Crect%20x%3D%2214%22%20y%3D%2234%22%20width%3D%2272%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%23f8bbd0%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3Crect%20x%3D%2244%22%20y%3D%2234%22%20width%3D%2226%22%20height%3D%2232%22%20fill%3D%22%2364b5f6%22%20stroke%3D%22%231f1b2e%22%20stroke-width%3D%223%22/%3E%3C/g%3E%3C/svg%3E"};
 /* ======================= CONTENT – Classroom instructions (Entry 1) ======================= */
+const COL={red:'#e53935',blue:'#1e66d0',green:'#2e9e3e',yellow:'#fdd835',orange:'#fb8c00',purple:'#8e24aa',black:'#222',pink:'#f48fb1',white:'#ffffff'};
+function shapeSVG(k,f){f=COL[f]||f||'#fff';const a='stroke="#1f1b2e" stroke-width="4" stroke-linejoin="round" fill="'+f+'"';
+ const d={circle:`<circle cx="50" cy="50" r="40" ${a}/>`,square:`<rect x="14" y="14" width="72" height="72" ${a}/>`,rectangle:`<rect x="3" y="28" width="94" height="44" ${a}/>`,triangle:`<polygon points="50,10 93,88 7,88" ${a}/>`,arrow:`<polygon points="5,38 55,38 55,15 95,50 55,85 55,62 5,62" ${a}/>`,star:`<polygon points="50,5 61,38 95,38 67,58 78,92 50,71 22,92 33,58 5,38 39,38" ${a}/>`,blob:`<path d="M20 28 C26 8 62 4 77 17 C96 31 93 70 71 84 C51 97 17 89 9 66 C3 49 13 39 20 28Z" ${a}/>`};
+ return `<svg viewBox="0 0 100 100" class="shp" aria-hidden="true">${d[k]||''}</svg>`}
+function IS(k,c){return shapeSVG(k,c).replace('class="shp"','class="ishp"')}
+function IH(){return `<img class="ishp" src="${IMG.highlighter}" alt="">`}
 const MC=(arr)=>arr.map(([q,a,o,e])=>({q,a,opts:[a,...o],...(e?{emo:e}:{})}));
 const EMO={pen:'🖊️',pencil:'✏️',colourpencils:'🖍️',ruler:'📏',book:'📕',workbook:'📒',notebook:'📓',paper:'📄',
- write:'✍️',read:'📖',listen:'👂',look:'👀',speak:'🗣️',copy:'📝',draw:'🎨',answer:'🙋'};
+ write:'✍️',read:'📖',listen:'👂',look:'👀',speak:'🗣️',copy:'📝',answer:'🙋'};
 const L1=[
 {id:'things',name:'Classroom things',icon:'🎒',type:'pics',instr:'Listen. Tap the picture.',
  lesson:{title:'Classroom things',rules:['a pen • a pencil • colour pencils • a highlighter','a rubber • a ruler • paper','a book • a workbook • a notebook'],examples:['Take <b>a pencil</b>.']},
@@ -319,7 +328,7 @@ const L1=[
  items:[['highlighter','a highlighter',['a ruler','a pen']],['rubber','a rubber',['a book','a pencil']]].map(([p,a,o])=>({q:'What is it?',a,opts:[a,...o],pic:p})).concat(
   MC([['What is it?','a ruler',['a rubber','paper'],'📏'],['What is it?','a notebook',['a pen','a ruler'],'📓'],['What is it?','colour pencils',['a highlighter','a book'],'🖍️'],['What is it?','a pen',['a pencil','a rubber'],'🖊️']]))},
 {id:'verbs',name:'Instruction words',icon:'✍️',type:'pics',instr:'Listen. Tap the picture.',
- lesson:{title:'Instruction words',rules:['<b>write</b> ✍️ • <b>read</b> 📖 • <b>listen</b> 👂 • <b>look</b> 👀','<b>speak</b> to your friend 🗣️ • <b>copy</b> 📝','<b>draw</b> 🎨 • <b>answer</b> the question 🙋'],examples:['<b>Read</b> the text. <b>Write</b> the answer.']},
+ lesson:{title:'Instruction words',rules:['<b>write</b> ✍️ • <b>read</b> 📖 • <b>listen</b> 👂 • <b>look</b> 👀','<b>speak</b> to your friend 🗣️ • <b>copy</b> 📝','<b>draw</b> '+IS('star','white').replace('ishp','ishp')+' • <b>answer</b> the question 🙋'],examples:['<b>Read</b> the text. <b>Write</b> the answer.']},
  items:[{"k": "write", "a": "write", "q": "write", "say": "write", "opts": ["write", "read", "look", "copy"]}, {"k": "read", "a": "read", "q": "read", "say": "read", "opts": ["read", "listen", "speak", "draw"]}, {"k": "listen", "a": "listen", "q": "listen", "say": "listen", "opts": ["listen", "look", "copy", "answer"]}, {"k": "look", "a": "look", "q": "look", "say": "look", "opts": ["look", "speak", "draw", "write"]}, {"k": "speak", "a": "speak to your friend", "q": "speak to your friend", "say": "speak to your friend", "opts": ["speak", "copy", "answer", "read"]}, {"k": "copy", "a": "copy", "q": "copy", "say": "copy", "opts": ["copy", "draw", "write", "listen"]}, {"k": "draw", "a": "draw", "q": "draw", "say": "draw", "opts": ["draw", "answer", "read", "look"]}, {"k": "answer", "a": "answer the question", "q": "answer the question", "say": "answer the question", "opts": ["answer", "write", "listen", "speak"]}]},
 {id:'myst',name:'Mystery picture',icon:'🔍',type:'mystery',instr:'What is the picture? Open squares. Tap the word.',noLearn:1,
  items:[['write',['write','read','draw']],['listen',['look','listen','speak']],['read',['read','copy','answer']],['look',['listen','look','write']],['speak',['speak','read','draw']],['draw',['copy','draw','listen']]].map(([p,o])=>({pic:p,a:o.find(x=>x===p),opts:o}))},
@@ -327,7 +336,7 @@ const L1=[
  lesson:{title:'Instructions',rules:['<b>Read</b> the text. • <b>Listen</b> to the teacher.','<b>Look</b> at the picture. • <b>Copy</b> the word.','<b>Answer</b> the question. • Read it <b>again</b>.'],examples:['<b>Speak</b> to your friend.']},
  items:MC([['___ the text.','Read',['Write','Listen'],'📖'],['___ to the teacher.','Listen',['Read','Draw'],'👂'],['___ at the picture.','Look',['Listen','Copy'],'👀'],['___ to your friend.','Speak',['Read','Draw'],'🗣️'],['___ the question.','Answer',['Listen','Draw'],'🙋'],['___ your name.','Write',['Listen','Look'],'✍️'],['Read the text ___ .','again',['question','sentence'],'🔁'],['___ the word in your workbook.','Copy',['Listen','Look'],'📝']])},
 {id:'shapes',name:'Shapes',icon:'🔺',type:'mcq',instr:'What shape is it? Tap the word.',
- lesson:{title:'Shapes',rules:['a circle ⚪ • a square ⬜','a triangle 🔺 • a rectangle ▭','an arrow ➡️ • a star ⭐'],examples:['It is <b>a triangle</b>.']},
+ lesson:{title:'Shapes',rules:['a circle '+IS('circle','blue')+' • a square '+IS('square','red'),'a triangle '+IS('triangle','green')+' • a rectangle '+IS('rectangle','orange'),'an arrow '+IS('arrow','purple')+' • a star '+IS('star','yellow')],examples:['It is <b>a triangle</b>.']},
  items:[['circle','a circle',['a square','a triangle']],['square','a square',['a rectangle','a circle']],['triangle','a triangle',['a star','a square']],['rectangle','a rectangle',['a square','an arrow']],['arrow','an arrow',['a triangle','a star']],['star','a star',['a circle','an arrow']]].map(([s,a,o])=>({q:'What shape is it?',a,opts:[a,...o],pic:'shape:'+s+':white'}))},
 {id:'colours',name:'Colours',icon:'🎨',type:'pics',instr:'Listen. Tap the colour.',
  lesson:{title:'Colours',rules:['red • blue • green • yellow','orange • purple • black • pink'],examples:['The star is <b>yellow</b>.']},
@@ -337,7 +346,7 @@ const L1=[
         {pairs:[['arrow','shape:arrow:white'],['star','shape:star:white'],['red','shape:blob:red'],['blue','shape:blob:blue']]},
         {pairs:[['green','shape:blob:green'],['yellow','shape:blob:yellow'],['black','shape:blob:black'],['purple','shape:blob:purple']]}]},
 {id:'doit',name:'Do it!',icon:'⭕',type:'doit',instr:'Listen. Read. Do it!',
- lesson:{title:'Do it!',rules:['<b>Circle</b> = draw a ⭕ round it','<b>Tick</b> = ✔ • <b>Cross</b> = ✘','<b>Underline</b> = a line under it • <b>Highlight</b> = colour it yellow'],examples:['<b>Colour</b> the circle red.']},
+ lesson:{title:'Do it!',rules:['<b>Circle</b> = draw a ⭕ round it','<b>Tick</b> = ✔ • <b>Cross</b> = ✘','<b>Underline</b> = <u>a line under it</u>','<b>Highlight</b> = use a highlighter '+IH()],examples:['<b>Colour</b> the circle red.']},
  items:[{say:'<b>Circle</b> the triangle.',objs:['shape:square:white','shape:triangle:white','shape:circle:white'],a:1,act:'circle',ans:'the triangle'},
   {say:'<b>Tick</b> ✔ the star.',objs:['shape:arrow:white','shape:rectangle:white','shape:star:white'],a:2,act:'tick',ans:'the star'},
   {say:'<b>Cross</b> ✘ the square.',objs:['shape:circle:white','shape:square:white','shape:triangle:white'],a:1,act:'cross',ans:'the square'},
@@ -349,12 +358,12 @@ const L1=[
   {say:'<b>Colour</b> the star yellow.',objs:['shape:star:white','shape:arrow:white','shape:circle:white'],a:0,act:'colour:yellow',ans:'the star'}]},
 {id:'case',name:'Capital or lower case?',icon:'🔠',type:'sort',instr:'Tap the right box.',buckets:['CAPITAL letter','lower case letter'],
  lesson:{title:'Letters',rules:['CAPITAL letter: <b>A B C</b>','lower case letter: <b>a b c</b>'],examples:['<b>M</b> = capital • <b>m</b> = lower case']},
- items:[['A',0],['b',1],['G',0],['h',1],['q',1],['M',0],['e',1],['R',0]].map(([l,b])=>({v:'t:'+l,b,say:l}))},
+ items:[['I',0],['l',1],['M',0],['w',1],['S',0],['s',1],['W',0],['m',1],['L',0],['i',1],['C',0],['p',1],['P',0],['k',1],['O',0],['u',1]].map(([l,b])=>({v:'t:'+l,b,say:l}))},
 {id:'abc',name:'Match the letters',icon:'🔗',type:'match',instr:'Match. Tap a capital letter, then tap the lower case letter.',noLearn:1,
- items:[{pairs:[['t:A','t:a'],['t:B','t:b'],['t:G','t:g'],['t:Q','t:q']]},{pairs:[['t:D','t:d'],['t:R','t:r'],['t:E','t:e'],['t:H','t:h']]}]},
+ items:[{pairs:[['t:I','t:i'],['t:L','t:l'],['t:M','t:m'],['t:W','t:w']]},{pairs:[['t:S','t:s'],['t:C','t:c'],['t:O','t:o'],['t:P','t:p']]},{pairs:[['t:K','t:k'],['t:U','t:u'],['t:V','t:v'],['t:J','t:j']]},{pairs:[['t:Y','t:y'],['t:Z','t:z'],['t:X','t:x'],['t:N','t:n']]}]},
 {id:'order',name:'Alphabet order',icon:'🔤',type:'order',instr:'Put them in alphabet order.',
  lesson:{title:'The alphabet',rules:['a b c d e f g h i j k l m','n o p q r s t u v w x y z'],examples:['<b>b</b>ook, <b>c</b>at, <b>p</b>en']},
- items:[{w:['a','b','c','d'],end:''},{w:['e','f','g','h'],end:''},{w:['m','n','o','p'],end:''},{w:['apple','book','cat','dog'],end:''},{w:['book','map','pen','ruler'],end:''}]},
+ items:[{w:['c','h','m','s'],end:''},{w:['b','f','r','w'],end:''},{w:['d','k','p','t'],end:''},{w:['e','g','n','y'],end:''},{w:['apple','desk','pen','teacher'],end:''},{w:['book','map','ruler','water'],end:''},{w:['chair','listen','read','write'],end:''}]},
 {id:'sp',name:'One or more?',icon:'📚',type:'sort',instr:'Tap the right box.',buckets:['singular (1)','plural (2+)'],
  lesson:{title:'Singular and plural',rules:['singular = 1: a book','plural = 2, 3, 4 …: books'],examples:['a pen → two pen<b>s</b>']},
  items:[['a book',0],['books',1],['pens',1],['a chair',0],['men',1],['a woman',0],['children',1],['a bag',0]].map(([w,b])=>({v:'t:'+w,b}))},
@@ -362,7 +371,7 @@ const L1=[
  lesson:{title:'Plurals',rules:['regular: book → book<b>s</b>, bus → bus<b>es</b>','irregular: man → <b>men</b>, child → <b>children</b>'],examples:['foot → <b>feet</b> (irregular)']},
  items:[['pen → pens',0],['man → men',1],['child → children',1],['bag → bags',0],['woman → women',1],['chair → chairs',0],['foot → feet',1],['bus → buses',0]].map(([w,b])=>({v:'t:'+w,b}))},
 {id:'nva',name:'Noun, verb or adjective?',icon:'🧩',type:'sort',instr:'Tap the right box.',buckets:['noun','verb','adjective'],
- lesson:{title:'Word types',rules:['<b>noun</b> = a thing or a person: book, teacher','<b>verb</b> = an action: write, read','<b>adjective</b> = describes: big, red'],examples:['a <b>big</b> (adj) <b>book</b> (noun)']},
+ lesson:{title:'Word types',rules:['<b style="color:#1f5fa8">noun</b> = a thing or a person: <b style="color:#1f5fa8">book, teacher</b>','<b style="color:#c0561c">verb</b> = an action: <b style="color:#c0561c">write, read</b>','<b style="color:#8e24aa">adjective</b> = describes: <b style="color:#8e24aa">big, red</b>'],examples:['a <b style="color:#8e24aa">big</b> <b style="color:#1f5fa8">book</b>']},
  items:[['book',0],['write',1],['big',2],['teacher',0],['read',1],['red',2],['pen',0],['listen',1],['happy',2]].map(([w,b])=>({v:'t:'+w,b}))},
 {id:'what',name:'What is it?',icon:'❓',type:'mcq',instr:'Read. What is it? Tap the answer.',long:true,
  lesson:{title:'Words in instructions',rules:['<b>a letter</b>: b • <b>a word</b>: book','<b>a sentence</b>: My name is Ali.','<b>a question</b>: What is your name?'],examples:['A b c … z = <b>the alphabet</b>']},
@@ -767,12 +776,8 @@ orderOK=function(got,right){if(_orderOK1(got,right))return true;try{const lw=x=>
 <script>(function(){if(typeof fitBig!=='function')return;const _f=fitBig;fitBig=function(){_f();eqRead()};const _o=window.fitOpts;if(typeof _o==='function'){fitOpts=function(){_o();eqRead()}}addEventListener('resize',()=>setTimeout(eqRead,150))})();</script>
 <script>
 /* ===== new activity types: pics, match, sort, doit, mystery ===== */
-const COL={red:'#e53935',blue:'#1e66d0',green:'#2e9e3e',yellow:'#fdd835',orange:'#fb8c00',purple:'#8e24aa',black:'#222',pink:'#f48fb1',white:'#ffffff'};
-function shapeSVG(k,f){f=COL[f]||f||'#fff';const a='stroke="#1f1b2e" stroke-width="4" stroke-linejoin="round" fill="'+f+'"';
- const d={circle:`<circle cx="50" cy="50" r="40" ${a}/>`,square:`<rect x="14" y="14" width="72" height="72" ${a}/>`,rectangle:`<rect x="3" y="28" width="94" height="44" ${a}/>`,triangle:`<polygon points="50,10 93,88 7,88" ${a}/>`,arrow:`<polygon points="5,38 55,38 55,15 95,50 55,85 55,62 5,62" ${a}/>`,star:`<polygon points="50,5 61,38 95,38 67,58 78,92 50,71 22,92 33,58 5,38 39,38" ${a}/>`,blob:`<path d="M20 28 C26 8 62 4 77 17 C96 31 93 70 71 84 C51 97 17 89 9 66 C3 49 13 39 20 28Z" ${a}/>`};
- return `<svg viewBox="0 0 100 100" class="shp" aria-hidden="true">${d[k]||''}</svg>`}
 function V(k){if(k==null)return '';k=String(k);if(IMG[k])return `<img class="vimg" src="${IMG[k]}" alt="">`;let m=k.match(/^shape:(\w+)(?::(.+))?$/);if(m)return shapeSVG(m[1],m[2]);
- m=k.match(/^t:(.*)$/);if(m)return `<span class="vtxt">${esc(m[1])}</span>`;if(EMO[k])return `<span class="vemo">${EMO[k]}</span>`;return `<span class="vtxt">${esc(k)}</span>`}
+ m=k.match(/^t:(.*)$/);if(m)return `<span class="vtxt${m[1].length===1?' let':''}">${esc(m[1])}</span>`;if(EMO[k])return `<span class="vemo">${EMO[k]}</span>`;return `<span class="vtxt">${esc(k)}</span>`}
 function plainV(k){k=String(k);let m=k.match(/^shape:(\w+)(?::(.+))?$/);if(m)return m[1]==='blob'?m[2]:m[1];return k.replace(/^t:/,'')}
 /* make the existing picture questions accept shapes */
 const _rMCQ=rMCQ;rMCQ=function(p,it){if(it.pic&&!IMG[it.pic]&&/^shape:/.test(it.pic)){IMG[it.pic]='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(shapeSVG(...it.pic.split(':').slice(1)).replace('<svg','<svg xmlns="http://www.w3.org/2000/svg"'))}_rMCQ(p,it)};
@@ -797,7 +802,7 @@ function rSort(p,it){const B=p.buckets;S.pile=S.pile||{};if(S.item===0||!S.pile[
  document.querySelectorAll('.bk').forEach(b=>b.onclick=()=>{if(S.lock)return;S.lock=true;const g=+b.dataset.b,ok=g===it.b;document.querySelectorAll('.bk').forEach(x=>x.disabled=true);const rb=document.querySelector(`.bk[data-b="${it.b}"]`);rb.classList.add('ok');if(!ok)b.classList.add('no');
   pile[it.b].push(w);rb.querySelector('.bpile').innerHTML=pile[it.b].map(x=>`<i>${esc(x)}</i>`).join('');const nm=i=>B[i].replace(/[✔✘]\s*/g,'');score(ok,w,nm(g),nm(it.b));speak(it.say||w);after(ok,nm(it.b))})}
 function rDoit(p,it){
- frame(`<div class="card cq dq"><div class="instr">${esc(p.instr)}</div><div class="q huge2">${mk(it.say)} ${sayB(plain(it.say))}</div></div><div class="dobjs n${it.objs.length}">${it.objs.map((v,i)=>`<button class="dob" data-i="${i}"><span class="dv">${V(v)}</span><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none"></svg></button>`).join('')}</div>`);
+ frame(`<div class="card cq dq"><div class="instr">${esc(p.instr)}</div><div class="q huge2">${mk(it.say)} ${sayB(plain(it.say))}</div></div><div class="dobjs n${it.objs.length}">${it.objs.map((v,i)=>`<button class="dob" data-i="${i}"><span class="dv" data-v="${esc(v)}">${V(v)}</span><svg class="mark" viewBox="0 0 100 100" preserveAspectRatio="none"></svg></button>`).join('')}</div>`);
  setTimeout(()=>speak(plain(it.say)),250);
  document.querySelectorAll('.dob').forEach(b=>b.onclick=()=>{if(S.lock)return;S.lock=true;const ok=+b.dataset.i===it.a;doMark(document.querySelector(`.dob[data-i="${it.a}"]`),it.act);if(!ok)b.classList.add('no');document.querySelectorAll('.dob').forEach(x=>x.disabled=true);
   score(ok,plain(it.say),ok?it.ans:'another one',it.ans);speak(ok?'Well done!':plain(it.say));after(ok,it.ans)})}
@@ -807,7 +812,7 @@ function doMark(b,act){const m=b.querySelector('.mark');
  else if(act==='cross')m.innerHTML=`<path d="M16 16 L84 84 M84 16 L16 84" stroke="#d32f2f" stroke-width="12" vector-effect="non-scaling-stroke" stroke-linecap="round" class="draw"/>`;
  else if(act==='underline')m.innerHTML=`<line x1="18" y1="78" x2="82" y2="78" stroke="#d32f2f" stroke-width="8" vector-effect="non-scaling-stroke" stroke-linecap="round" class="draw"/>`;
  else if(act==='highlight')b.querySelector('.dv .vtxt').classList.add('hl');
- else if(act.startsWith('colour:')){const c=act.slice(7);b.querySelectorAll('.dv svg [fill]').forEach(e=>e.setAttribute('fill',COL[c]||c))}
+ else if(act.startsWith('colour:')){const c=act.slice(7),dv=b.querySelector('.dv'),m2=(dv.dataset.v||'').match(/^shape:(\w+)/);if(m2)dv.innerHTML=shapeSVG(m2[1],c);dv.querySelectorAll('svg [fill]').forEach(e=>{e.setAttribute('fill',COL[c]||c);e.style.fill=COL[c]||c})}
  b.classList.add('ok')}
 function rMystery(p,it){const inner=[5,6,9,10];const order=shuffle(inner).concat(shuffle([...Array(16).keys()].filter(k=>!inner.includes(k))));let open=0;
  const m=opts(it.opts,it.a,(ok,g)=>{document.querySelectorAll('.mt').forEach(t=>t.classList.add('off'));$('opn').disabled=true;score(ok,'Mystery picture',g,it.a);speak(it.a);after(ok,it.a)});
