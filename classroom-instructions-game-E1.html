@@ -303,6 +303,15 @@ main #line{font-size:clamp(30px,min(11vh,7vw),110px)!important}
 @media (max-width:760px){main #pool .chip,main #ws .chip,main #line .chip{font-size:30px!important}.ptl .vemo{font-size:min(14vh,30vw)}.mb .vtxt{font-size:24px}.dobjs.n3{grid-template-columns:1fr;gap:8px}.dob{padding:6px}.dob .shp{max-height:16vh;width:auto}.dob .vtxt{font-size:44px}.mt{font-size:4vw}.ptiles{grid-template-columns:1fr 1fr}.mys{grid-template-columns:1fr!important;grid-template-rows:1.2fr 1fr}.dobjs{gap:10px}.buckets.n3{grid-template-columns:1fr}.mwrap{column-gap:14%}}
 
 #pbar{height:18px;background:#dfe6ee;flex:none;margin:6px 12px 0;border-radius:10px;overflow:hidden;border:2px solid #c5d0dc}#pbar i{display:block;height:100%;width:0;background:var(--G);border-radius:8px;transition:width .4s}
+
+/* 22 Nov: sorting – smaller question, room for every answer */
+.scard2{flex:0 0 24%!important}
+.sitem .vtxt{font-size:clamp(44px,min(13vh,10vw),140px)}
+.bk{justify-content:flex-start;gap:6px;padding:8px}
+.bt2{font-size:clamp(18px,min(4.2vh,3.4vw),44px)}
+.bpile{gap:5px;align-content:flex-start}
+.bpile i{font-size:var(--cf,clamp(22px,min(7vh,5vw),64px));padding:2px 10px;border-radius:8px}
+.cheer{font-size:clamp(34px,min(15vh,12vw),170px)}
 </style></head><body class="l1">
 <header><span class="flag" aria-hidden="true"></span><span class="brand">Classroom instructions</span><div id="hud"></div>
 <div class="sw"><button id="sp0" onclick="setRate(0)">🐢</button><button id="sp1" onclick="setRate(1)">Normal</button></div></header>
@@ -733,7 +742,8 @@ bestVoice=function(){try{if(_VC)return _VC;const all=speechSynthesis.getVoices()
   if(/google uk english/i.test(n))x+=85;   // Chrome desktop
   if(/network/i.test(n))x+=70;             // Android network voices
   if(/google/i.test(n))x+=30;
-  if(/sonia|libby|maisie|ryan|thomas|serena|kate|daniel|martha|arthur|stephanie|hazel|george|susan/i.test(n))x+=15;
+  if(/sonia|libby|maisie|ryan|thomas|serena|kate|daniel|martha|arthur|stephanie|jamie|oliver/i.test(n))x+=15;
+  if(/hazel|george|susan|desktop/i.test(n)&&!/natural|online/i.test(n))x-=40;   // old robotic Windows voices
   if(/^en[-_]GB/i.test(v.lang))x+=20;
   if(/local/i.test(n))x-=5;
   if(/espeak|compact/i.test(n))x-=80;
@@ -822,4 +832,14 @@ function rMystery(p,it){const inner=[5,6,9,10];const order=shuffle(inner).concat
 (function(){const h=document.querySelector('header');const d=document.createElement('div');d.id='pbar';d.innerHTML='<i></i>';h.after(d);
 function upd(){const p=(S.level&&S.block!=null&&S.queue&&S.queue.length)?cur():null;if(!p||!p.items){d.style.visibility='hidden';return}d.style.visibility='visible';const n=Math.min(p.items.length,S.item+(S.lock?1:0));d.firstChild.style.width=Math.round(100*n/p.items.length)+'%'}
 const _f=frame;frame=function(x){_f(x);upd()};const _a=after;after=function(ok,r){_a(ok,r);upd()};window.updBar=upd})();
+</script><script>
+/* 22 Nov: shrink the sorted words until every one fits in its box */
+function fitPiles(){document.querySelectorAll('.bk').forEach(bk=>{const pl=bk.querySelector('.bpile');if(!pl)return;pl.style.removeProperty('--cf');let fs=parseFloat(getComputedStyle(pl.querySelector('i')||pl).fontSize)||30;
+ pl.style.setProperty('--cf',fs+'px');let n=0;while(bk.scrollHeight>bk.clientHeight+1&&fs>11&&n<40){fs-=2;pl.style.setProperty('--cf',fs+'px');n++}})}
+(function(){const _r=rSort;rSort=function(p,it){_r(p,it);requestAnimationFrame(fitPiles);document.querySelectorAll('.bk').forEach(b=>b.addEventListener('click',()=>setTimeout(fitPiles,30)))};
+addEventListener('resize',()=>setTimeout(fitPiles,80))})();
+/* 22 Nov: say single words naturally – full stop, normal speed */
+(function(){const _s=speak;speak=function(t){let x=String(t).trim();const words=x.replace(/[^A-Za-z' ]/g,' ').trim().split(/\s+/).filter(Boolean).length;
+ if(words&&words<=2&&!/[.!?]$/.test(x))x=x+'.';
+ if(words<=2&&RATE===0){RATE=1;_s(x);setTimeout(()=>{RATE=0},200)}else _s(x)}})();
 </script></body></html>
