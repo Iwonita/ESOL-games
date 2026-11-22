@@ -2,6 +2,40 @@
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
+<!-- ESOL-ACCESS v1 (22 Nov 2026): course links last 60 days; teacher device always open; works offline -->
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#012169"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+(function(){
+ var SALT='esolita-games-2026',DAY=864e5,BASE=Date.UTC(2026,0,1),LIFE=60,THASH=3186367985,OLD_END=Date.UTC(2027,0,21);
+ function h(x){var a=2166136261;x=String(x);for(var i=0;i<x.length;i++){a^=x.charCodeAt(i);a=Math.imul(a,16777619)>>>0}return a}
+ function mk(d){return d.toString(36)+('0'+(h(SALT+d)%1296).toString(36)).slice(-2)}
+ function parse(c){if(!c||c.length<3)return null;var d=parseInt(c.slice(0,-2),36);return (isFinite(d)&&mk(d)===c)?d:null}
+ function day(t){return Math.floor((t-BASE)/DAY)}
+ function date(d){return new Date(BASE+d*DAY).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}
+ var q=new URLSearchParams(location.search),ls={};
+ try{ls=window.localStorage}catch(e){}
+ try{var t=q.get('t');if(t&&h(SALT+t)===THASH)ls.setItem('esolT','1');
+     var c=q.get('c');if(c&&parse(c)!=null&&(!ls.getItem('esolC')||parse(c)>=parse(ls.getItem('esolC'))))ls.setItem('esolC',c)}catch(e){}
+ var teacher=false,code=null;try{teacher=ls.getItem('esolT')==='1';code=ls.getItem('esolC')}catch(e){}
+ var d=parse(code),today=day(Date.now());
+ window.ESOL={teacher:teacher,code:code,start:d,mk:mk,parse:parse,day:day,date:date,LIFE:LIFE,
+   link:function(u){var cc=null;try{cc=ls.getItem('esolTC')||ls.getItem('esolC')}catch(e){}if(!cc)return u;return u+(u.indexOf('?')<0?'?':'&')+'c='+cc}};
+ window.ESOLQR=function(el,o){if(o&&o.text)o.text=ESOL.link(o.text);return new QRCode(el,o)};
+ var ok=teacher||(d!=null&&today>=d-30&&today<d+LIFE)||(d==null&&Date.now()<OLD_END);
+ if(ok){window.ESOL.until=teacher?null:(d!=null?date(d+LIFE):null);
+   if('serviceWorker' in navigator&&location.protocol==='https:')addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});return}
+ window.ESOL.blocked=true;
+ var ended=d!=null;
+ document.write('<style>body>*:not(#esolgate){display:none!important}#esolgate{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:#eef3fb;font-family:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;padding:24px;text-align:center}#esolgate div{max-width:640px;background:#fff;border:4px solid #012169;border-radius:24px;padding:28px 24px;box-shadow:0 8px 0 rgba(0,0,0,.12)}#esolgate h1{color:#012169;font-size:clamp(28px,6vw,48px);margin:.2em 0}#esolgate p{font-size:clamp(20px,4vw,30px);color:#262626;margin:.4em 0}</style>');
+ addEventListener('DOMContentLoaded',function(){var g=document.createElement('div');g.id='esolgate';
+   g.innerHTML='<div><svg viewBox="0 0 60 30" width="150" height="75"><clipPath id="gs"><path d="M0,0 v30 h60 v-30 z"/></clipPath><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4" clip-path="url(#gs)"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg>'+
+   (ended?'<h1>This link has ended</h1><p>Your 60 days with this game are over.</p><p>Ask your teacher for a new link or QR code.</p>'
+         :'<h1>Ask your teacher</h1><p>Please open the game from your teacher’s link or QR code.</p>')+'</div>';
+   document.body.appendChild(g);try{speechSynthesis.cancel()}catch(e){}});
+})();
+</script>
+<!-- /ESOL-ACCESS -->
+
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Education – My ESOL Class</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -170,6 +204,9 @@ header .t small{font-size:13px;color:var(--muted);white-space:nowrap}
 @keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
 /* question box in level colour */
 .qtop{background:var(--levl);border:3px solid var(--lev);border-radius:20px;padding:10px 14px}
+
+/* 22 Nov: the typed sentence always fits – it wraps onto more lines */
+.tin{flex:none;resize:none;overflow:hidden;white-space:pre-wrap;word-break:break-word;line-height:1.25;display:block;margin:0 auto}
 </style>
 </head>
 <body>
@@ -421,7 +458,7 @@ function norm(s, cs){ s = s.replace(/[’‘]/g, "'").replace(/\s+/g, ' ').trim(
 
 function fit(){
   const root = document.documentElement;
-  const set = k => root.style.setProperty('--k', k.toFixed(2));
+  const set = k => { root.style.setProperty('--k', k.toFixed(2)); const t = document.getElementById('tin'); if (t){ t.style.height = 'auto'; t.style.height = t.scrollHeight + 4 + 'px'; } };
   const bad = () => stage.scrollHeight > stage.clientHeight + 1 || overflowing();
   let k = 1; set(k);
   if (!bad()){
@@ -463,8 +500,8 @@ function start(){
   if (!window.QRCode) stage.querySelector('.qrs').remove();
   try {
     if (window.QRCode){
-      new QRCode($('#qr1'), {text: GAME_URL + '?level=1', width: 130, height: 130});
-      new QRCode($('#qr2'), {text: GAME_URL + '?level=2', width: 130, height: 130});
+      new ESOLQR($('#qr1'), {text: GAME_URL + '?level=1', width: 130, height: 130});
+      new ESOLQR($('#qr2'), {text: GAME_URL + '?level=2', width: 130, height: 130});
     }
   } catch(e){}
   fit();
@@ -566,7 +603,7 @@ function qType(P, it){
   const q = it.q ? `<div class="prompt" style="color:var(--muted)">${esc(it.q)}</div>` : '';
   const hint = it.hint ? `<div class="hint">${esc(it.hint)}</div>` : '';
   stage.innerHTML = `<div class="q pop"><div class="qtop">${pic}${top}${q}${hint}
-    <input class="tin" id="tin" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done">
+    <textarea class="tin" id="tin" rows="1" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" enterkeyhint="done"></textarea>
     <div id="extra"></div></div>
     <div class="fb"><button class="btn" id="chk">Check ✓</button></div></div>`;
   const inp = $('#tin');
@@ -597,6 +634,8 @@ function qType(P, it){
   };
   $('#chk').onclick = check;
   inp.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); if (!inp.disabled) check(); } });
+  const grow = () => { inp.style.height = 'auto'; inp.style.height = inp.scrollHeight + 4 + 'px'; };
+  inp.addEventListener('input', () => { grow(); fit(); }); grow();
   fit();
 }
 
@@ -741,5 +780,9 @@ function results(){
 const lv = new URLSearchParams(location.search).get('level');
 if (lv === '1' || lv === '2') setLevel(+lv); else start();
 </script>
-</body>
+<script>
+/* 22 Nov: after the screen is resized, the typing box grows to show the whole sentence */
+(function(){const _fit=fit;const g=()=>{const t=document.getElementById('tin');if(!t)return false;t.style.height='auto';t.style.height=t.scrollHeight+4+'px';return true};
+fit=function(){_fit();if(g()){_fit();g()}}})();
+</script></body>
 </html>

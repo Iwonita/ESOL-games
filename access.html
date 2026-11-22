@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Teacher – course links</title>
+<!-- ESOL-ACCESS v1 (22 Nov 2026): course links last 60 days; teacher device always open; works offline -->
+<link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#012169"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes">
+<script>
+(function(){
+ var SALT='esolita-games-2026',DAY=864e5,BASE=Date.UTC(2026,0,1),LIFE=60,THASH=3186367985,OLD_END=Date.UTC(2027,0,21);
+ function h(x){var a=2166136261;x=String(x);for(var i=0;i<x.length;i++){a^=x.charCodeAt(i);a=Math.imul(a,16777619)>>>0}return a}
+ function mk(d){return d.toString(36)+('0'+(h(SALT+d)%1296).toString(36)).slice(-2)}
+ function parse(c){if(!c||c.length<3)return null;var d=parseInt(c.slice(0,-2),36);return (isFinite(d)&&mk(d)===c)?d:null}
+ function day(t){return Math.floor((t-BASE)/DAY)}
+ function date(d){return new Date(BASE+d*DAY).toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}
+ var q=new URLSearchParams(location.search),ls={};
+ try{ls=window.localStorage}catch(e){}
+ try{var t=q.get('t');if(t&&h(SALT+t)===THASH)ls.setItem('esolT','1');
+     var c=q.get('c');if(c&&parse(c)!=null&&(!ls.getItem('esolC')||parse(c)>=parse(ls.getItem('esolC'))))ls.setItem('esolC',c)}catch(e){}
+ var teacher=false,code=null;try{teacher=ls.getItem('esolT')==='1';code=ls.getItem('esolC')}catch(e){}
+ var d=parse(code),today=day(Date.now());
+ window.ESOL={teacher:teacher,code:code,start:d,mk:mk,parse:parse,day:day,date:date,LIFE:LIFE,
+   link:function(u){var cc=null;try{cc=ls.getItem('esolTC')||ls.getItem('esolC')}catch(e){}if(!cc)return u;return u+(u.indexOf('?')<0?'?':'&')+'c='+cc}};
+ window.ESOLQR=function(el,o){if(o&&o.text)o.text=ESOL.link(o.text);return new QRCode(el,o)};
+ var ok=teacher||(d!=null&&today>=d-30&&today<d+LIFE)||(d==null&&Date.now()<OLD_END);
+ if(ok){window.ESOL.until=teacher?null:(d!=null?date(d+LIFE):null);
+   if('serviceWorker' in navigator&&location.protocol==='https:')addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){})});return}
+ window.ESOL.blocked=true;
+ var ended=d!=null;
+ document.write('<style>body>*:not(#esolgate){display:none!important}#esolgate{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:#eef3fb;font-family:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;padding:24px;text-align:center}#esolgate div{max-width:640px;background:#fff;border:4px solid #012169;border-radius:24px;padding:28px 24px;box-shadow:0 8px 0 rgba(0,0,0,.12)}#esolgate h1{color:#012169;font-size:clamp(28px,6vw,48px);margin:.2em 0}#esolgate p{font-size:clamp(20px,4vw,30px);color:#262626;margin:.4em 0}</style>');
+ addEventListener('DOMContentLoaded',function(){var g=document.createElement('div');g.id='esolgate';
+   g.innerHTML='<div><svg viewBox="0 0 60 30" width="150" height="75"><clipPath id="gs"><path d="M0,0 v30 h60 v-30 z"/></clipPath><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4" clip-path="url(#gs)"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg>'+
+   (ended?'<h1>This link has ended</h1><p>Your 60 days with this game are over.</p><p>Ask your teacher for a new link or QR code.</p>'
+         :'<h1>Ask your teacher</h1><p>Please open the game from your teacher’s link or QR code.</p>')+'</div>';
+   document.body.appendChild(g);try{speechSynthesis.cancel()}catch(e){}});
+})();
+</script>
+<!-- /ESOL-ACCESS -->
+
+<style>
+body{margin:0;font-family:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;background:#eef3fb;color:#262626}
+header{background:#012169;color:#fff;padding:14px 20px;font-size:24px;font-weight:700;border-bottom:4px solid #C8102E}
+main{max-width:860px;margin:20px auto;padding:0 16px}
+.card{background:#fff;border-radius:20px;padding:22px;margin-bottom:18px;box-shadow:0 6px 0 rgba(0,0,0,.08)}
+h2{margin:0 0 10px;color:#012169}
+label{font-size:20px;font-weight:700}
+input[type=date]{font:inherit;font-size:22px;padding:8px 12px;border:3px solid #012169;border-radius:12px;margin:0 10px}
+.big{font-size:22px}.until{font-size:26px;font-weight:700;color:#2e7d32}
+.link{word-break:break-all;background:#f3f6fb;border-radius:12px;padding:10px 14px;font-size:18px}
+button{font:inherit;font-size:20px;font-weight:700;border:0;border-radius:14px;padding:10px 18px;background:#1f5fa8;color:#fff;cursor:pointer;margin:6px 6px 0 0}
+button.g{background:#2e7d32}
+#qr{display:flex;justify-content:center;padding:12px}
+.note{color:#595959;font-size:17px}
+.no{font-size:24px;text-align:center;padding:40px}
+@media print{header,button,.np{display:none}.card{box-shadow:none}}
+</style></head>
+<body>
+<header>🇬🇧 Teacher – course links and QR codes</header>
+<main id="m"></main>
+<script>
+const m=document.getElementById('m');
+if(!ESOL.teacher){m.innerHTML='<div class="card no">This page is for the teacher.<br>Open it with your teacher link.</div>'}
+else{
+ const iso=d=>new Date(Date.UTC(2026,0,1)+d*864e5).toISOString().slice(0,10);
+ const today=ESOL.day(Date.now());
+ let cur=null;try{cur=localStorage.getItem('esolTC')}catch(e){}
+ const start0=cur&&ESOL.parse(cur)!=null?ESOL.parse(cur):today;
+ m.innerHTML=`<div class="card"><h2>1. When does the course start?</h2>
+  <label>Start date <input type="date" id="sd" value="${iso(start0)}"></label>
+  <p class="until" id="un"></p>
+  <p class="note">Learners can play every game for 60 days from this date – on their phones, online and offline. After that the link stops working.</p></div>
+ <div class="card"><h2>2. Give learners this link or QR code</h2>
+  <p class="big">It opens the games menu. Learners only need it once – after that the games open from the menu or the home-screen icon.</p>
+  <div class="link" id="ln"></div><div id="qr"></div>
+  <div class="np"><button id="cp">📋 Copy link</button><button onclick="print()">🖨 Print the QR code</button><button class="g" id="use">✔ Use this course in the games' QR codes</button></div>
+  <p class="note" id="usen"></p></div>
+ <div class="card"><h2>This computer</h2><p class="big">✔ This device is the teacher’s – every game always opens here (class, slides).</p>
+  <p class="note">Your teacher link is private – don’t give it to learners.</p></div>`;
+ const base=location.href.replace(/access\.html.*$/,'');
+ let QRL=null;
+ const draw=()=>{const d=ESOL.day(Date.parse(document.getElementById('sd').value));if(!isFinite(d))return;const c=ESOL.mk(d);
+  document.getElementById('un').textContent='Works until '+ESOL.date(d+ESOL.LIFE)+'  (code '+c+')';
+  const url=base+'index.html?c='+c;document.getElementById('ln').textContent=url;window._url=url;window._c=c;
+  const q=document.getElementById('qr');q.innerHTML='';const go=()=>new QRCode(q,{text:url,width:260,height:260});
+  if(window.QRCode)go();else if(!QRL){QRL=document.createElement('script');QRL.src='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';QRL.onload=go;QRL.onerror=()=>q.textContent='Connect to the internet to make the QR code.';document.head.appendChild(QRL)}
+  let tc=null;try{tc=localStorage.getItem('esolTC')}catch(e){}
+  document.getElementById('usen').textContent=tc===c?'✔ The QR codes inside the games now use this course.':'The “Teacher: QR codes” buttons inside the games use: '+(tc?('the course starting '+ESOL.date(ESOL.parse(tc))):'no course yet')+'.'};
+ document.getElementById('sd').onchange=draw;
+ document.getElementById('cp').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(window._url)};
+ document.getElementById('use').onclick=()=>{try{localStorage.setItem('esolTC',window._c)}catch(e){}draw()};
+ draw();
+}
+</script>
+</body></html>
