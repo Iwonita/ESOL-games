@@ -394,7 +394,7 @@ const L2=[
 {id:'write',name:'Write: my work',icon:'✏️',type:'write',instr:'Type your sentence.',noLearn:1,
  items:[{q:'What did you do before?',hint:'Before I came to the UK, I …',ex:'Before I came to the UK, I worked in a bank.',checks:[['Capital letter',/^[A-Z]/],['past verb',/\b(\w+ed|was|were|had|taught|drove|sold|made|did|went)\b/i],['Full stop',/[.!]\s*$/]]},
  {q:'Compare two jobs.',hint:'A … is harder / busier than a …',ex:'A nurse’s job is harder than a shop assistant’s job.',checks:[['Capital letter',/^[A-Z]/],['than',/\bthan\b/i],['Full stop',/[.!]\s*$/]]},
- {q:'Your skills and a result.',hint:'I can …, so I …',ex:'I can speak three languages, so I can help customers.',checks:[['Capital letter',/^[A-Z]/],['so',/\bso\b/i],['Full stop',/[.!]\s*$/]]},
+ {q:'Your skills and a result.',hint:'I can …, so I …',ex:'I can speak three languages, so I can help customers.',checks:[['Capital letter',/^[A-Z]/],[', so (comma first)',/,\s*so\b/i],['Full stop',/[.!]\s*$/]]},
  {q:'Tell the story of your interview day.',hint:'First, … Then, … Finally, …',ex:'First, I filled in a form. Then, I met the manager. Finally, I saw the kitchen.',checks:[['Capital letter',/^[A-Z]/],['First / Then / Finally',/\b(First|Then|Finally)\b/],['Full stop',/[.!]\s*$/]]}]},
 {id:'st1',name:'Challenge: pay maths',icon:'⭐',type:'mcq',instr:'Read. Work out the answer.',long:true,noLearn:1,
  lesson:{title:'Pay maths',rules:['£ per hour × hours','a week × 4 ≈ a month'],examples:['£12.60 × 20 hours = <b>£252</b>']},

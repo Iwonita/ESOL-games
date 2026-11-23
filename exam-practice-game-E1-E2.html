@@ -436,7 +436,7 @@ const E2 = [
  {t:'Writing – Punctuation', pic:'writing', ins:'Type the sentence with capital letters and punctuation.', type:'type', cs:1, strict:1, items:[
   {q:'my name is amina and i live in hanley',a:['My name is Amina and I live in Hanley.']},
   {q:'when does the course start',a:['When does the course start?']},
-  {q:'i was tired so i went to bed early',a:['I was tired, so I went to bed early.','I was tired so I went to bed early.']},
+  {q:'i was tired so i went to bed early',a:['I was tired, so I went to bed early.']},
   {q:'dear mrs patel',a:['Dear Mrs Patel,']}]},
  {t:'Writing – A formal email', pic:'computer', ins:'Type a sentence for your email to a college.', type:'write', items:[
   {q:'Start the email. You don’t know the name.',st:'Dear …',ex:'Dear Sir or Madam,'},
@@ -670,7 +670,11 @@ function qType(P, it){
       fbBar(true, cur.tries === 1 ? '✓ Correct!' : '✓ Correct! (½ point)', it.a[0]);
     } else if (cur.tries === 1){
       inp.classList.add('no', 'shake'); setTimeout(() => inp.classList.remove('shake'), 400);
-      $('#extra').innerHTML = `<div class="sub" style="color:var(--red)">Not quite. Try again!</div>`;
+      const nb = x => norm(x, cs).replace(/\s+([?.!,])/g, '$1');
+      const hint = it.a.some(a => nb(v) === nb(a) && /\s[?.!,]/.test(v)) ? 'No space before ? or . – try again!'
+        : it.a.some(a => /,\s*(but|so)\b/i.test(a) && nb(v).replace(/,/g, '') === nb(a).replace(/,/g, '')) ? 'Put a comma before but / so – try again!'
+        : 'Not quite. Try again!';
+      $('#extra').innerHTML = `<div class="sub" style="color:var(--red)">${hint}</div>`;
       inp.focus({preventScroll: true}); fit();
     } else {
       inp.disabled = true;
