@@ -715,6 +715,7 @@ function qWrite(P, it){
       <div><div class="lab">Example sentence starter</div><div class="starter">${esc(it.st)}</div></div>
       <textarea class="ta" id="ta" rows="2" placeholder="Type your sentence here" autocapitalize="off" autocorrect="off" spellcheck="false"></textarea>
       <div class="paper">✏️ Write your sentences on paper too.</div>
+      <button class="btn" id="wchk" disabled>Show the example ✓</button>
       <div id="exw"></div></div>
     <div class="wrr">
       <button class="rag r" data-v="0" disabled>Not yet</button>
@@ -723,12 +724,18 @@ function qWrite(P, it){
   const ta = $('#ta');
   const grow = () => { ta.style.height = 'auto'; ta.style.height = ta.scrollHeight + 'px'; refit(); };
   let shown = false;
+  // the learner finishes the sentence first: the example only comes when they press the button
+  const need = String(it.st || '').replace(/…|\.\.\./g, '').trim().split(/\s+/).filter(Boolean).length + 2;
   ta.addEventListener('input', () => {
     grow();
-    const has = ta.value.trim().split(/\s+/).length >= 3;
-    stage.querySelectorAll('.rag').forEach(b => b.disabled = !has);
-    if (has && !shown){ shown = true; $('#exw').innerHTML = `<div class="lab">Example</div><div class="ex">✓ ${esc(it.ex)}</div>`; refit(); }
+    $('#wchk').disabled = shown || ta.value.trim().split(/\s+/).filter(Boolean).length < need;
   });
+  ta.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); if (!$('#wchk').disabled) $('#wchk').click(); } });
+  $('#wchk').onclick = () => {
+    if (shown) return; shown = true; ta.readOnly = true; $('#wchk').remove();
+    $('#exw').innerHTML = `<div class="lab">Example</div><div class="ex">✓ ${esc(it.ex)}</div>`;
+    stage.querySelectorAll('.rag').forEach(b => b.disabled = false); refit();
+  };
   stage.querySelectorAll('.rag').forEach(b => b.onclick = () => {
     speak(it.ex);
     award(+b.dataset.v);
