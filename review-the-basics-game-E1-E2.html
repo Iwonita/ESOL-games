@@ -196,7 +196,8 @@ header .t small{font-size:13px;color:var(--muted);white-space:nowrap}
 .rbadge{display:inline-block;border-radius:99px;padding:8px 22px;color:#fff;font-size:calc(var(--k)*clamp(20px,3vh,30px))}
 .rbadge.g{background:var(--green)}.rbadge.a{background:var(--amber)}.rbadge.r{background:var(--red)}
 .btns{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
-.pl{border-collapse:collapse;margin:4px auto;font-size:1.05em}.pl td{padding:3px 14px;border-bottom:1px solid #ccc;text-align:left}
+.pl{border-collapse:collapse;margin:.2em auto 0;width:100%;max-width:760px;font-size:calc(var(--k,1)*clamp(24px,5vh,46px));line-height:1.15}.pl td{padding:.18em .4em;border-bottom:2px solid #d9cfa6;text-align:left}.pl td:last-child{text-align:right;white-space:nowrap}
+@media (max-width:600px){.pl{font-size:calc(var(--k,1)*24px)}.pl td{padding:.5em .3em}.pl td:first-child{white-space:nowrap}}
 .rtable{display:grid;grid-template-columns:repeat(2,1fr);gap:6px 10px;width:min(100%,900px);text-align:left}
 @media (min-width:760px){.rtable{grid-template-columns:repeat(3,1fr)}}
 .rrow{display:flex;align-items:center;gap:8px;background:#fff;border-radius:12px;padding:6px 10px;font-size:calc(var(--k)*clamp(14px,2vh,19px));border-left:8px solid var(--line)}
