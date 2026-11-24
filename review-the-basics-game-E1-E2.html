@@ -215,6 +215,13 @@ header .t small{font-size:13px;color:var(--muted);white-space:nowrap}
 .snip mark{background:#fff176}
 .mailhd{background:#eef3fb;border-radius:10px;padding:.3em .6em;font-size:.9em}
 .opt.long{font-size:calc(var(--k,1)*30px)!important}
+
+/* picture/sign on the left, answers in one column on the right */
+.q.side .sbody{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.15fr 1fr;gap:calc(var(--k)*14px)}
+.q.side .opts{align-content:center}
+.q.side .opt{min-height:calc(var(--k)*clamp(70px,15vh,140px));font-size:calc(var(--k)*clamp(26px,5.2vh,54px))}
+.q.side .snip{font-size:calc(var(--k)*clamp(44px,10vh,100px));text-align:center;padding:.15em .5em;line-height:1.15}
+@media (max-width:600px){.q.side .sbody{grid-template-columns:1fr;grid-template-rows:auto auto;align-content:center}.q.side .snip{font-size:calc(var(--k)*clamp(26px,5vh,44px))}.q.side .opt{min-height:calc(var(--k)*clamp(56px,9vh,90px));font-size:calc(var(--k)*clamp(22px,3.8vh,34px))}}
 </style>
 </head>
 <body>
@@ -305,13 +312,13 @@ const E1 = [
   {q:'Yesterday I ___ rice and chicken.',a:'cooked',o:['cook','cooked','cookt']},
   {q:'Yesterday I ___ TV.',a:'watched',o:['watched','watch','watchd']},
   {q:'Yesterday I ___ up at 8.',a:'got',o:['get','getted','got']}]},
- {t:'Reading – Signs', pic:'reading', ins:'Look at the sign. What does it mean?', type:'mc', cols:1, items:[
+ {t:'Reading – Signs', pic:'reading', ins:'Look at the sign. What does it mean?', type:'mc', side:1, items:[
   {card:'<b style="font-size:1.4em">🚭</b>',q:'What does the sign mean?',a:'No smoking',o:['No smoking','Exit','Toilets']},
   {card:'<b style="font-size:1.4em">🚻 TOILETS</b>',q:'Where do you go?',a:'to the toilets',o:['to the toilets','to the car park','to the café']},
   {card:'<b style="font-size:1.4em">🅿️</b>',q:'What does the sign mean?',a:'Car park',o:['Bus stop','Car park','Police']},
   {card:'<b style="font-size:1.4em">⚠️ DANGER</b>',q:'What does the sign mean?',a:'Be careful!',o:['Be careful!','It is free.','Come in!']},
   {card:'<b style="font-size:1.4em">🚪 EXIT</b>',q:'What does the sign mean?',a:'the way out',o:['the way in','the way out','the lift']},
-  {card:'<b style="font-size:1.4em">CLOSED</b><br>Open again 9 am',q:'Can you go in now?',a:'No',o:['Yes','No']}]},
+  {card:'<b style="font-size:1.4em">CLOSED</b><br>Open again 9&nbsp;am',q:'Can you go in now?',a:'No',o:['Yes','No']}]},
  {t:'Reading – A price list', pic:'library', ins:'Read the price list. Answer the questions.', type:'read',
   text:`<h3>Corner Shop – Price List</h3>
   <table class="pl"><tr><td>Bread</td><td><b>£1.20</b></td></tr><tr><td>Milk (2 pints)</td><td><b>£1.50</b></td></tr>
@@ -681,9 +688,11 @@ function qMC(P, it){
   const pic = it.img ? `<img class="qimg" src="${IMG[it.img]}" alt="">` : '';
   const bigw = it.big ? `<div class="big1">${esc(it.big)}</div>` : (it.card ? `<div class="snip">${it.card}</div>` : '');
   const prompt = it.big ? `<div class="sub">${it.q ? esc(it.q) : 'What does it mean?'}</div>` : `<div class="prompt">${gapHTML(it.q)}</div>`;
-  stage.innerHTML = `<div class="q pop"><div class="qtop">${pic}${bigw}${prompt}</div>
-    <div class="opts" style="--cols:${cols}">${opts.map(o => `<button class="opt ${long ? 'long' : ''}">${esc(o)}</button>`).join('')}</div>
-    <div class="fb"></div></div>`;
+  const side = !!(P.side || it.side);
+  const top = `<div class="qtop">${pic}${bigw}${prompt}</div>`;
+  const ops = `<div class="opts" style="--cols:${side ? 1 : cols}">${opts.map(o => `<button class="opt ${long ? 'long' : ''}">${esc(o)}</button>`).join('')}</div>`;
+  stage.innerHTML = side ? `<div class="q pop side"><div class="sbody">${top}${ops}</div><div class="fb"></div></div>`
+                         : `<div class="q pop">${top}${ops}<div class="fb"></div></div>`;
   const sayTxt = it.say || (/_{2,}/.test(it.q) ? fill(it.q, it.a) : it.a);
   stage.querySelectorAll('.opt').forEach(b => b.onclick = () => {
     const ok = b.textContent === it.a;
