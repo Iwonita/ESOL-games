@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en-GB">
-<head>
+<head><script>/* SAY-MONEY v1: the voice reads prices the British way (£2.00 → two pounds, £1.20 → one pound twenty, 80p → eighty pence) */
+(function(){var S=window.SpeechSynthesisUtterance;if(!S||S.__money)return;
+function money(t){return String(t==null?'':t).replace(/£\s?(\d+)(?:\.(\d\d))?/g,function(m,p,c){p=+p;c=c?+c:0;var s=p?p+(p===1?' pound':' pounds'):'';if(c)s+=p?' '+c:c+' pence';return s||'0 pounds';}).replace(/\b(\d+)p\b/g,'$1 pence');}
+function U(t){return new S(money(t));}U.prototype=S.prototype;U.__money=1;window.SpeechSynthesisUtterance=U;})();</script>
+
 <meta charset="utf-8">
 <!-- ESOL-ACCESS v1 (22 Nov 2026): course links last 60 days; teacher device always open; works offline -->
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#012169"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes">
@@ -434,7 +438,7 @@ function pickVoice(){
 if ('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged = pickVoice; }
 function speak(t){
   if (!('speechSynthesis' in window) || !t) return;
-  t = t.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}★➕→✓✗]/gu, '').replace(/_+/g, ' ').replace(/£(\d+)/g, '$1 pounds').trim();
+  t = t.replace(/[\u{1F300}-\u{1FAFF}\u{2600}-\u{27BF}★➕→✓✗]/gu, '').replace(/_+/g, ' ').trim();
   speechSynthesis.cancel();
   const u = new SpeechSynthesisUtterance(t);
   if (VOICE){ u.voice = VOICE; u.lang = VOICE.lang; } else u.lang = 'en-GB';
