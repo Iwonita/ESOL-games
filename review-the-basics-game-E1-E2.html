@@ -224,8 +224,10 @@ header .t small{font-size:13px;color:var(--muted);white-space:nowrap}
 /* picture/sign on the left, answers in one column on the right */
 .q.side .sbody{flex:1 1 auto;min-height:0;display:grid;grid-template-columns:1.15fr 1fr;gap:calc(var(--k)*14px)}
 .q.side .opts{align-content:center}
+.q.side .prompt{font-size:calc(var(--k)*clamp(26px,5vh,52px))}
+.q.side .opt.long{font-size:calc(var(--k)*clamp(24px,5vh,50px));line-height:1.15;padding-left:.4em;padding-right:.4em}
 .q.side .opt{min-height:calc(var(--k)*clamp(70px,15vh,140px));font-size:calc(var(--k)*clamp(26px,5.2vh,54px))}
-.q.side .snip{font-size:calc(var(--k)*clamp(44px,10vh,100px));text-align:center;padding:.15em .5em;line-height:1.15}
+.q.side .snip{font-size:calc(var(--k)*clamp(30px,6.5vh,66px));text-align:center;padding:.15em .5em;line-height:1.15}
 @media (max-width:600px){.q.side .sbody{grid-template-columns:1fr;grid-template-rows:auto auto;align-content:center}.q.side .snip{font-size:calc(var(--k)*clamp(26px,5vh,44px))}.q.side .opt{min-height:calc(var(--k)*clamp(56px,9vh,90px));font-size:calc(var(--k)*clamp(22px,3.8vh,34px))}}
 </style>
 </head>
@@ -272,7 +274,7 @@ const E1 = [
   {q:'They are from Pakistan. They speak ___.',a:'Urdu',o:['Pakistan','Urdu','Pakistani']},
   {q:'I am from China. I speak ___.',a:'Chinese',o:['China','Chinese','Chinas']},
   {q:'Which word needs a capital letter?',a:'English',o:['English','book','big']}]},
- {t:'Vocabulary – Food or drink?', pic:'notebook', ins:'Is it food or a drink?', type:'mc', cols:2, items:[
+ {t:'Vocabulary – Food or drink?', pic:'notebook', ins:'Is it food or a drink?', type:'mc', side:1, cols:2, items:[
   {card:'🍚 rice',q:'Food or drink?',a:'food',o:['food','drink']},
   {card:'🧃 orange juice',q:'Food or drink?',a:'drink',o:['food','drink']},
   {card:'🧀 cheese',q:'Food or drink?',a:'food',o:['food','drink']},
@@ -283,7 +285,7 @@ const E1 = [
   {card:'🫖 tea',q:'Food or drink?',a:'drink',o:['food','drink']},
   {card:'🍎 apples',q:'Food or drink?',a:'food',o:['food','drink']},
   {card:'💧 water',q:'Food or drink?',a:'drink',o:['food','drink']}]},
- {t:'Vocabulary – My day', pic:'student', ins:'Choose the word.', type:'mc', cols:3, items:[
+ {t:'Vocabulary – My day', pic:'student', ins:'Choose the word.', type:'mc', side:1, cols:3, items:[
   {card:'⏰ 7:00',q:'I ___ up at 7 o’clock.',a:'get',o:['get','go','have']},
   {card:'🪥',q:'I ___ my teeth.',a:'brush',o:['wash','brush','make']},
   {card:'🥣',q:'I ___ breakfast at 8.',a:'have',o:['have','do','get']},
@@ -291,7 +293,7 @@ const E1 = [
   {card:'🍲',q:'I ___ dinner for my family.',a:'cook',o:['cook','eat up','wash']},
   {card:'🛏️ 10:30',q:'I ___ to bed at half past ten.',a:'go',o:['go','get','sleep']},
   {card:'📚',q:'I ___ my homework in the evening.',a:'do',o:['make','do','have']}]},
- {t:'Grammar – Every day or now?', pic:'reading', ins:'Every day = I work.   Now = I am working.', type:'mc', cols:2, items:[
+ {t:'Grammar – Every day or now?', pic:'reading', ins:'Every day = I work.   Now = I am working.', type:'mc', side:1, cols:2, items:[
   {card:'🔁 every day',q:'I ___ tea every morning.',a:'drink',o:['drink','am drinking']},
   {card:'👀 now',q:'Look! Sam ___ for the bus.',a:'is running',o:['runs','is running']},
   {card:'🔁 on Mondays',q:'She ___ to college on Monday.',a:'goes',o:['goes','is going now']},
@@ -300,7 +302,7 @@ const E1 = [
   {card:'👀 at the moment',q:'I ___ my homework at the moment.',a:'am doing',o:['do','am doing']},
   {card:'🔁 every evening',q:'He ___ TV every evening.',a:'watches',o:['watches','is watching']},
   {card:'👀 now',q:'We ___ English now.',a:'are learning',o:['learn','are learning']}]},
- {t:'Grammar – Bigger and cheaper', pic:'o-big', ins:'Choose the right word.', type:'mc', cols:3, items:[
+ {t:'Grammar – Bigger and cheaper', pic:'o-big', ins:'Choose the right word.', type:'mc', side:1, cols:3, items:[
   {card:'☕ £2 &nbsp;&nbsp; 🫖 £1',q:'Tea is ___ than coffee.',a:'cheaper',o:['cheap','cheaper','more cheap']},
   {card:'🚌 &nbsp; 🚗',q:'A bus is ___ than a car.',a:'bigger',o:['bigger','biger','more big']},
   {card:'🏪 small shop &nbsp; 🏬 supermarket',q:'The supermarket is ___ than the shop.',a:'bigger',o:['big','bigger','biggest']},
@@ -318,12 +320,12 @@ const E1 = [
   {q:'Yesterday I ___ TV.',a:'watched',o:['watched','watch','watchd']},
   {q:'Yesterday I ___ up at 8.',a:'got',o:['get','getted','got']}]},
  {t:'Reading – Signs', pic:'reading', ins:'Look at the sign. What does it mean?', type:'mc', side:1, items:[
-  {card:'<b style="font-size:1.4em">🚭</b>',q:'What does the sign mean?',a:'No smoking',o:['No smoking','Exit','Toilets']},
-  {card:'<b style="font-size:1.4em">🚻 TOILETS</b>',q:'Where do you go?',a:'to the toilets',o:['to the toilets','to the car park','to the café']},
-  {card:'<b style="font-size:1.4em">🅿️</b>',q:'What does the sign mean?',a:'Car park',o:['Bus stop','Car park','Police']},
-  {card:'<b style="font-size:1.4em">⚠️ DANGER</b>',q:'What does the sign mean?',a:'Be careful!',o:['Be careful!','It is free.','Come in!']},
-  {card:'<b style="font-size:1.4em">🚪 EXIT</b>',q:'What does the sign mean?',a:'the way out',o:['the way in','the way out','the lift']},
-  {card:'<b style="font-size:1.4em">CLOSED</b><br>Open again 9&nbsp;am',q:'Can you go in now?',a:'No',o:['Yes','No']}]},
+  {card:'<b style="font-size:2em">🚭</b>',q:'What does the sign mean?',a:'No smoking',o:['No smoking','Exit','Toilets']},
+  {card:'<b style="font-size:2em">🚻 TOILETS</b>',q:'Where do you go?',a:'to the toilets',o:['to the toilets','to the car park','to the café']},
+  {card:'<b style="font-size:2em">🅿️</b>',q:'What does the sign mean?',a:'Car park',o:['Bus stop','Car park','Police']},
+  {card:'<b style="font-size:2em">⚠️ DANGER</b>',q:'What does the sign mean?',a:'Be careful!',o:['Be careful!','It is free.','Come in!']},
+  {card:'<b style="font-size:2em">🚪 EXIT</b>',q:'What does the sign mean?',a:'the way out',o:['the way in','the way out','the lift']},
+  {card:'<b style="font-size:2em">CLOSED</b><br>Open again 9&nbsp;am',q:'Can you go in now?',a:'No',o:['Yes','No']}]},
  {t:'Reading – A price list', pic:'library', ins:'Read the price list. Answer the questions.', type:'read',
   text:`<h3>Corner Shop – Price List</h3>
   <table class="pl"><tr><td>Bread</td><td><b>£1.20</b></td></tr><tr><td>Milk (2 pints)</td><td><b>£1.50</b></td></tr>
@@ -384,7 +386,7 @@ const E1 = [
 ];
 
 const E2 = [
- {t:'Vocabulary – Recycling', pic:'notebook', ins:'Choose the word.', type:'mc', cols:3, items:[
+ {t:'Vocabulary – Recycling', pic:'notebook', ins:'Choose the word.', type:'mc', side:1, cols:3, items:[
   {card:'🍾 bottles, jars',q:'They are made of ___.',a:'glass',o:['glass','paper','metal']},
   {card:'📦',q:'Boxes are made of ___.',a:'cardboard',o:['plastic','cardboard','glass']},
   {card:'🥫',q:'Food ___ go in the metal bin.',a:'tins',o:['tins','bags','jars']},
@@ -393,7 +395,7 @@ const E2 = [
   {card:'♻️',q:'Make old things into new things. You ___ them.',a:'recycle',o:['throw away','recycle','collect']},
   {card:'🚛',q:'The council takes the bins away. They ___ them.',a:'collect',o:['collect','rinse','sort']},
   {card:'🗑️',q:'Put the right things in the right bin. You ___ your rubbish.',a:'sort',o:['sort','reuse','fill']}]},
- {t:'Vocabulary – Jobs and courses', pic:'teacher', ins:'Choose the meaning. (Dictionary question)', type:'mc', cols:1, items:[
+ {t:'Vocabulary – Jobs and courses', pic:'teacher', ins:'Choose the meaning. (Dictionary question)', type:'mc', side:1, cols:1, items:[
   {card:'The <b>salary</b> is £24,000 a year.',q:'salary means …',a:'the money you get for a job',o:['the money you get for a job','the hours you work','the job title']},
   {card:'You need <b>experience</b> in a kitchen.',q:'experience means …',a:'you did this work before',o:['a test','you did this work before','a uniform']},
   {card:'<b>Apply</b> online by Friday.',q:'apply means …',a:'ask for the job in writing',o:['start the job','ask for the job in writing','leave the job']},
@@ -402,7 +404,7 @@ const E2 = [
   {card:'The <b>introduction</b> class is on Monday.',q:'introduction means …',a:'the first class – you learn what happens',o:['the last class','the first class – you learn what happens','an exam']},
   {card:'Please <b>attend</b> every class.',q:'attend means …',a:'go to',o:['go to','pay for','miss']},
   {card:'Students get a 10% <b>discount</b>.',q:'discount means …',a:'a lower price',o:['a free drink','a lower price','a new menu']}]},
- {t:'Texts – Why was it written?', pic:'reading', ins:'Read. What is the purpose of the text?', type:'mc', cols:3, items:[
+ {t:'Texts – Why was it written?', pic:'reading', ins:'Read. What is the purpose of the text?', type:'mc', side:1, cols:3, items:[
   {card:'<b>Chef wanted!</b> £12 an hour. Apply today.',q:'The purpose is to …',a:'advertise',o:['advertise','advise','describe']},
   {card:'Rinse all bottles before you put them in the bin.',q:'The purpose is to …',a:'instruct',o:['invite','instruct','complain']},
   {card:'The library is closed on Monday 3rd March.',q:'The purpose is to …',a:'inform',o:['inform','persuade','invite']},
@@ -410,7 +412,7 @@ const E2 = [
   {card:'If you feel tired, you should go to bed early.',q:'The purpose is to …',a:'advise',o:['advise','inform','invite']},
   {card:'The café is small and cosy, with big windows and a green door.',q:'The purpose is to …',a:'describe',o:['complain','describe','instruct']},
   {card:'Don’t miss it – the best pizza in town! Try it today!',q:'The purpose is to …',a:'persuade',o:['persuade','inform','describe']}]},
- {t:'Grammar – Routine or in progress?', pic:'speaking', ins:'Routine = present simple.   Happening now / changing = present continuous.', type:'mc', cols:2, items:[
+ {t:'Grammar – Routine or in progress?', pic:'speaking', ins:'Routine = present simple.   Happening now / changing = present continuous.', type:'mc', side:1, cols:2, items:[
   {card:'🔁 routine',q:'The council ___ the bins every Monday.',a:'collects',o:['collects','is collecting']},
   {card:'⏳ this month',q:'This month the council ___ new green bins to every house.',a:'is delivering',o:['delivers','is delivering']},
   {card:'🔁 routine',q:'The restaurant ___ at 5 pm every day.',a:'opens',o:['opens','is opening']},
@@ -420,7 +422,7 @@ const E2 = [
   {card:'🔁 routine',q:'On my course we usually ___ at 9:30.',a:'start',o:['start','are starting']},
   {card:'⏳ this term',q:'This term I ___ a hairdressing course.',a:'am doing',o:['do','am doing']},
   {card:'🔁 + ⏳',q:'I usually walk to work, but today I ___ the bus.',a:'am taking',o:['take','am taking']}]},
- {t:'Grammar – Comparatives and superlatives', pic:'o-big', ins:'Choose the right form.', type:'mc', cols:3, items:[
+ {t:'Grammar – Comparatives and superlatives', pic:'o-big', ins:'Choose the right form.', type:'mc', side:1, cols:3, items:[
   {card:'🍝 £15 &nbsp; 🥘 £10',q:'The Spanish restaurant is ___ than the Italian one.',a:'cheaper',o:['cheaper','cheapest','more cheap']},
   {card:'⭐⭐⭐⭐⭐',q:'This is ___ hotel in the city.',a:'the best',o:['the better','the best','the goodest']},
   {card:'🌆 £80 &nbsp; 🌅 £60',q:'The evening class is ___ than the morning class.',a:'more expensive',o:['expensiver','more expensive','most expensive']},
