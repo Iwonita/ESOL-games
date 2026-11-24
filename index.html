@@ -42,9 +42,15 @@ body{margin:0;font-family:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;backg
 h1{margin:0 0 4px;font-size:clamp(28px,5vw,44px)}p{margin:0 0 20px;color:#4a4560;font-size:18px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;width:100%;max-width:1000px}
 a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#fff;border:3px solid #1f1b2e;border-radius:20px;padding:22px 12px;text-decoration:none;color:#1f1b2e;box-shadow:0 4px 0 rgba(0,0,0,.15);font-weight:700;font-size:22px;text-align:center}
-a:hover{background:#ece6f8}a span{font-size:48px}a small{font-weight:400;font-size:15px;color:#4a4560}
+a:hover{background:#ece6f8}
+.jump{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin:0 0 18px}.jump a{flex-direction:row;padding:12px 20px;font-size:20px;border-radius:999px}
+h2{width:100%;max-width:1000px;margin:26px 0 12px;padding:12px 18px;border-radius:16px;color:#fff;font-size:clamp(22px,4vw,30px);box-sizing:border-box}
+#rw{background:#012169}#sl{background:#7030A0}
+.soon{grid-column:1/-1;background:#fff;border:3px dashed #7030A0;border-radius:20px;padding:22px;text-align:center;font-size:20px;color:#4a4560}a span{font-size:48px}a small{font-weight:400;font-size:15px;color:#4a4560}
 </style></head><body>
 <h1>🇬🇧 ESOL Games</h1><p>Choose a game.</p>
+<div class="jump"><a href="#rw">📖 Reading and Writing</a><a href="#sl">🗣️ Speaking and Listening</a></div>
+<h2 id="rw">📖 Reading and Writing</h2>
 <div class="grid">
 <a href="gtky-game-E1-E2.html"><span>🪪</span>Getting to Know You<small>Entry 1 · Entry 2</small></a>
 <a href="calendar-dates-game-E1-E2.html"><span>📅</span>Calendar and Dates<small>Entry 1 · Entry 2</small></a>
@@ -76,6 +82,10 @@ a:hover{background:#ece6f8}a span{font-size:48px}a small{font-weight:400;font-si
 <a href="vocabulary-local-area.html"><span>🏘️</span>My Local Area<small>Entry 1 · Entry 2</small></a>
 <a href="rights.html"><span>⚖️</span>Rights &amp; Responsibilities<small>Entry 1 · Entry 2</small></a>
 <a href="vocabulary-rights.html"><span>🗳️</span>Rights – Vocabulary<small>Entry 1 · Entry 2</small></a>
+</div>
+<h2 id="sl">🗣️ Speaking and Listening</h2>
+<div class="grid">
+<div class="soon">New games coming in January 2027</div>
 </div><script>
 addEventListener('DOMContentLoaded',function(){if(!window.ESOL||ESOL.blocked)return;var t=ESOL.teacher?'👩‍🏫 Teacher device – all games open. <a href="access.html" style="color:#1f5fa8">Course links and QR codes</a>':(ESOL.until?'✔ Your games work until <b>'+ESOL.until+'</b> – on your phone, also offline.':'');if(!t)return;
 var d=document.createElement('div');d.style.cssText='margin:10px auto;max-width:900px;background:#fff3b0;border-radius:14px;padding:10px 16px;font-size:20px;text-align:center';d.innerHTML=t;
