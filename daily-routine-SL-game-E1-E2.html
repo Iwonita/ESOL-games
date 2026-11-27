@@ -334,6 +334,11 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .trow .tr{background:#fff;border:4px solid var(--lv);border-radius:18px;padding:.15em .5em;height:100%;display:flex;align-items:center;justify-content:center;gap:.4em;color:var(--lv)}
 .tclk{height:100%;max-height:14vh;aspect-ratio:1}.tclk svg{width:100%;height:100%}
 .learn3 .lnext{font-size:clamp(16px,min(3.4vh,2.8vw),32px)!important}
+.seq{display:flex;align-items:center;justify-content:center;gap:.4vw;width:100%;height:100%}
+.sst{flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
+.popt .sst img{width:100%;height:auto!important;flex:0 1 auto;max-height:78%;min-height:0;object-fit:contain;border-radius:8px}
+.sst small{font-weight:800;font-size:clamp(11px,min(2.4vh,1.4vw),22px);line-height:1.1;color:var(--ink)}
+.sar{color:var(--lv);font-size:clamp(14px,min(3vh,2vw),30px)}
 /* S&L additions */
 .cheer{display:none!important}
 .lcard{justify-content:space-evenly!important}
@@ -873,10 +878,12 @@ function restyleIntro(){const p=cur();const cards=document.querySelectorAll('#ma
  if(typeof fitBig==='function')fitBig()}
 const _i2SL=intro2;intro2=function(){_i2SL();restyleIntro()};
 /* ===== Speaking & Listening additions: listen-first questions, picture / clock answers, say-it self check ===== */
-function optFace(v){if(v.startsWith('img:'))return `<img src="${IMG[v.slice(4)]}" alt="">`;if(v.startsWith('clk:')){const [h,m]=v.slice(4).split(':').map(Number);return clock(h,m)}return `<span>${esc(v)}</span>`}
+const SEQK={'get up':'up','shower':'shower','get dressed':'dressed','breakfast':'breakfast','bus':'bus','start work':'work','cook dinner':'cook','TV':'tv','bed':'bed','lunch':'lunch'};
+function seqFace(v){return `<div class="seq">${v.split(/\s*→\s*/).map((w,i)=>`${i?'<b class="sar">➜</b>':''}<div class="sst">${SEQK[w]&&IMG[SEQK[w]]?`<img src="${IMG[SEQK[w]]}" alt="">`:''}<small>${esc(w)}</small></div>`).join('')}</div>`}
+function optFace(v){if(v.includes('→'))return seqFace(v);if(v.startsWith('img:'))return `<img src="${IMG[v.slice(4)]}" alt="">`;if(v.startsWith('clk:')){const [h,m]=v.slice(4).split(':').map(Number);return clock(h,m)}return `<span>${esc(v)}</span>`}
 function optLabel(v){if(v.startsWith('img:'))return PNAME[v.slice(4)]||v.slice(4);if(v.startsWith('clk:')){const [h,m]=v.slice(4).split(':');return h+':'+String(m).padStart(2,'0')}return v}
 function playIt(t){speak(t)}
-function rListen(p,it){NOSPK=true;const audio=p.audio||it.say;const vis=it.opts.some(v=>/^(img|clk):/.test(v));
+function rListen(p,it){NOSPK=true;const audio=p.audio||it.say;const vis=it.opts.some(v=>/^(img|clk):/.test(v)||v.includes('→'));
  const o=shuffle(it.opts);
  const grid=`<div class="opts lopts ${vis?'vis3':''} n${o.length} ${!vis&&o.some(x=>x.length>(innerWidth<760?14:26))?'long':''} ${!vis&&o.every(x=>x.length<=10)?'short':''}">${o.map(v=>`<button class="opt ${vis?'popt':''}" data-v="${esc(v)}">${optFace(v)}</button>`).join('')}</div>`;
  const qtxt=it.q?`<div class="q mid">${mk(esc(it.q)).replace('___','<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>')}</div>`:'';
