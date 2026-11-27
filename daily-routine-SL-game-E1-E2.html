@@ -339,6 +339,9 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .popt .sst img{width:100%;height:auto!important;flex:0 1 auto;max-height:78%;min-height:0;object-fit:contain;border-radius:8px}
 .sst small{font-weight:800;font-size:clamp(11px,min(2.4vh,1.4vw),22px);line-height:1.1;color:var(--ink)}
 .sar{color:var(--lv);font-size:clamp(14px,min(3vh,2vw),30px)}
+.lsplit .lcard .q{font-size:clamp(26px,min(7.5vh,4vw),70px)!important;background:var(--lvs);border-radius:18px;padding:.25em .5em;width:100%}
+.lsplit .lbtn{font-size:clamp(20px,min(5vh,3.2vw),44px)!important}
+@media (max-width:760px){.lsplit .lcard .q{font-size:clamp(20px,6vw,30px)!important}.lsplit .lcard{gap:.3em!important}}
 /* S&L additions */
 .cheer{display:none!important}
 .lcard{justify-content:space-evenly!important}
@@ -924,6 +927,11 @@ const AUD={"get up": "data:audio/mpeg;base64,SUQzBAAAAAAAI1RTU0UAAAAPAAADTGF2ZjY
 function akey(t){return String(t).replace(/🔊/g,'').replace(/\s*,\s*/g,', ').replace(/\s+/g,' ').trim().replace(/[.?!]+$/,'').trim().toLowerCase()}
 let _AU=null;const _speakTTS=speak;
 speak=function(t){const src=AUD[akey(t)];if(!src){_speakTTS(t);return}try{speechSynthesis.cancel()}catch(e){};try{if(_AU)_AU.pause()}catch(e){};_AU=new Audio(src);_AU.playbackRate=RATE?1:0.8;_AU.play().catch(()=>_speakTTS(t))};
+
+/* story questions: question big, answers smaller than the question */
+function capLS(){const q=document.querySelector('.lsplit .lcard .q');if(!q)return;const cap=innerWidth<760?24:Math.max(16,parseFloat(getComputedStyle(q).fontSize)*0.8);
+ document.querySelectorAll('.lsplit .opt span').forEach(sp=>{const f=parseFloat(getComputedStyle(sp).fontSize);if(f>cap)sp.style.setProperty('font-size',cap+'px','important')})}
+const _fbLS=fitBig;fitBig=function(){_fbLS();capLS();setTimeout(capLS,400)};
 setRate(1);startScreen();try{speechSynthesis.getVoices()}catch(e){}
 /* ---- accept other correct word orders (and / but / or) ---- */
 const _orderOK1=orderOK;
