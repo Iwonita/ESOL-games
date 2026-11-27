@@ -931,11 +931,11 @@ function rListen(p,it){NOSPK=true;const audio=p.audio||it.say;const vis=it.opts.
 const IDEAS={
  'What time do you get up?':['up','shower','dressed','breakfast'],
  'What do you have for breakfast?':['🍞 bread','☕ tea','🥚 eggs','🍌 a banana','🥣 cereal'],
- 'How do you go to college?':['🚶 on foot','bus|by bus','🚗 by car'],
+ 'How do you go to college?':['🚶 on foot','🚌 by bus','🚗 by car'],
  'What do you do in the evening?':['cook','tv','shower','bed'],
  'What time do you go to bed?':['bed','🕙 10 o’clock','🕚 11 o’clock','🕛 12 o’clock'],
  'What do you do in the morning?':['up','shower','dressed','breakfast'],
- 'How do you get to college or work?':['bus','🚶 walk','🚗 car','💷 cheap','⚡ quick'],
+ 'How do you get to college or work?':['🚌 take the bus','🚶 walk','🚗 car','💷 cheap','⚡ quick'],
  'What do you do after college?':['cook','lunch','👧 pick up my children','🛒 go shopping'],
  'Is your weekend different?':['bed','🛒 shopping','🌳 the park','👨‍👩‍👧 my family']};
 function ideaGrid(q,main){const L=IDEAS[q]||[main];return `<div class="ideas">${L.map(x=>{const [k,lb]=x.split('|');return [k,lb]}).map(([x,lb])=>IMG[x]?`<div class="idea"><img src="${IMG[x]}" alt=""><span>${esc(lb||PNAME[x]||'')}</span></div>`:`<div class="idea emo2"><b>${x.split(' ')[0]}</b><span>${esc(x.split(' ').slice(1).join(' '))}</span></div>`).join('')}</div>`}
