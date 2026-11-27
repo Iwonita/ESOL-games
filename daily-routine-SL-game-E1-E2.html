@@ -318,10 +318,10 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .iins{font-weight:800;color:var(--ink);font-size:clamp(20px,min(4.4vh,3.8vw),44px)}
 .icount{font-weight:700;color:var(--muted);font-size:clamp(14px,min(2.6vh,2.2vw),24px)}
 .ideas{display:flex;gap:1vw;justify-content:center;flex:1 1 0;min-height:0;width:100%}
-.idea{flex:1 1 0;max-width:22%;min-width:0;display:flex;flex-direction:column;align-items:center;gap:.2em;background:var(--lvs);border-radius:16px;padding:6px}
+.idea{container-type:size;flex:1 1 0;max-width:24%;min-width:0;display:flex;flex-direction:column;align-items:center;gap:.2em;background:var(--lvs);border-radius:16px;padding:6px}
 .idea img{width:100%;flex:1 1 0;min-height:0;object-fit:cover;border-radius:12px}
-.idea span{font-weight:800;font-size:clamp(12px,min(2.4vh,1.6vw),22px);line-height:1.1;text-align:center}
-.idea.emo2 b{flex:1 1 0;display:flex;align-items:center;font-size:clamp(28px,min(9vh,6vw),80px)}
+.idea span{font-weight:800;font-size:clamp(14px,min(3.2vh,2vw),30px);line-height:1.1;text-align:center}
+.idea.emo2 b{flex:1 1 0;display:flex;align-items:center;font-size:min(62cqh,72cqw)}
 .iclock{height:100%;max-height:30vh;aspect-ratio:1;background:#fff;border-radius:50%;box-shadow:0 6px 16px rgba(0,0,0,.18)}.iclock svg{width:100%;height:100%}
 .learn3{justify-content:space-evenly!important;gap:1.2vh!important;align-items:stretch!important}
 .learn3 h2{margin:0;text-align:center;font-size:clamp(22px,min(5.5vh,4.5vw),52px)}
@@ -359,6 +359,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .learn3 .tl,.learn3 .tr,.learn3 .ctile{overflow:hidden;min-height:0;min-width:0}
 .learn3 .tcols{grid-template-rows:minmax(0,1fr)}
 /* S&L additions */
+.scard2 .ideas{flex:2 1 0}
 .learn3 .tr{min-width:0}.learn3 .tr .tclk{height:94%}
 @media (max-width:760px){.learn3 .trow:not(.two):not(.one){grid-template-columns:minmax(0,1fr) auto;grid-template-rows:minmax(0,.55fr) minmax(0,1fr);gap:6px}
  .learn3 .trow:not(.two):not(.one) .tl{grid-column:1;grid-row:1}.learn3 .trow:not(.two):not(.one) .ta{display:none}
@@ -938,7 +939,7 @@ const IDEAS={
  'Is your weekend different?':['bed','🛒 shopping','🌳 the park','👨‍👩‍👧 my family']};
 function ideaGrid(q,main){const L=IDEAS[q]||[main];return `<div class="ideas">${L.map(x=>{const [k,lb]=x.split('|');return [k,lb]}).map(([x,lb])=>IMG[x]?`<div class="idea"><img src="${IMG[x]}" alt=""><span>${esc(lb||PNAME[x]||'')}</span></div>`:`<div class="idea emo2"><b>${x.split(' ')[0]}</b><span>${esc(x.split(' ').slice(1).join(' '))}</span></div>`).join('')}</div>`}
 function rSay(p,it){NOSPK=false;const face=ideaGrid(it.q,it.pic);
- frame(`<div class="wsplit"><div class="card wcard2 scard2"><div class="q mid">${qwords(it.q)} ${sayB(it.q)}</div>${face}${p.id==='say'?'':'<div class="slab">Ideas: choose one or two · Start like this:</div>'}<div class="starter">${esc(it.hint)}</div>${p.id==='say'?'':'<div class="paper">🗣️ Say your answer out loud. Then listen to the example.</div>'}<div id="exw"></div></div>
+ frame(`<div class="wsplit"><div class="card wcard2 scard2"><div class="q mid">${qwords(it.q)} ${sayB(it.q)}</div>${face}${p.id==='say'?'':'<div class="slab">Ideas: choose one or two · Start like this:</div>'}<div class="starter">${esc(it.hint)}</div><div class="paper">🗣️ First, say it. Then listen.</div><div id="exw"></div></div>
  <div class="rcol"><button class="btn lv bigb" id="shw">🔊 Listen to the example</button><div class="rate2 hide" id="rt"><button data-r="R" class="rR">Not yet</button><button data-r="A" class="rA">Nearly</button><button data-r="G" class="rG">I can say it!</button></div></div></div>`);
  $('shw').onclick=()=>{$('exw').innerHTML=`<div class="exbox">${esc(it.ex)} ${sayB(it.ex)}</div>`;speak(it.ex);$('rt').classList.remove('hide');$('shw').classList.add('hide');fitBig()};
  document.querySelectorAll('#rt button').forEach(b=>b.onclick=()=>{if(S.lock)return;S.lock=true;const r=b.dataset.r;const p2=cur();
