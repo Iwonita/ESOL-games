@@ -312,7 +312,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .ipics{display:flex;gap:2vw;justify-content:center;align-items:center;flex:1 1 0;min-height:0}
 .ipics img{height:100%;max-height:30vh;max-width:30vw;object-fit:cover;border-radius:22px;border:4px solid #fff;box-shadow:0 6px 16px rgba(0,0,0,.18)}
 .ipart{display:inline-block;background:var(--lv);color:#fff;font-weight:800;border-radius:99px;padding:.2em .9em;font-size:clamp(16px,min(3.2vh,2.6vw),30px);letter-spacing:.04em}
-.iname{font-family:Georgia,"Times New Roman",serif;font-weight:700;color:var(--lv);font-size:clamp(30px,min(8vh,6.5vw),84px);line-height:1.1}
+.iname{font-weight:900;letter-spacing:.01em;color:var(--lv);font-size:clamp(30px,min(8vh,6.5vw),84px);line-height:1.1}
 .ipics img:only-child{max-width:70vw}
 .ibox2{flex:0 0 auto!important;background:#fff4cc!important;border-color:#e0a800!important;gap:.3em!important}
 .iins{font-weight:800;color:var(--ink);font-size:clamp(20px,min(4.4vh,3.8vw),44px)}
@@ -322,6 +322,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .idea img{width:100%;flex:1 1 0;min-height:0;object-fit:cover;border-radius:12px}
 .idea span{font-weight:800;font-size:clamp(12px,min(2.4vh,1.6vw),22px);line-height:1.1;text-align:center}
 .idea.emo2 b{flex:1 1 0;display:flex;align-items:center;font-size:clamp(28px,min(9vh,6vw),80px)}
+.iclock{height:100%;max-height:30vh;aspect-ratio:1;background:#fff;border-radius:50%;box-shadow:0 6px 16px rgba(0,0,0,.18)}.iclock svg{width:100%;height:100%}
 /* S&L additions */
 .cheer{display:none!important}
 .lcard{justify-content:space-evenly!important}
@@ -831,12 +832,16 @@ function woHead(p,it){if(it.kind)return '<div class="instr">Build the sentence.<
  const G=[['WHO?','#7030A0'],['VERB','#C00000'],['WHAT?','#ED7D31'],['WHERE?','#0070C0'],['WHEN?','#00A651']];
  return `<div class="instr woi">Put the parts in order.</div><div class="woguide">${G.map(([t,c],i)=>`<span class="wog" style="background:${c}">${t}</span>${i<4?'<span class="woa">→</span>':''}`).join('')}</div>`}
 
+
+const HL={lt1:['o’clock','half past'],lt2:['numbers'],t2:['past','to'],t3:['past','to'],hs:['-s'],lhe:['he / she'],ww:['WHERE','WHEN'],ww2:['WHERE','WHEN']};
+const TIMEPICS={lt1:[[7,0],[8,30],[6,15]],lt2:[[6,30],[1,15],[9,0]],t2:[[7,45],[9,20],[5,40]],t3:[[7,40],[2,15],[9,10]]};
+function hlName(p){let h=esc(p.name);(HL[p.id]||[]).forEach(w=>{const c=w==='WHERE'?'#0070C0':w==='WHEN'?'#00A651':'#C00000';h=h.replace(new RegExp('(^|[^A-Za-z])('+w.replace(/[.*+?^${}()|[\]\\/-]/g,'\\$&')+')(?=[^A-Za-z]|$)','g'),`$1<span style="color:${c}">$2</span>`)});return h}
 /* part start screen: pictures, colour and contrast */
 const RKEYS=['up','shower','dressed','breakfast','bus','work','lunch','cook','tv','bed'];
 function introPics(p){if(p.pic&&IMG[p.pic])return [p.pic];let h=0;for(const c of p.id)h=(h*31+c.charCodeAt(0))%997;const out=[];for(let k=0;k<3;k++)out.push(RKEYS[(h+k*3)%RKEYS.length]);return out}
 function restyleIntro(){const p=cur();const cards=document.querySelectorAll('#main .card');if(cards.length<2)return;const a=cards[0],b=cards[1];
- const n=S.base.indexOf(S.queue[S.qi])+1,N=S.base.length;const ins=String(p.instr).split(/(?<=[.!?])\s+/)[0];
- a.className='card icard';a.innerHTML=`<div class="ipics">${introPics(p).map(k=>`<img src="${IMG[k]}" alt="">`).join('')}</div><div class="ipart">${p.icon} Part ${n} of ${N}</div><div class="iname">${esc(p.name)}</div>`;
+ const n=S.base.indexOf(S.queue[S.qi])+1,N=S.base.length;const ins=/WHO/.test(p.instr)?'Put the parts in order.':String(p.instr);
+ a.className='card icard';a.innerHTML=`<div class="ipics">${TIMEPICS[p.id]?TIMEPICS[p.id].map(([h,m])=>`<div class="iclock">${clock(h,m)}</div>`).join(''):introPics(p).map(k=>`<img src="${IMG[k]}" alt="">`).join('')}</div><div class="ipart">${p.icon} Part ${n} of ${N}</div><div class="iname">${hlName(p)}</div>`;
  b.className='card ibox2';b.innerHTML=`<div class="iins">${esc(ins)}</div><div class="icount">${p.items.length} questions · 1 point each${S.attempt[p.id]>1?' · Try '+S.attempt[p.id]:''}</div>`;
  if(typeof fitBig==='function')fitBig()}
 const _i2SL=intro2;intro2=function(){_i2SL();restyleIntro()};
