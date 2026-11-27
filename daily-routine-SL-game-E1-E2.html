@@ -332,7 +332,7 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .trow.one .tl{background:#f5f1ea}
 .trow .ta{color:var(--lv);font-size:1.1em}
 .trow .tr{background:#fff;border:4px solid var(--lv);border-radius:18px;padding:.15em .5em;height:100%;display:flex;align-items:center;justify-content:center;gap:.4em;color:var(--lv)}
-.tclk{height:100%;max-height:14vh;aspect-ratio:1}.tclk svg{width:100%;height:100%}
+.tclk{height:100%;max-height:none;aspect-ratio:1;flex:0 0 auto}.tclk svg{width:100%;height:100%}
 .learn3 .lnext{font-size:clamp(16px,min(3.4vh,2.8vw),32px)!important}
 .seq{display:flex;align-items:center;justify-content:center;gap:.4vw;width:100%;height:100%}
 .sst{flex:1 1 0;min-width:0;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px}
@@ -359,6 +359,11 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .learn3 .tl,.learn3 .tr,.learn3 .ctile{overflow:hidden;min-height:0;min-width:0}
 .learn3 .tcols{grid-template-rows:minmax(0,1fr)}
 /* S&L additions */
+.learn3 .tr{min-width:0}.learn3 .tr .tclk{height:94%}
+@media (max-width:760px){.learn3 .trow:not(.two):not(.one){grid-template-columns:minmax(0,1fr) auto;grid-template-rows:minmax(0,.55fr) minmax(0,1fr);gap:6px}
+ .learn3 .trow:not(.two):not(.one) .tl{grid-column:1;grid-row:1}.learn3 .trow:not(.two):not(.one) .ta{display:none}
+ .learn3 .trow:not(.two):not(.one) .tr{grid-column:1;grid-row:2;padding:4px 8px}.learn3 .trow:not(.two):not(.one) .bspk{grid-column:2;grid-row:1/3}}
+
 .cheer{display:none!important}
 .lcard{justify-content:space-evenly!important}
 .lbtn{font-size:clamp(24px,min(6.5vh,5vw),60px)!important;padding:.3em 1.6em!important;border-radius:24px!important;box-shadow:0 6px 0 rgba(0,0,0,.18)}
@@ -423,7 +428,7 @@ const L1=[
 {id:'wo',name:'Word order',icon:'🧩',type:'order',instr:'Put the parts in order: WHO – VERB – WHAT – WHERE – WHEN.',lesson:{title:'Word order',rules:['<b style="color:#7030A0">WHO?</b> → <b style="color:#C00000">VERB</b> → <b style="color:#ED7D31">WHAT?</b> → <b style="color:#0070C0">WHERE?</b> → <b style="color:#00A651">WHEN?</b>'],examples:['I | have | lunch | at work | at 1 o’clock.']},
  items:[{w:['I','have','lunch','at work','at 1 o’clock'],end:'.'},{w:['Tomasz','drives','a bus','in Hanley','every day'],end:'.'},{w:['We','watch','TV','at home','in the evening'],end:'.'},{w:['She','has','a shower','in the bathroom','at 7 o’clock'],end:'.'}]},
 {id:'say',name:'Say it: my day',icon:'🗣️',type:'say',instr:'Say your answer out loud.',noLearn:1,
- items:SY([['What time do you get up?','up','I get up at …','I get up at 7 o’clock.'],['What do you have for breakfast?','breakfast','I have … for breakfast.','I have bread and tea for breakfast.'],['How do you go to college?','bus','I go to college by …','I go to college by bus.'],['What do you do in the evening?','tv','In the evening, I …','In the evening, I cook dinner and I watch TV.'],['What time do you go to bed?','bed','I go to bed at …','I go to bed at 11 o’clock.']])},
+ items:SY([['What time do you get up?','up','I get up at …','I get up at 7 o’clock.'],['What do you have for breakfast?','breakfast','I have … for breakfast.','I have bread and tea for breakfast.'],['How do you go to college?','bus','I go to college …','I go to college by bus.'],['What do you do in the evening?','tv','In the evening, I …','In the evening, I cook dinner and I watch TV.'],['What time do you go to bed?','bed','I go to bed at …','I go to bed at 11 o’clock.']])},
 {id:'st1',name:'Challenge: who is earlier?',icon:'⭐',type:'listen',instr:'Listen. Answer the questions.',noLearn:1,
  audio:'Tomasz gets up at five o’clock. His wife, Ewa, gets up at seven o’clock. Tomasz goes to bed at ten o’clock. Ewa goes to bed at eleven o’clock.',
  items:LQ([['Who gets up earlier?','Tomasz',['Ewa']],['Who goes to bed later?','Ewa',['Tomasz']],['What time does Ewa get up?','at 7 o’clock',['at 5 o’clock','at 11 o’clock']]])},
@@ -924,14 +929,14 @@ function rListen(p,it){NOSPK=true;const audio=p.audio||it.say;const vis=it.opts.
 const IDEAS={
  'What time do you get up?':['up','shower','dressed','breakfast'],
  'What do you have for breakfast?':['🍞 bread','☕ tea','🥚 eggs','🍌 a banana','🥣 cereal'],
- 'How do you go to college?':['bus','🚶 walk','🚗 car','🚲 bike'],
+ 'How do you go to college?':['🚶 on foot','bus|by bus','🚗 by car'],
  'What do you do in the evening?':['cook','tv','shower','bed'],
  'What time do you go to bed?':['bed','🕙 10 o’clock','🕚 11 o’clock','🕛 12 o’clock'],
  'What do you do in the morning?':['up','shower','dressed','breakfast'],
  'How do you get to college or work?':['bus','🚶 walk','🚗 car','💷 cheap','⚡ quick'],
  'What do you do after college?':['cook','lunch','👧 pick up my children','🛒 go shopping'],
  'Is your weekend different?':['bed','🛒 shopping','🌳 the park','👨‍👩‍👧 my family']};
-function ideaGrid(q,main){const L=IDEAS[q]||[main];return `<div class="ideas">${L.map(x=>IMG[x]?`<div class="idea"><img src="${IMG[x]}" alt=""><span>${esc(PNAME[x]||'')}</span></div>`:`<div class="idea emo2"><b>${x.split(' ')[0]}</b><span>${esc(x.split(' ').slice(1).join(' '))}</span></div>`).join('')}</div>`}
+function ideaGrid(q,main){const L=IDEAS[q]||[main];return `<div class="ideas">${L.map(x=>{const [k,lb]=x.split('|');return [k,lb]}).map(([x,lb])=>IMG[x]?`<div class="idea"><img src="${IMG[x]}" alt=""><span>${esc(lb||PNAME[x]||'')}</span></div>`:`<div class="idea emo2"><b>${x.split(' ')[0]}</b><span>${esc(x.split(' ').slice(1).join(' '))}</span></div>`).join('')}</div>`}
 function rSay(p,it){NOSPK=false;const face=ideaGrid(it.q,it.pic);
  frame(`<div class="wsplit"><div class="card wcard2 scard2"><div class="q mid">${qwords(it.q)} ${sayB(it.q)}</div>${face}<div class="slab">Ideas: choose one or two · Start like this:</div><div class="starter">${esc(it.hint)}</div><div class="paper">🗣️ Say your answer out loud. Then listen to the example.</div><div id="exw"></div></div>
  <div class="rcol"><button class="btn lv bigb" id="shw">🔊 Listen to the example</button><div class="rate2 hide" id="rt"><button data-r="R" class="rR">Not yet</button><button data-r="A" class="rA">Nearly</button><button data-r="G" class="rG">I can say it!</button></div></div></div>`);
@@ -949,8 +954,10 @@ let _AU=null;const _speakTTS=speak;
 speak=function(t){const src=AUD[akey(t)];if(!src){_speakTTS(t);return}try{speechSynthesis.cancel()}catch(e){};try{if(_AU)_AU.pause()}catch(e){};_AU=new Audio(src);_AU.playbackRate=RATE?1:0.8;_AU.play().catch(()=>_speakTTS(t))};
 
 /* story questions: question big, answers smaller than the question */
-function capLS(){const q=document.querySelector('.lsplit .lcard .q')||document.querySelector('.lsplit .lcard .heard');if(!q)return;const cap=innerWidth<760?26:Math.max(18,parseFloat(getComputedStyle(q).fontSize)*1.0);
- document.querySelectorAll('.lsplit .opt span').forEach(sp=>{const f=parseFloat(getComputedStyle(sp).fontSize);if(f>cap)sp.style.setProperty('font-size',cap+'px','important')})}
+function capLS(){const bs=[...document.querySelectorAll('.lopts .opt, .lsplit .opt')].filter(b=>!b.querySelector('img,svg')&&b.querySelector('span'));if(!bs.length)return;let best=300;
+ bs.forEach(b=>{const sp=b.querySelector('span');sp.style.whiteSpace='nowrap';const cs=getComputedStyle(b);const W=b.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight)-8,H=b.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+  let f=Math.min(H*0.62,innerWidth<760?90:110);sp.style.setProperty('font-size',f+'px','important');let w=sp.scrollWidth;if(w>W){f=f*W/w;sp.style.setProperty('font-size',f+'px','important')}best=Math.min(best,f)});
+ bs.forEach(b=>b.querySelector('span').style.setProperty('font-size',Math.max(14,best)+'px','important'))}
 const _fbLS=fitBig;fitBig=function(){_fbLS();capLS();setTimeout(capLS,400)};
 
 /* tips: words as big as each box allows (same size across the screen) */
