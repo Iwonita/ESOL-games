@@ -939,7 +939,7 @@ const IDEAS={
  'Is your weekend different?':['bed','🛒 shopping','🌳 the park','👨‍👩‍👧 my family']};
 function ideaGrid(q,main){const L=IDEAS[q]||[main];return `<div class="ideas">${L.map(x=>{const [k,lb]=x.split('|');return [k,lb]}).map(([x,lb])=>IMG[x]?`<div class="idea"><img src="${IMG[x]}" alt=""><span>${esc(lb||PNAME[x]||'')}</span></div>`:`<div class="idea emo2"><b>${x.split(' ')[0]}</b><span>${esc(x.split(' ').slice(1).join(' '))}</span></div>`).join('')}</div>`}
 function rSay(p,it){NOSPK=false;const face=ideaGrid(it.q,it.pic);
- frame(`<div class="wsplit"><div class="card wcard2 scard2"><div class="q mid">${qwords(it.q)} ${sayB(it.q)}</div>${face}${p.id==='say'?'':'<div class="slab">Ideas: choose one or two · Start like this:</div>'}<div class="starter">${esc(it.hint)}</div><div class="paper">🗣️ First, say it. Then listen.</div><div id="exw"></div></div>
+ frame(`<div class="wsplit"><div class="card wcard2 scard2"><div class="q mid">${qwords(it.q)} ${sayB(it.q)}</div>${face}<div class="starter">${esc(it.hint)}</div><div class="paper">🗣️ First, say it. Then listen.</div><div id="exw"></div></div>
  <div class="rcol"><button class="btn lv bigb" id="shw">🔊 Listen to the example</button><div class="rate2 hide" id="rt"><button data-r="R" class="rR">Not yet</button><button data-r="A" class="rA">Nearly</button><button data-r="G" class="rG">I can say it!</button></div></div></div>`);
  $('shw').onclick=()=>{$('exw').innerHTML=`<div class="exbox">${esc(it.ex)} ${sayB(it.ex)}</div>`;speak(it.ex);$('rt').classList.remove('hide');$('shw').classList.add('hide');fitBig()};
  document.querySelectorAll('#rt button').forEach(b=>b.onclick=()=>{if(S.lock)return;S.lock=true;const r=b.dataset.r;const p2=cur();
