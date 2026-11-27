@@ -348,6 +348,12 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 .ttile img{height:100%;max-height:22vh;aspect-ratio:1;object-fit:cover;border-radius:14px}
 .ttile i{font-style:normal;font-size:.7em}
 @media (max-width:760px){.ttile{flex-direction:column;font-size:clamp(16px,5vw,24px)!important}.ttile img{max-height:14vh}}
+.tcols{flex:1 1 0;min-height:0;display:grid;gap:1.2vw;grid-template-columns:repeat(2,1fr)}
+.tcols.n1{grid-template-columns:1fr}.tcols.n3{grid-template-columns:repeat(3,1fr)}
+.ctile{border:0;border-radius:20px;background:var(--lvs);font:inherit;color:var(--ink);font-weight:900;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.4em;padding:.4em .6em;text-align:center;font-size:clamp(20px,min(6vh,3.4vw),56px);box-shadow:0 5px 0 rgba(0,0,0,.08)}
+.ctile i{font-style:normal;font-size:.8em;background:var(--lv);border-radius:99px;padding:.1em .6em}
+.ctile b{color:#C00000}
+@media (max-width:760px){.tcols,.tcols.n3{grid-template-columns:1fr}.ctile{font-size:clamp(18px,5.5vw,28px)}}
 /* S&L additions */
 .cheer{display:none!important}
 .lcard{justify-content:space-evenly!important}
@@ -470,7 +476,7 @@ const LEARN={1:{
  lt1:['<b>o’clock</b> = 12','<b>half past</b> = 6'],
  lt2:['half past six = 6:30','quarter past one = 1:15'],
  lhe:['she get<b>s</b> • he go<b>es</b>','he <b>has</b> • she <b>doesn’t</b>'],
- tom:['Read the question.','Listen 🔊 again if you need.'],
+ tom:['Read the question.','Listen again if you need.'],
  qa:['What time …? → At …','Do you …? → Yes, I do.'],
  oq:['What time + do you … ?','Do you … ?'],
  ww:['<b style="color:#0070C0">WHERE?</b> = a place','<b style="color:#00A651">WHEN?</b> = a time','at home = WHERE • at 7 = WHEN'],
@@ -876,7 +882,10 @@ learn=function(p){hud();const L=p.lesson,R=(LEARN[S.level]||{})[p.id];if(!L&&!R)
   if(m.length===2){const tile=w=>{const t=String(w).replace(/<[^>]+>/g,'').trim();const k=Object.keys(PNAME).find(x=>PNAME[x]===t)||({'I cook':'cook','I watch':'tv','take the bus':'bus','start work':'work'})[t];return `<button class="tl ttile" onclick='speak(${JSON.stringify(t).replace(/'/g,"&#39;")})'>${k?`<img src="${IMG[k]}" alt="">`:''}<span>${hlTip(mk(w))}</span><i>🔊</i></button>`};
    return `<div class="trow two">${tile(m[0])}<div class="ta">•</div>${tile(m[1])}</div>`}
   return `<div class="trow one"><div class="tl"><span>${hlTip(mk(r))}</span></div>${spk(r)}</div>`};
- frame(`<div class="card learn3"><h2>📘 ${esc(L?L.title:p.name)}</h2>${rows.map(cell).join('')}<div class="lnext">Next: ${esc(/WHO/.test(p.instr)?'Put the parts in order.':p.instr)}</div></div>`);
+ const allOne=rows.every(r=>!/\s+(?:=|→|•)\s+/.test(r));
+ const colTile=r=>{const t=plain(r);return `<button class="ctile" onclick='speak(${JSON.stringify(t).replace(/'/g,"&#39;")})'><span>${hlTip(mk(r))}</span><i>🔊</i></button>`};
+ const body=allOne?`<div class="tcols n${rows.length}">${rows.map(colTile).join('')}</div>`:rows.map(cell).join('');
+ frame(`<div class="card learn3"><h2>📘 ${esc(L?L.title:p.name)}</h2>${body}<div class="lnext">Next: ${esc(/WHO/.test(p.instr)?'Put the parts in order.':p.instr)}</div></div>`);
  setActions(`<button class="btn lv" id="go">I’m ready ▶</button>`);$('go').onclick=intro2;$('go').focus()};
 /* part start screen: pictures, colour and contrast */
 const RKEYS=['up','shower','dressed','breakfast','bus','work','lunch','cook','tv','bed'];
@@ -936,7 +945,7 @@ let _AU=null;const _speakTTS=speak;
 speak=function(t){const src=AUD[akey(t)];if(!src){_speakTTS(t);return}try{speechSynthesis.cancel()}catch(e){};try{if(_AU)_AU.pause()}catch(e){};_AU=new Audio(src);_AU.playbackRate=RATE?1:0.8;_AU.play().catch(()=>_speakTTS(t))};
 
 /* story questions: question big, answers smaller than the question */
-function capLS(){const q=document.querySelector('.lsplit .lcard .q')||document.querySelector('.lsplit .lcard .heard');if(!q)return;const cap=innerWidth<760?24:Math.max(16,parseFloat(getComputedStyle(q).fontSize)*0.8);
+function capLS(){const q=document.querySelector('.lsplit .lcard .q')||document.querySelector('.lsplit .lcard .heard');if(!q)return;const cap=innerWidth<760?26:Math.max(18,parseFloat(getComputedStyle(q).fontSize)*1.0);
  document.querySelectorAll('.lsplit .opt span').forEach(sp=>{const f=parseFloat(getComputedStyle(sp).fontSize);if(f>cap)sp.style.setProperty('font-size',cap+'px','important')})}
 const _fbLS=fitBig;fitBig=function(){_fbLS();capLS();setTimeout(capLS,400)};
 setRate(1);startScreen();try{speechSynthesis.getVoices()}catch(e){}
