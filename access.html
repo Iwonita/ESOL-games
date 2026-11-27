@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Teacher – course links</title>
-<!-- ESOL-ACCESS v1 (22 Nov 2026): course links last 60 days; teacher device always open; works offline -->
+<!-- ESOL-ACCESS v1 (22 Nov 2026): course links last 40 days; teacher device always open; works offline -->
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#012169"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes">
 <script>
 (function(){
- var SALT='esolita-games-2026',DAY=864e5,BASE=Date.UTC(2026,0,1),LIFE=60,THASH=3186367985,OLD_END=Date.UTC(2027,0,21);
+ var SALT='esolita-games-2026',DAY=864e5,BASE=Date.UTC(2026,0,1),LIFE=40,THASH=3186367985,OLD_END=Date.UTC(2027,0,21);
  function h(x){var a=2166136261;x=String(x);for(var i=0;i<x.length;i++){a^=x.charCodeAt(i);a=Math.imul(a,16777619)>>>0}return a}
  function mk(d){return d.toString(36)+('0'+(h(SALT+d)%1296).toString(36)).slice(-2)}
  function parse(c){if(!c||c.length<3)return null;var d=parseInt(c.slice(0,-2),36);return (isFinite(d)&&mk(d)===c)?d:null}
@@ -28,7 +28,7 @@
  document.write('<style>body>*:not(#esolgate){display:none!important}#esolgate{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;background:#eef3fb;font-family:"Atkinson Hyperlegible",Verdana,Arial,sans-serif;padding:24px;text-align:center}#esolgate div{max-width:640px;background:#fff;border:4px solid #012169;border-radius:24px;padding:28px 24px;box-shadow:0 8px 0 rgba(0,0,0,.12)}#esolgate h1{color:#012169;font-size:clamp(28px,6vw,48px);margin:.2em 0}#esolgate p{font-size:clamp(20px,4vw,30px);color:#262626;margin:.4em 0}</style>');
  addEventListener('DOMContentLoaded',function(){var g=document.createElement('div');g.id='esolgate';
    g.innerHTML='<div><svg viewBox="0 0 60 30" width="150" height="75"><clipPath id="gs"><path d="M0,0 v30 h60 v-30 z"/></clipPath><path d="M0,0 v30 h60 v-30 z" fill="#012169"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 L60,30 M60,0 L0,30" stroke="#C8102E" stroke-width="4" clip-path="url(#gs)"/><path d="M30,0 v30 M0,15 h60" stroke="#fff" stroke-width="10"/><path d="M30,0 v30 M0,15 h60" stroke="#C8102E" stroke-width="6"/></svg>'+
-   (ended?'<h1>This link has ended</h1><p>Your 60 days with this game are over.</p><p>Ask your teacher for a new link or QR code.</p>'
+   (ended?'<h1>This link has ended</h1><p>Your 40 days with this game are over.</p><p>Ask your teacher for a new link or QR code.</p>'
          :'<h1>Ask your teacher</h1><p>Please open the game from your teacher’s link or QR code.</p>')+'</div>';
    document.body.appendChild(g);try{speechSynthesis.cancel()}catch(e){}});
 })();
@@ -66,7 +66,7 @@ else{
  m.innerHTML=`<div class="card"><h2>1. When does the course start?</h2>
   <label>Start date <input type="date" id="sd" value="${iso(start0)}"></label>
   <p class="until" id="un"></p>
-  <p class="note">Learners can play every game for 60 days from this date – on their phones, online and offline. After that the link stops working.</p></div>
+  <p class="note">Learners can play every game for 40 days from this date – on their phones, online and offline. After that the link stops working.</p></div>
  <div class="card"><h2>2. Give learners this link or QR code</h2>
   <p class="big">It opens the games menu. Learners only need it once – after that the games open from the menu or the home-screen icon.</p>
   <div class="link" id="ln"></div><div id="qr"></div>
