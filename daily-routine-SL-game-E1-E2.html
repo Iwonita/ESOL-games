@@ -298,6 +298,11 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 /* 22 Nov 2026: no big Well done / Brilliant banner – it covered the answer */
 .cheer{display:none!important}
 
+.lsplit{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1.2fr;gap:12px}
+.lsplit .lcard{flex:1 1 auto!important;min-height:0}
+.lsplit .lopts{grid-template-columns:1fr!important;grid-auto-rows:1fr;height:100%!important;min-height:0}
+.lsplit .lpic{max-height:34vh;max-width:80%}
+@media (max-width:760px){.lsplit{grid-template-columns:1fr;grid-template-rows:auto 1fr}.lsplit .lpic{max-height:18vh}}
 /* S&L additions */
 .cheer{display:none!important}
 .lcard{justify-content:space-evenly!important}
@@ -801,7 +806,8 @@ function rListen(p,it){NOSPK=true;const audio=p.audio||it.say;const vis=it.opts.
  const grid=`<div class="opts lopts ${vis?'vis3':''} n${o.length} ${!vis&&o.some(x=>x.length>(innerWidth<760?14:26))?'long':''} ${!vis&&o.every(x=>x.length<=10)?'short':''}">${o.map(v=>`<button class="opt ${vis?'popt':''}" data-v="${esc(v)}">${optFace(v)}</button>`).join('')}</div>`;
  const qtxt=it.q?`<div class="q mid">${mk(esc(it.q)).replace('___','<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>')}</div>`:'';
  const who=p.pic&&IMG[p.pic]?`<img class="lpic" src="${IMG[p.pic]}" alt="">`:'';
- frame(`<div class="card lcard">${who}<button class="btn lv lbtn" id="lb">🔊 ${p.audio?'Listen again':'Listen'}</button>${p.audio?`<div class="instr">Question ${S.item+1} of ${p.items.length}</div>`:''}${qtxt}</div>${grid}`);
+ const inner=`<div class="card lcard">${who}<button class="btn lv lbtn" id="lb">🔊 ${p.audio?'Listen again':'Listen'}</button>${p.audio?`<div class="instr">Question ${S.item+1} of ${p.items.length}</div>`:''}${qtxt}</div>`;
+ frame(p.audio&&!vis?`<div class="lsplit">${inner}${grid}</div>`:inner+grid);
  $('lb').onclick=()=>playIt(audio);
  if(!p.audio||S.item===0)setTimeout(()=>playIt(audio),350);
  document.querySelectorAll('.lopts .opt').forEach(b=>b.onclick=()=>{if(S.lock)return;S.lock=true;const ok=b.dataset.v===it.a;
