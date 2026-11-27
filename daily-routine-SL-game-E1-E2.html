@@ -487,7 +487,7 @@ function learn(p){hud();const L=p.lesson,R=(LEARN[S.level]||{})[p.id];if(!L&&!R)
  setActions(`<button class="btn lv" id="go">I’m ready ▶</button>`);$('go').onclick=intro2;$('go').focus()}
 function intro(){const p=cur();if(!(S.attempt[p.id]>0)&&p.lesson&&!p.noLearn){S.attempt[p.id]=0;learn(p);return}intro2()}
 function intro2(){const p=cur();S.item=0;S.res[p.id]=undefined;delete S.res[p.id];S.log[p.id]=[];S.attempt[p.id]=(S.attempt[p.id]||0)+1;S.order=shuffle(p.items.map((_,i)=>i));hud();
- frame(`<div class="card"><div class="big" style="letter-spacing:0;font-size:clamp(60px,18vh,190px)">${p.icon}</div><div class="q intro">Part ${S.base.indexOf(S.queue[S.qi])+1} of ${S.base.length}: ${esc(p.name)}</div></div><div class="card ibox"><div class="instr bigi">${esc(String(p.instr).split(/(?<=[.!?])\s+/)[0])}</div><div class="instr bigi">${p.items.length} questions · 1 point each${S.attempt[p.id]>1?' · Try '+S.attempt[p.id]:''}</div></div>`);
+ frame(`<div class="card"><div class="big" style="letter-spacing:0;font-size:clamp(60px,18vh,190px)">${p.pic&&IMG[p.pic]?`<img src="${IMG[p.pic]}" alt="" style="height:clamp(120px,30vh,320px);border-radius:18px">`:p.icon}</div><div class="q intro">Part ${S.base.indexOf(S.queue[S.qi])+1} of ${S.base.length}: ${esc(p.name)}</div></div><div class="card ibox"><div class="instr bigi">${esc(String(p.instr).split(/(?<=[.!?])\s+/)[0])}</div><div class="instr bigi">${p.items.length} questions · 1 point each${S.attempt[p.id]>1?' · Try '+S.attempt[p.id]:''}</div></div>`);
  setActions(`<button class="btn lv" id="go">Start ▶</button>`);$('go').onclick=show;$('go').focus()}
 function show(){S.lock=false;const p=cur(),it=p.items[S.order[S.item]];hud();
  const t=p.type==='mixed'?it.kind:p.type;NOSPK=(t==='letters'||t==='gaps');({gaps:rGaps,mcq:rMCQ,letters:rLetters,caps:rCaps,punct:rPunct,order:rOrder,reading:rReading,scene:rScene,write:rWrite,listen:rListen,say:rSay})[t](p,it)}
@@ -805,7 +805,7 @@ function rListen(p,it){NOSPK=true;const audio=p.audio||it.say;const vis=it.opts.
  const o=shuffle(it.opts);
  const grid=`<div class="opts lopts ${vis?'vis3':''} n${o.length} ${!vis&&o.some(x=>x.length>(innerWidth<760?14:26))?'long':''} ${!vis&&o.every(x=>x.length<=10)?'short':''}">${o.map(v=>`<button class="opt ${vis?'popt':''}" data-v="${esc(v)}">${optFace(v)}</button>`).join('')}</div>`;
  const qtxt=it.q?`<div class="q mid">${mk(esc(it.q)).replace('___','<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>')}</div>`:'';
- const who=p.pic&&IMG[p.pic]?`<img class="lpic" src="${IMG[p.pic]}" alt="">`:'';
+ const who='';/* no pictures while listening */
  const inner=`<div class="card lcard">${who}<button class="btn lv lbtn" id="lb">🔊 ${p.audio?'Listen again':'Listen'}</button>${p.audio?`<div class="instr">Question ${S.item+1} of ${p.items.length}</div>`:''}${qtxt}</div>`;
  frame(p.audio&&!vis?`<div class="lsplit">${inner}${grid}</div>`:inner+grid);
  $('lb').onclick=()=>playIt(audio);
