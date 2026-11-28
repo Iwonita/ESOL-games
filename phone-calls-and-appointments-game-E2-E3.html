@@ -297,6 +297,20 @@ textarea.tbox{flex:none;resize:none;overflow:hidden;line-height:1.3;white-space:
 
 /* 22 Nov 2026: no big Well done / Brilliant banner – it covered the answer */
 .cheer{display:none!important}
+
+/* 28 Nov 2026 – Iwona: small "Block N" with the name below; mini lesson in two halves; titles in green */
+.pmenu .btile .bno{font-size:.55em;font-weight:700;color:#555}
+.pmenu .btile .bname{line-height:1.1}
+.lsplit{flex:1;min-height:0;display:grid;grid-template-columns:1.6fr 1fr;gap:12px}
+.lsplit .card{min-height:0}
+.lleft{justify-content:space-evenly!important}
+.lright{justify-content:center!important;gap:3vh!important}
+.ltitle{margin:0;color:#2e7d32;font-size:clamp(26px,min(7vh,4.2vw),64px);line-height:1.15}
+.linstr{font-weight:800;font-size:clamp(20px,min(4.4vh,2.8vw),40px);background:#fff4cc;border-radius:14px;padding:.4em .7em}
+.lready{font-size:clamp(22px,min(5vh,3vw),46px)!important;padding:.4em 1.2em!important}
+.q.intro{color:#2e7d32}
+.lleft .lrow2{font-size:clamp(22px,min(7vh,4vw),70px)}
+@media (max-width:760px){.lsplit{grid-template-columns:1fr;grid-template-rows:1fr auto}.lright{gap:1.2vh!important}}
 </style></head><body class="l1">
 <header><span class="flag" aria-hidden="true"></span><span class="brand">Phone calls and appointments</span><div id="hud"></div>
 <div class="sw"><button id="sp0" onclick="setRate(0)">🐢</button><button id="sp1" onclick="setRate(1)">Normal</button></div></header>
@@ -342,7 +356,7 @@ const L1=[
 
 {id:'ttype',name:'What kind of text?',icon:'📱',type:'mcq',instr:'What kind of text is it?',long:true,
  lesson:{title:'Text types',rules:['<b>text message</b> – short, on your phone','<b>letter</b> – Dear … Yours sincerely','<b>form</b> – boxes: name, date of birth …'],examples:['“Reply Y to confirm.” → <b>a text message</b>']},
- items:MC([['“Reminder: eye test tomorrow 10:15. Reply Y to confirm.”','a text message',['a letter','a poster'],'📱'],['“Dear Mr Haddad, … Yours sincerely, Parkview Surgery”','a letter',['a text message','a form'],'✉️'],['“Hello, it’s Ana from the optician. Please call me back.”','a voicemail (phone message)',['a poster','a form'],'📞'],['First name: ____  Surname: ____  Date of birth: ____','a form',['a letter','a voicemail'],'📝'],['“FREE flu jabs! Saturday 10–2 at Parkview Surgery”','a poster',['a form','a letter'],'📢'],['To: office@school.example  Subject: Parents’ evening','an email',['a poster','a voicemail'],'📧']])},
+ items:MC([['“Reminder: eye test tomorrow 10:15. Reply Y to confirm.”','a text message',['a letter','a poster'],'📱'],['“Dear Mr Haddad, … Yours sincerely, Parkview Surgery”','a letter',['a text message','a form'],'✉️'],['“Hello, it’s Ana from the optician. Please call me back.”','a voicemail (phone message)',['a poster','a form'],'📞'],['First name: ……  Surname: ……  Date of birth: ……','a form',['a letter','a voicemail'],'📝'],['“FREE flu jabs! Saturday 10–2 at Parkview Surgery”','a poster',['a form','a letter'],'📢'],['To: office@school.example  Subject: Parents’ evening','an email',['a poster','a voicemail'],'📧']])},
 {id:'purpose',name:'Why was it written?',icon:'🎯',type:'mcq',instr:'Choose the purpose.',long:true,
  lesson:{title:'Why was it written?',rules:['<b>to remind</b> – don’t forget!','<b>to confirm</b> – yes, it is booked','<b>to advertise</b> – come and buy / come and see'],examples:['“Your appointment is tomorrow.” → <b>to remind</b>']},
  items:MC([['“Don’t forget: your appointment is tomorrow at 3.”','to remind',['to advertise','to say sorry']],['“Your appointment is booked for Tue 9 Dec at 11:00.”','to confirm',['to advertise','to complain']],['“New dentist in town! 20% off your first check-up!”','to advertise',['to confirm','to remind']],['“I’m sorry, I can’t come on Friday. I need to cancel.”','to cancel',['to advertise','to remind']],['“What time does the surgery open on Saturday?”','to ask for information',['to confirm','to advertise']]])},
@@ -490,8 +504,8 @@ const mk=h=>String(h).replace(/[✘✗]/g,'<span class="xr">✘</span>').replace
 const plain=h=>String(h).replace(/<[^>]+>/g,'').replace(/[•→=]/g,',');
 function learn(p){hud();const L=p.lesson,R=(LEARN[S.level]||{})[p.id];if(!L&&!R){intro2();return}
  const rows=R||L.rules.slice(0,3);
- frame(`<div class="card learn2"><h2>📘 ${esc(L?L.title:p.name)}</h2>${rows.map(r=>`<div class="lrow2"><span class="t">${mk(r)}</span><button class="bspk" onclick='speak(${JSON.stringify(plain(r)).replace(/'/g,"&#39;")})'>🔊</button></div>`).join('')}<div class="lnext">Next: ${esc(p.instr)}</div></div>`);
- setActions(`<button class="btn lv" id="go">I’m ready ▶</button>`);$('go').onclick=intro2;$('go').focus()}
+ frame(`<div class="lsplit"><div class="card learn2 lleft">${rows.map(r=>`<div class="lrow2"><span class="t">${mk(r)}</span><button class="bspk" onclick='speak(${JSON.stringify(plain(r)).replace(/'/g,"&#39;")})'>🔊</button></div>`).join('')}</div><div class="card lright"><h2 class="ltitle">${esc(L?L.title:p.name)}</h2><div class="linstr">${esc(p.instr)}</div><button class="btn lv lready" id="go">I’m ready ▶</button></div></div>`);
+ setActions('');$('go').onclick=intro2;$('go').focus()}
 function intro(){const p=cur();if(!(S.attempt[p.id]>0)&&p.lesson&&!p.noLearn){S.attempt[p.id]=0;learn(p);return}intro2()}
 function intro2(){const p=cur();S.item=0;S.res[p.id]=undefined;delete S.res[p.id];S.log[p.id]=[];S.attempt[p.id]=(S.attempt[p.id]||0)+1;S.order=shuffle(p.items.map((_,i)=>i));hud();
  frame(`<div class="card"><div class="big" style="letter-spacing:0;font-size:clamp(60px,18vh,190px)">${p.icon}</div><div class="q intro">Part ${S.base.indexOf(S.queue[S.qi])+1} of ${S.base.length}: ${esc(p.name)}</div></div><div class="card ibox"><div class="instr bigi">${esc(String(p.instr).split(/(?<=[.!?])\s+/)[0])}</div><div class="instr bigi">${p.items.length} questions · 1 point each${S.attempt[p.id]>1?' · Try '+S.attempt[p.id]:''}</div></div>`);
@@ -608,7 +622,7 @@ function hud(){if(!S.level){$('hud').innerHTML='';return}
  $('hud').innerHTML=`<button class="menub" onclick="blocksMenu()">☰ Blocks</button><span class="pill">${lvName()}${b?' · Block '+b[0]:''}</span><span class="dots">${b?bQueue(b).map(i=>{const p=parts()[i];const c=S.done[p.id]?ragOf(S.res[p.id]||0,p.items.length):'';return `<span class="dot ${c} ${S.queue[S.qi]===i&&!c?'now':''}" title="${esc(p.name)}"></span>`}).join(''):''}</span>`}
 function blocksMenu(){try{speechSynthesis.cancel()}catch(e){};S.block=null;hud();const B=BLOCKS[S.level];
  const c=S.cur;const cp=c&&c.queue&&parts()[c.queue[c.qi]];
- frame(`<div class="card pmenu"><div class="q mid">${lvName()} – choose a block</div>${cp?`<button class="btn lv cont" onclick="resume()">▶ Continue: Block ${esc(c.b)} · ${esc(cp.name)} · question ${c.item+1}</button>`:''}<div class="pgrid">${B.map((b,k)=>{const t=blockStat(b);const full=t.n===t.all&&t.all>0;const lab=t.n===0?(c&&c.b===b[0]?'started':'not started'):!full?`${t.n} of ${t.all} parts done`:`${fmt(t.sc)} / ${t.mx}  ${RN[t.r]}`;return `<button class="ptile btile ${full?'b'+t.r:''}" onclick="playBlock(${k})"><span class="pi">${b[2]}</span><span>Block ${b[0]} – ${esc(b[1])}</span><span class="pr ${full?t.r:t.n?'P':'N'}">${lab}</span></button>`}).join('')}</div></div>`);
+ frame(`<div class="card pmenu"><div class="q mid">${lvName()} – choose a block</div>${cp?`<button class="btn lv cont" onclick="resume()">▶ Continue: Block ${esc(c.b)} · ${esc(cp.name)} · question ${c.item+1}</button>`:''}<div class="pgrid">${B.map((b,k)=>{const t=blockStat(b);const full=t.n===t.all&&t.all>0;const lab=t.n===0?(c&&c.b===b[0]?'started':'not started'):!full?`${t.n} of ${t.all} parts done`:`${fmt(t.sc)} / ${t.mx}  ${RN[t.r]}`;return `<button class="ptile btile ${full?'b'+t.r:''}" onclick="playBlock(${k})"><span class="pi">${b[2]}</span><span class="bno">Block ${b[0]}</span><span class="bname">${esc(b[1])}</span><span class="pr ${full?t.r:t.n?'P':'N'}">${lab}</span></button>`}).join('')}</div></div>`);
  setActions(`<button class="btn sec" id="hm">⬅ Level</button><button class="btn" id="rs">My results</button><button class="btn sec" id="wipeall">🗑 Start again</button>`);
  $('hm').onclick=startScreen;$('rs').onclick=results;$("wipeall").onclick=()=>{if(confirm('Delete all your answers for '+lvName()+' and start again?')){st(KEY(S.level),'{}');go(S.level)}}}
 function playBlock(k){const b=BLOCKS[S.level][k];const q=bQueue(b);if(!q.length)return;S.block=k;const t=blockStat(b);
@@ -661,7 +675,7 @@ function partDone(){const p=cur(),sc=S.res[p.id]||0,mx=p.items.length,r=ragOf(sc
  $('bm').onclick=blocksMenu;$('nx').onclick=()=>{if(last)blockResults(S.block);else{S.qi++;intro()}};$('nx').focus()}
 function blocksMenu(){try{speechSynthesis.cancel()}catch(e){};S.block=null;hud();const B=BLOCKS[S.level];
  const c=S.cur;const cp=c&&c.queue&&parts()[c.queue[c.qi]];
- frame(`<div class="card pmenu"><div class="q mid">${lvName()} – choose a block</div>${cp?`<button class="btn lv cont" onclick="resume()">▶ Continue: Block ${esc(c.b)} · ${esc(cp.name)} · question ${c.item+1}</button>`:''}<div class="pgrid">${B.map((b,k)=>{const t=blockStat(b);const full=t.n===t.all&&t.all>0;const lab=t.n===0?(c&&c.b===b[0]?'started':'not started'):!full?`${t.n} of ${t.all} parts done`:`${pct(t.sc,t.mx)}%  ${RN[t.r]}`;return `<button class="ptile btile ${full?'b'+t.r:''}" onclick="playBlock(${k})"><span class="pi">${b[2]}</span><span>Block ${b[0]} – ${esc(b[1])}</span><span class="pr ${full?t.r:t.n?'P':'N'}">${lab}</span></button>`}).join('')}</div></div>`);
+ frame(`<div class="card pmenu"><div class="q mid">${lvName()} – choose a block</div>${cp?`<button class="btn lv cont" onclick="resume()">▶ Continue: Block ${esc(c.b)} · ${esc(cp.name)} · question ${c.item+1}</button>`:''}<div class="pgrid">${B.map((b,k)=>{const t=blockStat(b);const full=t.n===t.all&&t.all>0;const lab=t.n===0?(c&&c.b===b[0]?'started':'not started'):!full?`${t.n} of ${t.all} parts done`:`${pct(t.sc,t.mx)}%  ${RN[t.r]}`;return `<button class="ptile btile ${full?'b'+t.r:''}" onclick="playBlock(${k})"><span class="pi">${b[2]}</span><span class="bno">Block ${b[0]}</span><span class="bname">${esc(b[1])}</span><span class="pr ${full?t.r:t.n?'P':'N'}">${lab}</span></button>`}).join('')}</div></div>`);
  setActions(`<button class="btn sec" id="hm">⬅ Level</button><button class="btn" id="rs">My results</button><button class="btn sec" id="wipeall">🗑 Start again</button>`);
  $('hm').onclick=startScreen;$('rs').onclick=results;$('wipeall').onclick=()=>{if(confirm('Delete all your answers for '+lvName()+' and start again?')){st(KEY(S.level),'{}');go(S.level)}}}
 function blockResults(k){S.block=k;const b=BLOCKS[S.level][k];const q=bQueue(b);const t=blockStat(b);S.queue=q;S.qi=0;hud();
