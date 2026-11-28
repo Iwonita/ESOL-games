@@ -3,11 +3,11 @@
 function money(t){return String(t==null?'':t).replace(/£\s?(\d+)(?:\.(\d\d))?/g,function(m,p,c){p=+p;c=c?+c:0;var s=p?p+(p===1?' pound':' pounds'):'';if(c)s+=p?' '+c:c+' pence';return s||'0 pounds';}).replace(/\b(\d+)p\b/g,'$1 pence');}
 function U(t){return new S(money(t));}U.prototype=S.prototype;U.__money=1;window.SpeechSynthesisUtterance=U;})();</script>
 <meta charset="UTF-8">
-<!-- ESOL-ACCESS v1 – ONLINE COURSES (28 Nov 2026): course links last 14 days (2 weeks), no access without a link; teacher device always open; works offline -->
+<!-- ESOL-ACCESS v1 – ONLINE COURSES (28 Nov 2026): course links last 14 days (2 weeks); the plain address opens until 21 Jan 2027 like the other games; teacher device always open; works offline -->
 <link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#012169"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes">
 <script>
 (function(){
- var SALT='esolita-games-2026',DAY=864e5,BASE=Date.UTC(2026,0,1),LIFE=14,THASH=3186367985,OLD_END=0;
+ var SALT='esolita-games-2026',DAY=864e5,BASE=Date.UTC(2026,0,1),LIFE=14,THASH=3186367985,OLD_END=Date.UTC(2027,0,21);
  function h(x){var a=2166136261;x=String(x);for(var i=0;i<x.length;i++){a^=x.charCodeAt(i);a=Math.imul(a,16777619)>>>0}return a}
  function mk(d){return d.toString(36)+('0'+(h(SALT+d)%1296).toString(36)).slice(-2)}
  function parse(c){if(!c||c.length<3)return null;var d=parseInt(c.slice(0,-2),36);return (isFinite(d)&&mk(d)===c)?d:null}
